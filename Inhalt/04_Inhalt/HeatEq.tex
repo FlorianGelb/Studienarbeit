@@ -8,22 +8,28 @@ For this paper \(u\) will be defined in terms of one spacial dimension:
 \begin{gather}
 u := u(x, t) \\
 \frac{\partial u}{\partial t} = \alpha \frac{\partial^{2} u}{\partial x^{2}} \\
-x, t \in \mathbb{R} \\
-x_{0} \leq x \leq x_{n} \\
-t_{0} \leq t \leq t_{n} \\
+x \in \chi \subset \mathbb{R} \quad t \in \tau \subset \mathbb{R} \\
+x_{0} \leq x \leq x_{n} \quad t_{0} \leq t \leq t_{n} 
 \end{gather}
 \cite{Gustafsson2011}
 
-In order to not only model the conduction of heat within a medium but also a heating process, a new function \(h(x, t)\) is introduced:
+In order to not only model the conduction of heat within a medium but also a heating process, a new function \(h: \chi \times \tau \rightarrow  \mathbb{R}\) is introduced:
 \begin{gather}
 \frac{\partial u}{\partial t} = \alpha \frac{\partial^{2} u}{\partial x^{2}} + h(x,t) \label{eq-1d-h}
 \end{gather}
+For this paper it is assumed that intial and boundary values are known:
+
+\begin{gather}
+a, b \in \mathbb{R} \\
+f: \chi \rightarrow \mathbb{R} \\
+u(x_{0}, t) = a \quad u(x_{n}, t) = b \\
+u(x, t_{0}) = f(x) 
+\end{gather} 
 
 Applying the fourier transform (FT) w.r.t \(x\) to \ref{eq-1d-h} yields the inhomogeneous ordinary differential equation (ODE):
 
 \begin{gather}
-\hat{u} = \mathfrak{F}(u) \\
-\hat{h} = \mathfrak{F}(h) \\
+\hat{u} = \mathfrak{F}(u) \quad \hat{h} = \mathfrak{F}(h) \\
 \frac{d}{dt} \hat{u} = -\alpha\omega^{2}\hat{u} + \hat{h} \label{eq-1d-h-ft}
 \end{gather}
 
@@ -43,8 +49,7 @@ Therefore an approximate solution to \ref{eq-1d-h-ft} \(\hat{u}_{a}\) is optaine
 In order to apply the euler scheme successfully an initial condition   \(\hat{u}_{0}\) has to be known. 
 This initial condition is optained by applying the discrete fourier transform (DFT) to an initial temperature distribution along \(x\):
 \begin{gather}
-u(x, 0) = f(x) \\
-\hat{u}_{0} = \mathfrak{F}(u(x, 0)) 
+\hat{u}_{0} = \mathfrak{F}(f(x)) 
 \end{gather} 
 \cite{Gustafsson2011b}
 

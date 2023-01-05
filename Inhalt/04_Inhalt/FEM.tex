@@ -1,0 +1,15 @@
+\section{Finite Element Method}
+The finite element method (FEM) is a method to approximate solutions for PDEs within a certain domain \(\Gamma\).
+Assume that a PDE is given by:
+\begin{gather}
+k, n \in \mathbb{N} \quad n \neq 1, \; 1 \leq k \leq n \\
+\frac{\partial y}{\partial \zeta_{k}} -  g(y) = 0 \label{eq-pde-gen} 
+\end{gather}
+
+This approximation is obtained by taking a basisfunction \(\phi_{k}\) from a set of basisfunctuins \(\phi\) and require it to be orthogonal to the PDE:
+\begin{gather}
+\int_{\Gamma} (\frac{\partial y}{\partial \zeta_{k}} - g(y)) \phi_{k}        \, d\zeta = 0
+\end{gather}
+
+The goal is to find an approximate solution to \ref{eq-1d-h}.
+Since this equation is time depended and changes over \(x\) 
