@@ -1,5 +1,5 @@
 \section{Heat Equation}
-The heat conduction within a medium can be described using the following partial differntial equation (PDE):
+The heat conduction within a medium can be described using the following partial differential equation (PDE):
 \begin{gather}
 \frac{\partial u}{\partial t} = \alpha \nabla^{2} u
 \end{gather}
@@ -17,7 +17,7 @@ In order to not only model the conduction of heat within a medium but also a hea
 \begin{gather}
 \frac{\partial u}{\partial t} = \alpha \frac{\partial^{2} u}{\partial x^{2}} + h(x,t) \label{eq-1d-h}
 \end{gather}
-For this paper it is assumed that intial and boundary values are known:
+For this paper it is assumed that initial and boundary values are known:
 
 \begin{gather}
 a, b \in \mathbb{R} \\
@@ -26,7 +26,7 @@ u(x_{0}, t) = a \quad u(x_{n}, t) = b \\
 u(x, t_{0}) = f(x) 
 \end{gather} 
 
-Applying the fourier transform (FT) w.r.t \(x\) to \ref{eq-1d-h} yields the inhomogeneous ordinary differential equation (ODE):
+Applying the Fourier transform (FT) w.r.t \(x\) to \ref{eq-1d-h} yields the inhomogeneous ordinary differential equation (ODE):
 
 \begin{gather}
 \hat{u} = \mathfrak{F}(u) \quad \hat{h} = \mathfrak{F}(h) \\
@@ -37,22 +37,22 @@ A solution to \ref{eq-1d-h-ft} is given by:
 \begin{gather}
 \hat{u} = \hat{u}_{0} + \hat{u}_{p}
 \end{gather}
-Where \(\hat{u}_{0}\) is the homogenous solution and \(\hat{u}_{p}\) is the particular integral.
+Where \(\hat{u}_{0}\) is the homogeneous solution and \(\hat{u}_{p}\) is the particular integral.
 In order to solve this ODE for the particular integral \(\hat{h}\) has to be known. \cite{Papula2015}
 The choice of \(h\) is, except to some restrictions, arbitrary.
-Therefore an approximate solution to \ref{eq-1d-h-ft} \(\hat{u}_{a}\) is optained by the forward euler scheme:
+Therefore an approximate solution to \ref{eq-1d-h-ft} \(\hat{u}_{a}\) is obtained by the forward euler scheme:
 \begin{gather}
 \frac{d}{dt} \hat{u} \approx \frac{\Delta \hat{u}}{\Delta t} \\
 \hat{u}_{t+1} = \hat{u}_{t} + \Delta t (-\alpha\omega^{2}\hat{u} + \hat{h}) \label{eq-1d-h-es} \\
 \hat{u}_{a} = [\hat{u}_{t_{0}}, ..., \hat{u}_{t_{n}}]
 \end{gather}
 In order to apply the euler scheme successfully an initial condition   \(\hat{u}_{0}\) has to be known. 
-This initial condition is optained by applying the discrete fourier transform (DFT) to an initial temperature distribution along \(x\):
+This initial condition is obtained by applying the discrete Fourier transform (DFT) to an initial temperature distribution along \(x\):
 \begin{gather}
 \hat{u}_{0} = \mathfrak{F}(f(x)) 
 \end{gather} 
 \cite{Gustafsson2011b}
 
 The forward euler scheme is used here because it is fairly easy to implement.
-By applying the  inverse discrete fourier transform (IDFT) to \(\hat{u}_{a}\) an approximate solution to \ref{eq-1d-h} can be obtained.
-To decrease computing time, the fast fourier transform (FFT) and inverse fast fourier transform (IFFT) is used instead of the DFT and IDFT.
+By applying the  inverse discrete Fourier transform (IDFT) to \(\hat{u}_{a}\) an approximate solution to \ref{eq-1d-h} can be obtained.
+To decrease computing time, the fast Fourier transform (FFT) and inverse fast Fourier transform (IFFT) is used instead of the DFT and IDFT.

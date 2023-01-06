@@ -1,15 +1,45 @@
 \section{Finite Element Method}
-The finite element method (FEM) is a method to approximate solutions for PDEs within a certain domain \(\Gamma\).
-Assume that a PDE is given by:
+The finite element method (FEM) is a method to approximate solutions for differential equations (DE) within a certain domain \(\Omega\).
+Assume that a DE is given by:
 \begin{gather}
-k, n \in \mathbb{N} \quad n \neq 1, \; 1 \leq k \leq n \\
-\frac{\partial y}{\partial \zeta_{k}} -  g(y) = 0 \label{eq-pde-gen} 
+m, n \in \mathbb{N} \quad \zeta \in \Omega \subset \mathbb{R} \quad m \geq 1 \\
+\frac{\partial^{m} y}{\partial \zeta^{m}} -  g(y) = r(\zeta, t) \label{eq-pde-gen} 
+\end{gather}
+It is assumed that \(g\) is a linear function that can also contain partial derivatives of \(y\) w.r.t. time, \(y\) takes the value 0 at the boundary \(\Gamma\) and \(y(\zeta, 0) = f(\zeta)\).
+An approximate solution to \(y\) is given by \(\mu\), which is expressed as a sum of basis functions contained in the set \(\phi\):
+\begin{gather}
+\mu(\zeta, t) = \sum_{j = 1}^{N} c_{j}(t)\phi_{j}(\zeta) \label{eq-aprox}
+\end{gather}
+The residual is defined as:
+\begin{gather}
+\mathfrak{r} = \frac{\partial^{m} \mu}{\partial \zeta^{m}} -  g(\mu) - r(\zeta, t) 
+\end{gather}
+Furthermore the residual is required to orthogonal to all basis functions:
+\begin{gather}
+\langle \mathfrak{r}, \phi_{k} \rangle = 0 \quad \forall \phi_{k} \in \phi \label{eq-req-orth}
 \end{gather}
 
-This approximation is obtained by taking a basisfunction \(\phi_{k}\) from a set of basisfunctuins \(\phi\) and require it to be orthogonal to the PDE:
+Since the functions in \(\phi\) are known, it is only required to find the coefficients \(c_{j}(t)\) in \ref{eq-aprox}.
+To find those coefficients \ref{eq-req-orth} needs to be expressed as follows:
 \begin{gather}
-\int_{\Gamma} (\frac{\partial y}{\partial \zeta_{k}} - g(y)) \phi_{k}        \, d\zeta = 0
+\int_{\Omega} \frac{\partial^{m} \mu}{\partial \zeta^{m}} \phi_{k} \, d\zeta  -  \int_{\Omega} g(\mu) \phi_{k}        \, d\zeta = \int_{\Omega}  r(\zeta, t) \phi_{k}        \, d\zeta \quad \forall \phi_{k} \in \phi \label{eq-req-orth}
+\end{gather}
+If \(\mu\) is substituted with \ref{eq-aprox} the following is obtained:
+\begin{gather}
+\sum_{j = 1}^{N} (\int_{\Omega} \frac{\partial^{m} \phi_{j}}{\partial \zeta^{m}} \phi_{k} \, d\zeta - g(\int_{\Omega} \phi_k \phi_j)) c_{j}(t) = \int_{\Omega}  r(\zeta, t) \phi_{k}        \, d\zeta \quad \forall \phi_{k} \in \phi \label{eq-req-orth}
 \end{gather}
 
-The goal is to find an approximate solution to \ref{eq-1d-h}.
-Since this equation is time depended and changes over \(x\) 
+It is also necessary to apply integration by parts to the first integral term taking into account that \(y\) at \(\Gamma\) is 0:
+\begin{gather}
+\int_{\Omega} \frac{\partial^{m} \phi_{j}}{\partial \zeta^{m}} \phi_{k} \, d\zeta = - \int_{\Omega} \frac{\partial^{m-1} \phi_{j}}{\partial \zeta} \frac{\partial \phi_{k}}{\partial \zeta} \, d\zeta \quad \forall \phi_{k} \in \phi \label{eq-req-orth}
+\end{gather}
+This formulation leads to a system of ODEs or a system of linear equations that can be solved either analytically or numerically. 
+
+This formulation of FEM can be applied to \ref{eq-1d-h}:
+\begin{gather}
+\Omega = \chi \quad \Gamma = \{x_{0}, x_{n}\} \\
+y(\zeta, t) = u(x, t) \quad g(u) = \frac{1}{\alpha} \frac{\partial u}{\partial t} \\
+r(\zeta, t) = - \frac{1}{\alpha} h(x,t)
+\end{gather}
+The set of basis functions is defined as a set of piecewise linear functions.
+
