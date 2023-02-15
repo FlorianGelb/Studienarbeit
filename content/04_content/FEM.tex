@@ -1,0 +1,97 @@
+\section{Finite Element Method}
+The finite element method (FEM) is a method to approximate solutions for differential equations (DE) within a certain domain \(\Omega\).
+Assume that a DE is given by:
+\begin{gather}
+m, n \in \mathbb{N} \quad \zeta \in \Omega \subset \mathbb{R} \quad m \geq 1 \\
+\frac{\partial^{m} y}{\partial \zeta^{m}} -  g(y) = r(\zeta, t) \label{eq-pde-gen} 
+\end{gather}
+It is assumed that \(g\) is a linear function that can also contain partial derivatives of \(y\) w.r.t. time, \(y\) takes the value 0 at the boundary \(\Gamma\) and \(y(\zeta, 0) = f(\zeta)\).
+An approximate solution to \(y\) is given by \(\mu\), which is expressed as a sum of basis functions contained in the set \(\phi\):
+\begin{gather}
+\mu(\zeta, t) = \sum_{j = 1}^{N} c_{j}(t)\phi_{j}(\zeta) \label{eq-aprox}
+\end{gather}
+The residual is defined as:
+\begin{gather}
+\mathfrak{r} = \frac{\partial^{m} \mu}{\partial \zeta^{m}} -  g(\mu) - r(\zeta, t) 
+\end{gather}
+Furthermore the residual is required to be orthogonal to all basis functions:
+\begin{gather}
+\langle \mathfrak{r}, \phi_{k} \rangle = 0 \quad \forall \phi_{k} \in \phi \label{eq-req-orth}
+\end{gather}
+
+Since the functions in \(\phi\) are known, it is only required to find the coefficients \(c_{j}(t)\) in \ref{eq-aprox}.
+To find those coefficients \ref{eq-req-orth} needs to be expressed as follows:
+\begin{gather}
+\int_{\Omega} \frac{\partial^{m} \mu}{\partial \zeta^{m}} \phi_{k} \, d\zeta  -  \int_{\Omega} g(\mu) \phi_{k}        \, d\zeta = \int_{\Omega}  r(\zeta, t) \phi_{k}        \, d\zeta \quad \forall \phi_{k} \in \phi 
+\end{gather}
+If \(\mu\) is substituted with \ref{eq-aprox} the following is obtained:
+\begin{gather}
+\sum_{j = 1}^{N} ((\int_{\Omega} \frac{\partial^{m} \phi_{j}}{\partial \zeta^{m}} \phi_{k} \, d\zeta) c_{j}(t) - g((\int_{\Omega} \phi_k \phi_j d\zeta) c_{j}(t)))  = \int_{\Omega}  r(\zeta, t) \phi_{k}        \, d\zeta \quad \forall \phi_{k} \in \phi \label{eq-al}
+\end{gather}
+
+It is also necessary to apply divergence theorem to the first integral term taking into account that \(y\) at \(\Gamma\) is 0.
+Since \(\zeta\) is one dimensional, the divergence theorem becomes integration by parts:
+\begin{gather}
+\int_{\Omega} \frac{\partial^{m} \phi_{j}}{\partial \zeta^{m}} \phi_{k} \, d\zeta = - \int_{\Omega} \frac{\partial^{m-1} \phi_{j}}{\partial \zeta^{m-1}} \frac{\partial \phi_{k}}{\partial \zeta} \, d\zeta \quad \forall \phi_{k} \in \phi \label{eq-ibp}
+\end{gather}
+Combining \ref{eq-al} and \ref{eq-ibp} yields:
+\begin{gather}
+-\sum_{j = 1}^{N} ((\int_{\Omega} \frac{\partial^{m-1} \phi_{j}}{\partial \zeta^{m-1}} \frac{\partial \phi_{k}}{\partial \zeta} \, d\zeta) c_{j}(t) + g((\int_{\Omega} \phi_k \phi_j d\zeta) c_{j}(t)))  = \int_{\Omega}  r(\zeta, t) \phi_{k}        \, d\zeta \quad \forall \phi_{k} \in \phi \label{eq-fem}
+\end{gather}
+
+This formulation leads to a system of ODEs or a system of linear equations that can be solved either analytically or numerically. 
+This formulation of FEM can be applied to \ref{eq-1d-h}:
+\begin{gather}
+\Omega = \chi \quad \Gamma = \{x_{0}, x_{n}\} \\
+y(\zeta, t) = -u(x, t) \quad g(u) = -\frac{1}{\alpha} \frac{\partial u}{\partial t} \\
+m = 2 \quad r(\zeta, t) = \frac{1}{\alpha} h(x,t) \\
+u(x, 0) = f(x) \quad u(x_{0}, t) = 0 \quad u(x_{n}, t) = 0
+\end{gather}
+The set of basis functions is defined as a set of piecewise linear functions with constant step size \(\Delta x\):
+\begin{gather}
+    \phi_j(x)= 
+\begin{cases}
+    (x - x_{j-1}) / \Delta x), \quad x_{j-1} \leq x <  x_{j}\\
+    (x_{j+1} - x) / \Delta x), \quad x_{j} \leq x <  x_{j + 1}\\
+    0,              \quad \text{otherwise}
+\end{cases}
+\end{gather}
+\cite{Gustafsson2011d}
+The stepsize \(\Delta x\) is defined by \(\Delta x = \frac{x_n - x_0}{n-1}\). \label{def-delta-x}
+This results in the following system of ODEs:
+\begin{gather}
+\sum_{j=1}^N(-\int_{\chi} \phi_{j}\phi_{k}dx)\frac{dc_{j}}{dt} = \alpha \sum_{j = 1}^N(-\int_{\chi} \frac{d\phi_{j}}{dx}\frac{d\phi_{j}}{dx}dx)c_{j}(t) + \int_{\chi}h(x, t) \phi_{k} dx
+\quad \forall \phi_{k} \in \phi \label{eq-heat-fem}
+\end{gather}
+Using matrix notation this becomes:
+\begin{gather}
+A^{N \times N}, B^{N \times N} \\
+A\dot{c} = Bc + d \label{eq-heat-almost-ss}
+\end{gather}
+The matrices \(A\) and \(B\) can be easily computed (Appendix \ref{ap-mat-der}):
+\begin{gather}
+a_{ij} = \begin{cases}
+\frac{2\Delta x}{3}, \quad k = j \\
+\frac{\Delta x}{6}, \quad |k - j| = 1 \\
+0, \quad otherwise 
+\end{cases} \label{def-mat-a}
+\quad
+b_{ij} = \begin{cases}
+\frac{-2\alpha}{\Delta x}, \quad k = j \\
+\frac{\alpha}{\Delta x}, \quad |k - j| = 1 \\
+0, otherwise
+\end{cases}
+\end{gather}
+However it is necessary to approximate \(d\) for each point in time using numerical integration schemes.
+Furthermore to solve this system of ODEs numerically an initial condition \(c_{0}\) has to be known.
+\cite{Gustafsson2011b}
+It can be obtained using a least squares (LS) approach:
+\begin{gather}
+\sum_{j = 1}^N \langle \phi_j, \phi_k \rangle c_{j}(0) = \langle f, \phi_{k} \rangle \quad \forall \phi_k \in \phi
+\end{gather}
+\cite{Gustafsson2011c}
+Observe that \ref{eq-heat-almost-ss} almost resembles a state-space representation.
+Multiplying this equation with \(A^{-1}\) (Appendix \ref{ap-A-inv}) yields:
+
+
+
