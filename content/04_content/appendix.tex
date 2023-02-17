@@ -49,11 +49,11 @@ Finally \ref{int-2} has to be evaluated for this condition:
 -\int_{x_j}^{x_{j+1}} \frac{d\phi_{j}}{dx}\frac{d\phi_{j+1}}{dx}dx = \frac{1}{\Delta x^2} \int_{x_j}^{x_{j+1}} 1 dx =  \frac{1}{\Delta x^2} \left[ x \right]_{x_{j}}^{x_{j+1}} = \frac{1}{\Delta x}
 \end{gather}
 \newpage
-\section{Proof that matrix A is invertible}
-\label{ap-A-inv}
-Let \(A_{n}\) be a matrix with \(A_{n} \in \mathbb{R}^{n \times n}\) given by:
+\section{Proof that matrix M is invertible}
+\label{ap-K-inv}
+Let \(M_{n}\) be a matrix with \(M_{n} \in \mathbb{R}^{n \times n}\) given by:
 \begin{gather}
-a_{ij} = \begin{cases}
+m_{ij} = \begin{cases}
 a, \quad k = j \\
 b, \quad |k - j| = 1 \\
 0, \quad otherwise 
@@ -61,49 +61,49 @@ b, \quad |k - j| = 1 \\
 \end{gather}
 It's determinant is given by the Laplace expansion:
 \begin{gather}
-det(A_n) = \sum_{j=1}^{n} (-1)^{i+j} a_{ij} M_{ij} \quad \forall i
+det(M_n) = \sum_{j=1}^{n} (-1)^{i+j} a_{ij} N_{ij} \quad \forall i
 \end{gather}
-\(M_{ij}\) is the determinant of the matrix \(A'\) that is obtained by removing the \(i^{th}\) row and \(j^{th}\) column of \(A_n\).
-This expression can be simplified using the definition of \(a_{ij}\):
+\(N_{ij}\) is the determinant of the matrix \(M'\) that is obtained by removing the \(i^{th}\) row and \(j^{th}\) column of \(M_n\).
+This expression can be simplified using the definition of \(m_{ij}\):
 \begin{gather}
-det(A_n) = a M_{11} - b M_{12} \label{1}
+det(M_n) = a N_{11} - b N_{12} \label{1}
 \end{gather}
-\(M_{11}\) is equivalent to \(det(A_{n-1})\), since the indices of rows and columns of \(A'\) are in consecutive order and \(A'\) is a \(n-1 \times n-1\) matrix :
+\(N_{11}\) is equivalent to \(det(M_{n-1})\), since the indices of rows and columns of \(M'\) are in consecutive order and \(M'\) is a \(n-1 \times n-1\) matrix :
 \begin{gather}
-M_{11} = det(A') \\
-A' = \begin{bmatrix}
-a_{22} & \dots & a_{2n}\\
+N_{11} = det(M') \\
+M' = \begin{bmatrix}
+m_{22} & \dots & m_{2n}\\
 \vdots & \ddots & \vdots \\
-a_{n2} & \dots & a_{nn}
+m_{n2} & \dots & m_{nn}
 \end{bmatrix}
 \end{gather}
-\(M_{12}\) can be obtained by calculating the determinant of \(A'\) using the Laplace expansion:
+\(N_{12}\) can be obtained by calculating the determinant of \(M'\) using the Laplace expansion:
 \begin{gather}
-A' = \begin{bmatrix}
-a_{21} & a_{23} & \dots & a_{2n}\\
+M' = \begin{bmatrix}
+m_{21} & m_{23} & \dots & m_{2n}\\
 \vdots & \vdots & \ddots & \vdots \\
-a_{n1} & a_{n3} & \dots & a_{nn}
+m_{n1} & m_{n3} & \dots & m_{nn}
 \end{bmatrix} \\
-det(A') = a_{21} \cdot det(A'') \label{an1} \\
-A'' = \begin{bmatrix}
-a_{33} & \dots & a_{3n}\\
+det(M') = m_{21} \cdot det(M'') \label{an1} \\
+M'' = \begin{bmatrix}
+m_{33} & \dots & m_{3n}\\
 \vdots & \ddots & \vdots \\
-a_{n3} & \dots & a_{nn}
+m_{n3} & \dots & m_{nn}
 \end{bmatrix}
 \end{gather}
 
 In \ref{an1} only the stated term has to evaluated since all entries of the first column of the second submatrix are zero. 
 Therefore the determinant is zero.
-The row and column indices of \(A''\) are in consecutive order and it is a \(n-2 \times n-2\) matrix.
-Therefore \(A''\) is equivalent to \(A_{n-2}\).
+The row and column indices of \(M''\) are in consecutive order and it is a \(n-2 \times n-2\) matrix.
+Therefore \(M''\) is equivalent to \(M_{n-2}\).
 \ref{1} becomes:
 \begin{gather}
-det(A_n) = a \cdot det(A_{n-1}) - b^{2} \cdot det(A_{n-2})
+det(M_n) = a \cdot det(M_{n-1}) - b^{2} \cdot det(M_{n-2})
 \end{gather}
-Furthermore this implies \(det(A_0) = 1\):
+Furthermore this implies \(det(M_0) = 1\):
 \begin{gather}
-det(A_2) = a^{2} - b^{2} =  a \cdot det(A_1) - b^{2} \cdot 1 \\
-\Rightarrow det(A_0) = 1
+det(M_2) = a^{2} - b^{2} =  a \cdot det(M_1) - b^{2} \cdot 1 \\
+\Rightarrow det(M_0) = 1
 \end{gather}
 Using the definition of \ref{def-mat-a} and \ref{def-delta-x} this can be seen as the following sequence:
 \begin{gather}
@@ -129,7 +129,7 @@ The limit of this sequence is as follow:
 = 0 \cdot \alpha - 0 \cdot \alpha = 0
 \end{gather}
 Since this series is monotone and converges to zero as \(n\) goes to infinity, there is no \(n \in \mathbb{N}\) for which \(a_n = 0\). 
-Therefore the determinant of the matrix \(A\) defined in \ref{def-mat-a} is not zero and \(A\) is invertible.
+Therefore the determinant of the matrix \(M\) defined in \ref{def-mat-a} is not zero and \(M\) is invertible.
 
 
 

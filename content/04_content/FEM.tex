@@ -60,23 +60,23 @@ The set of basis functions is defined as a set of piecewise linear functions wit
 The stepsize \(\Delta x\) is defined by \(\Delta x = \frac{x_n - x_0}{n-1}\). \label{def-delta-x}
 This results in the following system of ODEs:
 \begin{gather}
-\sum_{j=1}^N(-\int_{\chi} \phi_{j}\phi_{k}dx)\frac{dc_{j}}{dt} = \alpha \sum_{j = 1}^N(-\int_{\chi} \frac{d\phi_{j}}{dx}\frac{d\phi_{j}}{dx}dx)c_{j}(t) + \int_{\chi}h(x, t) \phi_{k} dx
+\sum_{j=1}^N(\int_{\chi} \phi_{j}\phi_{k}dx)\frac{dc_{j}}{dt} = \alpha \sum_{j = 1}^N(-\int_{\chi} \frac{d\phi_{j}}{dx}\frac{d\phi_{j}}{dx}dx)c_{j}(t) + \int_{\chi}h(x, t) \phi_{k} dx
 \quad \forall \phi_{k} \in \phi \label{eq-heat-fem}
 \end{gather}
 Using matrix notation this becomes:
 \begin{gather}
-A^{N \times N}, B^{N \times N} \\
-A\dot{c} = Bc + d \label{eq-heat-almost-ss}
+M^{N \times N}, K^{N \times N} \\
+M\dot{c} = Kc + d \label{eq-heat-almost-ss}
 \end{gather}
-The matrices \(A\) and \(B\) can be easily computed (Appendix \ref{ap-mat-der}):
+The matrices \(M\) and \(K\) can be easily computed (Appendix \ref{ap-mat-der}):
 \begin{gather}
-a_{ij} = \begin{cases}
+m_{ij} = \begin{cases}
 \frac{2\Delta x}{3}, \quad k = j \\
 \frac{\Delta x}{6}, \quad |k - j| = 1 \\
 0, \quad otherwise 
 \end{cases} \label{def-mat-a}
 \quad
-b_{ij} = \begin{cases}
+k_{ij} = \begin{cases}
 \frac{-2\alpha}{\Delta x}, \quad k = j \\
 \frac{\alpha}{\Delta x}, \quad |k - j| = 1 \\
 0, otherwise
@@ -87,11 +87,18 @@ Furthermore to solve this system of ODEs numerically an initial condition \(c_{0
 \cite{Gustafsson2011b}
 It can be obtained using a least squares (LS) approach:
 \begin{gather}
-\sum_{j = 1}^N \langle \phi_j, \phi_k \rangle c_{j}(0) = \langle f, \phi_{k} \rangle \quad \forall \phi_k \in \phi
+\sum_{j = 1}^N \langle \phi_j, \phi_k \rangle c_{j}(0) = \langle f, \phi_{k} \rangle \quad \forall \phi_k \in \phi \\
+Mc_{0} = F \\
+c_{0} = M^{-1}F
 \end{gather}
 \cite{Gustafsson2011c}
-Observe that \ref{eq-heat-almost-ss} almost resembles a state-space representation.
-Multiplying this equation with \(A^{-1}\) (Appendix \ref{ap-A-inv}) yields:
-
-
-
+Observe that by multiplying \ref{eq-heat-almost-ss} with \(M^{-1}\) (\ref{ap-K-inv}) yields a system of ODEs:
+\begin{gather}
+\dot{c} = M^{-1}Kc + M^{-1}d
+\end{gather}
+This system of ODEs can be solved using an euler scheme:
+\begin{gather}
+c_{t+1} = dt M^{-1}(Kc + d) + c_{t}
+\end{gather}
+However keep in mind that vector \(d\) is time dependent and has to be recomputed for each time step.
+Using \ref{eq-aprox} and the computed coefficients \(c\) the function \(u(x,t)\) can be approximated.
