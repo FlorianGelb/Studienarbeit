@@ -7,7 +7,7 @@ The so called triangle function is defined as follows:
     (x - x_{j-1}) / \Delta x), \quad x_{j-1} \leq x <  x_{j}\\
     (x_{j+1} - x) / \Delta x), \quad x_{j} \leq x <  x_{j + 1}\\
     0,              \quad \text{otherwise}
-\end{cases}
+\end{cases} \label{def-phi}
 \end{gather}
 \cite{Gustafsson2011d}
 The following integrals have to be evaluated:
@@ -130,7 +130,27 @@ The limit of this sequence is as follow:
 \end{gather}
 Since this series is monotone and converges to zero as \(n\) goes to infinity, there is no \(n \in \mathbb{N}\) for which \(a_n = 0\). 
 Therefore the determinant of the matrix \(M\) defined in \ref{def-mat-a} is not zero and \(M\) is invertible.
-
+\section{Equivalence of picewise linear polynomials and linear interpolation} \label{ap-lin-interp}
+A picewise linear polynomial in the form of:
+\begin{gather}
+u(x, t) = \sum_{j = 1}^{N} c_{j}(t)\phi_{j}(x)
+\end{gather}
+With \(\phi_{j}\) being defined as \ref{def-phi} and \(c_{j}: \mathbb{R} \rightarrow \mathbb{R} \) is equivalent to linear interpolation with respect to \(x\):
+\begin{gather}
+\hat{u}(x,t) =  u_{j} + \frac{(u_{j+1} - u_{j})(x-x_{j})}{x_{j+1} - x_{j}} 
+\end{gather}
+for \(x_{j} < x < x_{j+1}\) \cite{Bayen2015}. 
+This can be shown by evaluating \(u(x, t)\) between two neigbouring \(\phi\) and \(x_{j} < x < x_{j+1}\):
+\begin{gather}
+u(x, t) = \phi_{j}(x) c_{j}(t) + \phi_{j+1}(x) c_{j+1}(t) \\
+= \frac{x_{j+1} - x}{\Delta x} c_{j}(t) + \frac{x - x_{j}}{\Delta x} c_{j+1}(t) \\
+= \frac{x_{j+1} - x}{\Delta x} u_{j} + \frac{x - x_{j}}{\Delta x} u_{j+1} \\
+= \frac{(x_{j+1}u_{j} - xu_{j}) + (x u_{j+1}  - x_{j} u_{j+1})}{\Delta x} \\
+= \frac{(u_{j+1} - u_{j})x + x_{j+1}u_{j} - x_{j} u_{j+1}}{\Delta x} \\
+= \frac{(u_{j+1} - u_{j})x + x_{j}u_{j} + \Delta x u_{j} - x_{j} u_{j+1}}{\Delta x} \\
+= u_{j} + \frac{(u_{j+1} - u_{j})x - x_{j}(u_{j+1} - u_{j})}{\Delta x} \\
+= u_{j} + \frac{(u_{j+1} - u_{j})(x - x_{j})}{x_{j+1} - x_{j}}
+\end{gather}
 
 
 
