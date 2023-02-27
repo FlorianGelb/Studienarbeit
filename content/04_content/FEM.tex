@@ -1,4 +1,4 @@
-\section{Finite Element Method}
+\section{Finite Element Method} \label{FEM}
 The finite element method (FEM) is a method to approximate solutions for differential equations (DE) within a certain domain \(\Omega\).
 This is done by discretizing the spacial domain.
 Assume that a DE is given by:
@@ -40,7 +40,8 @@ Combining \ref{eq-al} and \ref{eq-ibp} yields:
 -\sum_{j = 1}^{N} ((\int_{\Omega} \frac{\partial^{m-1} \phi_{j}}{\partial \zeta^{m-1}} \frac{\partial \phi_{k}}{\partial \zeta} \, d\zeta) c_{j}(t) + g((\int_{\Omega} \phi_k \phi_j d\zeta) c_{j}(t)))  = \int_{\Omega}  r(\zeta, t) \phi_{k}        \, d\zeta \quad \forall \phi_{k} \in \phi \label{eq-fem}
 \end{gather}
 
-This formulation leads to a system of ODEs or a system of linear equations that can be solved either analytically or numerically. 
+This formulation leads to a system of ODEs or a system of linear equations that can be solved either analytically or numerically.
+\subsection{Solving the Heat Equation using FEM}
 This formulation of FEM can be applied to \ref{eq-1d-h}:
 \begin{gather}
 \Omega = \chi \quad \Gamma = \{x_{0}, x_{n}\} \\
@@ -93,8 +94,8 @@ Furthermore to solve this system of ODEs numerically an initial condition \(c_{0
 It can be obtained using a least squares (LS) approach:
 \begin{gather}
 \sum_{j = 1}^N \langle \phi_j, \phi_k \rangle c_{j}(0) = \langle f, \phi_{k} \rangle \quad \forall \phi_k \in \phi \\
-Mc_{0} = F \\
-c_{0} = M^{-1}F
+Mc_{0} = F \label{F}\\ 
+c_{0} = M^{-1}F  \label{c0}
 \end{gather}
 \cite{Gustafsson2011c}
 
@@ -104,8 +105,9 @@ Observe that by multiplying \ref{eq-heat-almost-ss} with \(M^{-1}\) (\ref{ap-K-i
 \end{gather}
 This system of ODEs can be solved using an euler scheme:
 \begin{gather}
-c_{t+1} = \Delta t M^{-1}(Kc + d) + c_{t}
+c_{t+1} = \Delta t M^{-1}(Kc_{t} + d) + c_{t} \label{fem-euler}
 \end{gather}
+\subsubsection{Force boundary conidtions}
 Keep in mind that vector \(d\) is time dependent and has to be recomputed for each time step.
 To force the boudary condition \(u(x, t) = 0 \; x \in \Gamma\) the first and last entry of any \(c_{t}\) has to be zero:
 \begin{gather}
@@ -114,7 +116,7 @@ c_{t}^{1} = 0 \quad c_{t}^{n} = 0 \quad \forall t
 Therefore the Matrix \(M^{-1}\) has to be adjusted:
 \begin{gather}
 0 = \Delta t m (Kc + d) \\
-\Rightarrow m = [0, 0, 0, \dots , 0] 
+\Rightarrow m = [0, 0, 0, \dots , 0] \label{force-bound}
 \end{gather}
 Here \(m\) is the first row vector of \(M^{-1}\) or the last one respectively \cite{Gustafsson2011b}.
 Using \ref{eq-aprox} and the computed coefficients \(c\) the function \(u(x,t)\) can be approximated.

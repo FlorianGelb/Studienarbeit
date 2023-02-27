@@ -1,5 +1,5 @@
 \chapter{Fundamentals}
-\section{Heat Equation}
+\section{Heat Equation} \label{HE}
 The conduction of heat  within a medium can be described using the following partial differential equation (PDE):
 \begin{gather}
 \frac{\partial u}{\partial t} = \alpha \nabla^{2} u
@@ -18,15 +18,12 @@ In order to not only model the conduction of heat within a medium but also a hea
 \begin{gather}
 \frac{\partial u}{\partial t} = \alpha \frac{\partial^{2} u}{\partial x^{2}} + h(x,t) \label{eq-1d-h}
 \end{gather}
-For this paper it is assumed that initial and boundary values are known:
-
+For this paper it is assumed that the initial condition is known:
 \begin{gather}
-a, b \in \mathbb{R} \\
 f: \chi \rightarrow \mathbb{R} \\
-u(x_{0}, t) = a \quad u(x_{n}, t) = b \\
 u(x, t_{0}) = f(x) 
 \end{gather} 
-
+\subsection{Solving the Heat Equation using Fourier transform}
 Applying the Fourier transform (FT) w.r.t \(x\) to \ref{eq-1d-h} yields the inhomogeneous ordinary differential equation (ODE):
 
 \begin{gather}
