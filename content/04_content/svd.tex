@@ -1,0 +1,49 @@
+\section{Singular Value Decomposition}
+The Singular Value Decomposition (SVD) is a matrix factorization with guaranteed existance.
+It can be used to obtain low rank approximations of a matrix or pseudo inverses for ill posed linear system of equations.
+It is also related to FT by providing a data specific set of orthogonal bases instead of a gerneric set of sines and cosines. For this paper the SVD will be used for generating low rank approximations of matrices.
+\cite{brunton_kutz_2019}
+\subsection{Properties}
+A matrix \(X \in \mathbb{C}^{n \times m}\) can be decomposed in the following way:
+\begin{gather}
+X = U \Sigma V^{*}
+\end{gather}
+Here \(U \in \mathbb{C}^{n \times n}\) and \(V \in \mathbb{C}^{m \times m}\) are unitary matrices and \(\Sigma \in \mathbb{R}^{n \times m}\) is a real valued oredered diagonal matrix.
+The columns of \(U\) provides a set of orthonormal basis vectors for the column space of \(X\), \(V\) contains orthonormal basis vectors for the row space of \(X\). The matrix \(X\) asigns a magnitude ('importance') to the product of \(U\) and \(V^{*}\)  \cite{brunton_kutz_2019}.
+Since \(U\) and \(V\) are unitary they have the following property:
+\begin{gather}
+U^{*}U = UU^{*} = I \\
+V^{*}V = VV^{*} = I
+\end{gather}
+\cite{SZABO2015385}
+
+
+In case \(n \geq m\) the so called economy SVD can be used to factorize the matrix \(X\):
+\begin{gather}
+X = \begin{bmatrix}
+\hat{U} & \hat{U}^{\bot}
+\end{bmatrix} 
+\begin{bmatrix}
+\hat{\Sigma} \\
+0
+\end{bmatrix}
+V^{*} = \hat{U} \hat{\Sigma} V^{*}
+\end{gather} 
+The economy SVD omits rows only containing zeros in \(\Sigma\) and the according columns of \(U\).
+Therefore the dimensionality of \(\hat{U}\) and \(\hat{\Sigma}\) is less or equal to the dimensionality of \(U\) and \(\Sigma\).
+ \cite{brunton_kutz_2019}
+
+\subsection{Low-rank approximation}
+A usefull property of the SVD is that it can be used to find an hierachy of rank-\(r\) approximation for a given matrix \(X\).
+An matrix \(\tilde{X}\) that approximates \(X\) is obtained by:
+\begin{gather}
+\tilde{X} = arg\,min ||X - \tilde{X}||_F = \tilde{U}\tilde{\Sigma}\tilde{V}^{*}	\\
+s.t. rank(\tilde{X}) = r
+\end{gather}	
+Here  \(\tilde{U}\) and \(\tilde{V}\) denote matrices obtained takeing the first \(r\) columns of \(U\) and \(V\). The matrix \(\tilde{\Sigma}\) is a \(r \times r\) sub-block of \(\Sigma\).
+This is alsow known as the Eckard-Young theorem.
+\cite{brunton_kutz_2019}
+
+
+
+
