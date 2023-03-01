@@ -110,11 +110,25 @@ Here  \(\tilde{U}\) and \(\tilde{V}\) denote matrices obtained takeing the first
 This is alsow known as the Eckard-Young theorem.
 The variance captured by \(\tilde{X}\) can be calculated in the following way:
 \begin{gather}
-\frac{\sum_{i = 1}^{r} \sigma_i}{trace(\Sigma)}
+cumvar_{r}(\Sigma) = \frac{\sum_{i = 1}^{r} \sigma_i}{trace(\Sigma)} \label{cum-var-r} \\
+var(\Sigma) = \frac{diag(\Sigma)}{trace(\Sigma)} \label{var-sig}
 \end{gather}
 \cite{brunton_kutz_2019}
 \subsection{Example low-rank approximation}
-\pgfplotsset{width=7.5cm,compat=1.9}
+As an example suppose there is a matrix \(X \in \mathbb{Z}^{4\times4}\):
+\begin{gather}
+X = \begin{bmatrix}
+3 & 1 & 5 & 5 \\
+4 & -4 & 5 & 0 \\
+-4 & -2 & -4 & 3 \\
+5 & 1 & 5 & -4
+\end{bmatrix}
+\end{gather}
+By computing the SVD the matrices \(U\), \(\Sigma\) and \(V\) are obtained.
+Now \(\Sigma\) can be used to calculate the cummulative variance for an rank-\(r\) approximation and the variance captured by each basis vector of \(U\) and \(V\).
+\pgfplotsset{width=6cm,compat=1.9}
+\begin{figure}[H]
+\centering
 \begin{tikzpicture}
 \begin{axis}[
     title={Variance captured by bases},
@@ -140,7 +154,6 @@ The variance captured by \(\tilde{X}\) can be calculated in the following way:
     
 \end{axis}
 \end{tikzpicture}
-
 \begin{tikzpicture}
 \begin{axis}[
     title={Commulative variance captured by bases},
@@ -150,23 +163,35 @@ The variance captured by \(\tilde{X}\) can be calculated in the following way:
     ymin=0, ymax=100,
     xtick={0,1,2,3},
     ytick={0,20,40,60,80,100},
-    legend pos=north west,
+    legend pos=south east,
     ymajorgrids=true,
     grid style=dashed,
 ]
-
 \addplot[
-    color=blue,
+    color=red,
     mark=square,
     ]
     coordinates {
     (0,51.87)(1,81.05)(2,99.96)(3,100)
     };
     \legend{\(\frac{\sum_{j=1}^{i}\sigma_{j}}{trace(\Sigma)}\)}
-    
+
 \end{axis}
 \end{tikzpicture}
-
+\label{var-plt}
+\caption{Variance and commulative variance captured by each column vectors of \(U\) and \(V\)}
+\end{figure}
+On \ref{var-plt} the commulative variance and the variance of each basis vectors is plotted.
+Here \(X\) can be apprixomated using the first three leading basis vectors.
+This approximation captures already more than 99\% of the variance.
+The resulting matrix \(\tilde{X}_3\) looks as follows:
+\begin{gather}
+\tilde{X}_3 = \begin{bmatrix}
+4.73 & -0.76 & 5.62 \\
+1.31 & -1.37 & 1.62 \\
+-5.10 & -0.60 & 2.34
+\end{bmatrix}
+\end{gather}
 
 
 
