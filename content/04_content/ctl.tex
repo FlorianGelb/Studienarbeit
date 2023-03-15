@@ -35,15 +35,17 @@ LTI systems are important because they can be used to approximate non LTI system
 This is usefull since LTI systems are well understood.
 \cite{DouglasB}
 \subsection{State Space representation}
-A LTI system can be expressed as a system of ODEs that relate the input \(u\) to its output \(y\).
+A LTI system can be expressed as a system of ODEs that relates the input \(u\) to its output \(y\).
+The vector \(x\) denotes the states of a system.
 \begin{gather}
-\dot{x} = Ax + Bu \\
+\dot{x} = Ax + Bu \quad x(t_0) = x_0\\
 y = Cx + Du
 \end{gather}
 The matrices \(A \in \mathbb{R}^{n \times n}\),
 \(B \in \mathbb{R}^{n \times m}\),
 \(C \in \mathbb{R}^{q \times n}\) and
-\(D \in \mathbb{R}^{q \times n}\) are constant.
+\(D \in \mathbb{R}^{q \times n}\) are constant matrices.
+\cite{BennerGrivet}
 
 \subsection{Transfer Function}
 \subsection{Controallability and Observability}
