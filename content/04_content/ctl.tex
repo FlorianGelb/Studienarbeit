@@ -1,0 +1,50 @@
+\section{Fundamentals of Control Theory}
+
+\subsection{Problems in Control Theory}
+There are mainly three different problems in control theory.
+To analyse a system it has to be identified first.
+A mathematical model has to be found that relates the input of that system to it's output.
+After a model has been found, it is helpfull to simulate the system to find out which input results in which output.
+Simulations have to fit the system and offer the advantage over real experiments of reducing cost and risks attached to them.
+The last of the three major problems is the control problem.
+Now that the underlying model is known and the system can be simulated, a controler for that system can be designed.
+Here the controler is a system that feeds some input to the system that is to be controlled to generate some desired output.
+\cite{DouglasBa}
+For this paper the second problem is the most important one, since the goal of this paper is to compare some methods to make simulations of a system more efficient.
+\subsection{LTI Systems}
+A linear and time invariant (LTI) system is a kind of system that fulfills the following conditions:
+\paragraph{Homogenity:}
+For a system to be a LTI system, the condition that the output of a system \(y(t)\) relates to the input \(u(t)\) by a linear operator \(h\):
+\begin{gather}
+y(t) = h(u(t)) \\
+cy(t) = h(cu(t))
+\end{gather}
+This means that if the input \(u\) changes in magnitude by a constant factor of \(c\) the output \(y\) also changes by the factor of \(c\).
+\paragraph{Superposition:}
+The second requirement is superpostion:
+\begin{gather}
+y_1(t) + y_2(t) = h(u_1(t) + u_2(t))
+\end{gather}
+The sum of two outputs \(y_1\) and \(y_2\) has to equal the output of the system with the sum of the inputs \(u_1\) and \(u_2\) as input.
+\paragraph{Time Invariance:}
+A system that is time invariant has the property that if the input \(u\) is shifted in time by some constant \(\tau\) the resulting output is also shifted in time by the same constant:
+\begin{gather}
+y(t - \tau) = h(u(t-\tau))
+\end{gather}
+LTI systems are important because they can be used to approximate non LTI systems over some region.
+This is usefull since LTI systems are well understood.
+\cite{DouglasB}
+\subsection{State Space representation}
+A LTI system can be expressed as a system of ODEs that relate the input \(u\) to its output \(y\).
+\begin{gather}
+\dot{x} = Ax + Bu \\
+y = Cx + Du
+\end{gather}
+The matrices \(A \in \mathbb{R}^{n \times n}\),
+\(B \in \mathbb{R}^{n \times m}\),
+\(C \in \mathbb{R}^{q \times n}\) and
+\(D \in \mathbb{R}^{q \times n}\) are constant.
+
+\subsection{Transfer Function}
+\subsection{Controallability and Observability}
+

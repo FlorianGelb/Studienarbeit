@@ -12,24 +12,20 @@
 \setboolean{e-Abgabe}{false}    % false=gedruckte Fassung
 
 % ---- Persönlichen Daten:
-\newcommand{\titel}{Template \LaTeX\ Wiki von BAzubis für BAzubis}
-\newcommand{\titelheader}{Titel welcher im Header auftaucht}
-\newcommand{\arbeit}{Projektarbeit 1 (T2\_2000)}
+\newcommand{\titel}{Comparison of selected model order reduction methods}
+\newcommand{\titelheader}{Comparison of selected model order reduction methods}
+\newcommand{\arbeit}{Studienarbeit (T3\_3101)}
 \newcommand{\studiengang}{Angewandte Informatik}
-\newcommand{\studienjahr}{2015}
-\newcommand{\autor}{Vorname Nachname}
+\newcommand{\studienjahr}{2020}
+\newcommand{\autor}{Florian Braun}
 \newcommand{\autorReverse}{Nachname, Vorname}
 \newcommand{\verfassungsort}{Karlsruhe}
-\newcommand{\matrikelnr}{0000000}
-\newcommand{\kurs}{TINF15B1}
+\newcommand{\matrikelnr}{7433149}
+\newcommand{\kurs}{TINF20B1}
 \newcommand{\bearbeitungsmonat}{Januar 2018}
-\newcommand{\abgabe}{01. Februar 2018}
-\newcommand{\bearbeitungszeitraum}{01.10.2017 - 31.01.2018}
-\newcommand{\firmaName}{SAP SE}
-\newcommand{\firmaStrasse}{Dietmar-Hopp-Allee 16}
-\newcommand{\firmaPlz}{69190 Walldorf, Deutschland}
-\newcommand{\betreuerFirma}{B-Vorname B-Nachname}
-\newcommand{\betreuerDhbw}{DH-Vorname DH-Nachname}
+\newcommand{\abgabe}{22. Mai 2023}
+\newcommand{\bearbeitungszeitraum}{14.10.2022 - 22.05.2023}
+\newcommand{\betreuerDhbw}{Lutz Gröll}
 
 \input{content/00_latex/kopfundFusszeile}
 
@@ -63,8 +59,8 @@
 
 % ------ Erklärung, Sperrvermerk, Abstact
 \include{content/01_standard/erklaerung}
-\include{content/01_standard/sperrvermerk}
-\include{content/02_abstract/abstract-en}
+%%\include{content/01_standard/sperrvermerk}
+%%\include{content/02_abstract/abstract-en}
 \include{content/02_abstract/abstract-de}
 
 % ------ Inhaltsverzeichnis
@@ -88,9 +84,12 @@
 \include{content/04_content/HeatEq}
 \include{content/04_content/FEM}
 \include{content/04_content/svd}
+\include{content/04_content/ctl}
 \include{content/04_content/rom}
 \include{content/04_content/pod}
+\include{content/04_content/bt}
 \include{content/04_content/impl}
+
 \setlength{\parskip}{0.5\baselineskip}  % Abstand zwischen Absätzen
 \rmfamily
 \renewcommand*{\chapterpagestyle}{scrheadings}

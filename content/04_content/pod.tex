@@ -5,29 +5,29 @@ The basis functions are obtained by decomposing a set of solutions to othe PDE u
 \subsection{Orthogonal Expansion}
 A function \(f: \mathbb{R} \times \mathbb{R} \rightarrow \mathbb{R}\) can be represented by the series:
 \begin{gather}
-f(x, t) = \sum_{i = 0}^{\infty}a_i(t)\phi_i(x) \\
+f(x, t) = \sum_{i = 1}^{\infty}a_i(t)\phi_i(x) \\
 x, t \in \mathbb{R} \label{ref-orth-exp}
 \end{gather}
 Here all \(\phi(x)\) are orthorgonal basis functions.
 \begin{gather}
 \langle\phi_i, \phi_j\rangle =\begin{cases}
-1, \quad \text{if} i = j \\
+1, \quad \text{if } i = j \\
 0, \quad \text{else}
 \end{cases} \label{phi-orth}
 \end{gather}
 By using a finite sum instead of the entire  series \(f\) can be approximated:
 \begin{gather}
-\tilde{f}(x, t) = \sum_{i = 0}^{n}a_{i}(t)\phi_{i}(x) \label{ref-orth-aprox}
+\tilde{f}(x, t) = \sum_{i = 1}^{n}a_{i}(t)\phi_{i}(x) \label{ref-orth-aprox}
 \end{gather}
 Since all \(\phi\) are known, \ref{ref-orth-aprox} has to be solved for the set \(\{a_0, ..., a_n\}\).
-In case \(f\) is known, the solution for this set is:
+In case \(f\) is known, the solutions contained in this set can be calculated as:
 \begin{gather}
 a_i(t) = \frac{\langle \phi_i, f \rangle}{\langle \phi_i, \phi_i \rangle} \label{sol-ai}
 \end{gather}
 \cite{Gustafsson2011e}
 \subsection{Proper Orthogonal Decomposition for PDEs}
-Since a PDEs are equations in terms of partial derivatives, the notation \(\mathscr{P}(\partial \textbf{x}) \textbf{u}\) is introduced, which denotes a differential operator in terms of the spacial variables \(\textbf{x}\) for a function \(u(x,t,\textbf{p}\).
-The vector \(\textbf{p}\) contains some parameters.
+Since a PDEs are equations in terms of partial derivatives, the notation \(\mathscr{P}(\partial x) u\) is introduced, which denotes a differential operator in terms of the spacial variables \(x\) for a function \(u(x,t,p\).
+The vector \(p\) contains some parameters.
 This is done to provide a more abstract way to denote PDEs:
 \begin{gather}
 \frac{\partial u}{\partial t} = \mathscr{P}(\partial x) u
@@ -38,9 +38,9 @@ A method that is often used to solve PDEs is called seperation of variables.
 This spereation of variables assumes, that the underlying solution \(u(x, t)\) can be expressed by \ref{ref-orth-exp}, to solve for \(a_k, 0 \leq k \leq n\).
 Since it is not practical to compute an infite series, \(u\) only gets appriximated by using \ref{ref-orth-aprox} instead:
 \begin{gather}
-\sum_{i = 0} ^{n} \frac{\partial a_i}{\partial t} \phi_i = \sum_{i = 0} ^{n} \mathscr{P}(\partial x) \phi_i a_i \label{label-u-aprox} 
+\sum_{i = 1} ^{n} \frac{\partial a_i}{\partial t} \phi_i = \sum_{i = 1} ^{n} \mathscr{P}(\partial x) \phi_i a_i \label{label-u-aprox} 
 \end{gather}
-Assuming the spacial dimension got discrezied along \(x\) this can be expressed using marix notation:
+By discretizing the spacial dimension got along \(x\) \ref{label-u-aprox} can be expressed using marix notation:
 \begin{gather}
 \Phi = \begin{bmatrix}
 \phi_0, ..., \phi_n
@@ -51,7 +51,7 @@ Since the solution \(u\) is unknown \ref{sol-ai} cannot be computed.
 However the fact, that all \(\phi\) are orthogonal to each oter, can be used to solve for all \(a_k\).
 It can be done by computing the inner product of \ref{label-u-aprox} with all basis funktions:
 \begin{gather}
-\langle \sum_{i = 0} ^{n} \frac{\partial a_i}{\partial t} \phi_i, \phi_k \rangle = \langle\sum_{i = 0} ^{n} \mathscr{P}(\partial x) \phi_i a_i, \phi_k \rangle \quad \forall 0 \leq k \leq n \label{u-galer}
+\langle \sum_{i = 1} ^{n} \frac{\partial a_i}{\partial t} \phi_i, \phi_k \rangle = \langle\sum_{i = 1} ^{n} \mathscr{P}(\partial x) \phi_i a_i, \phi_k \rangle \quad \forall 0 \leq k \leq n \label{u-galer}
 \end{gather}
 This resembles the Galerking projection.
 In matrix notation it can be expressed:
@@ -74,7 +74,7 @@ For POD to work, a so called snapshot matrix \(X\) has to be available.
 This snapshot matrix stores a set of solutions where \(x_k\) is the solution for a PDE at time step \(k\Delta t\):
 \begin{gather}
 X = \begin{bmatrix}
-x_1, ..., x_n
+x_1, ..., x_m
 \end{bmatrix}
 \end{gather}
 The solutions can be obtained by conducting an expirment on a physical system that is described by the PDE or by simulating the evolution of that PDE.
@@ -89,3 +89,4 @@ Here the FEM solution is obtained by discretizing the PDE into a large number(\(
 This results in a high dimensional system of ODEs.
 Since \(\Phi\) contains only \(r\) column (\(r << n\)) vectors a reduction in order can be achieved.
 However the benefits of this reduced order model are only relevant after the PDE has been solved once using a high dimensional system of ODEs.
+\cite{brunton_kutz_2019c}
