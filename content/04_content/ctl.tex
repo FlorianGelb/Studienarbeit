@@ -46,7 +46,17 @@ The matrices \(A \in \mathbb{R}^{n \times n}\),
 \(C \in \mathbb{R}^{q \times n}\) and
 \(D \in \mathbb{R}^{q \times n}\) are constant matrices.
 \cite{BennerGrivet}
-
 \subsection{Transfer Function}
-\subsection{Controallability and Observability}
 
+\subsection{Controallability and Observability}
+For LTI systems in state space respresentation it can be determend which states are to what degree controllable and observable.
+This can be computed by the controllability and observability gramians:
+\begin{gather}
+W_c = \lim_{t \to \infty} \int_{0}^{t} e^{A\tau}BB^{*}e^{A*\tau}d\tau \label{gram-ctrl}\\
+W_o = \lim_{t \to \infty} \int_{0}^{t} e^{A*\tau}C^{*}Ce^{A\tau}d\tau \label{gram-obsv}
+\end{gather}
+The degree of controlability for a state \(x\) can be determined by \(x^{*}W_cx\).
+If the result of this calculation is large, the system is controlable in the \(x\) direction.
+By swapping \(W_c\) with \(W_o\) the degree of observability in state \(x\) can be computed: \(x^{*}W_ox\).
+Again if the resulting value is large, the system can be obseverd well in state \(x\).
+\cite{brunton_kutz_2019d}
