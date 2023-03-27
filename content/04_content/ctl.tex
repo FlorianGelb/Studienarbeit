@@ -14,22 +14,22 @@ For this paper the second problem is the most important one, since the goal of t
 \subsection{LTI Systems}
 A linear and time invariant (LTI) system is a kind of system that fulfills the following conditions:
 \paragraph{Homogenity:}
-For a system to be a LTI system, the condition that the output of a system \(y(t)\) relates to the input \(u(t)\) by a linear operator \(h\):
+For a system to be a LTI system, the condition that the output of a system \(y(t)\) relates to the input \(u(t)\) by a linear operator \(f\):
 \begin{gather}
-y(t) = h(u(t)) \\
-cy(t) = h(cu(t))
+y(t) = f(u(t)) \\
+cy(t) = f(cu(t))
 \end{gather}
 This means that if the input \(u\) changes in magnitude by a constant factor of \(c\) the output \(y\) also changes by the factor of \(c\).
 \paragraph{Superposition:}
 The second requirement is superpostion:
 \begin{gather}
-y_1(t) + y_2(t) = h(u_1(t) + u_2(t))
+y_1(t) + y_2(t) = f(u_1(t) + u_2(t))
 \end{gather}
 The sum of two outputs \(y_1\) and \(y_2\) has to equal the output of the system with the sum of the inputs \(u_1\) and \(u_2\) as input.
 \paragraph{Time Invariance:}
 A system that is time invariant has the property that if the input \(u\) is shifted in time by some constant \(\tau\) the resulting output is also shifted in time by the same constant:
 \begin{gather}
-y(t - \tau) = h(u(t-\tau))
+y(t - \tau) = f(u(t-\tau))
 \end{gather}
 LTI systems are important because they can be used to approximate non LTI systems over some region.
 This is usefull since LTI systems are well understood.
@@ -44,16 +44,53 @@ y = Cx + Du
 The matrices \(A \in \mathbb{R}^{n \times n}\),
 \(B \in \mathbb{R}^{n \times m}\),
 \(C \in \mathbb{R}^{q \times n}\) and
-\(D \in \mathbb{R}^{q \times n}\) are constant matrices.
+\(D \in \mathbb{R}^{q \times m}\) are constant matrices.
 \cite{BennerGrivet}
 \subsection{Transfer Function}
+To understand the transfer function the impulse response has to be defined first.
+The impuls responce of a system is given by choosing the following function as input to the system:
+\begin{gather}
+g(t) = f(\delta(t))
+\end{gather}
+The function \(\delta(t)\) is the delta function:
+\begin{gather}
+\delta(t) = \begin{cases}
+\infty, \quad t = 0 \\
+0 \quad else
+\end{cases}
+\end{gather}
+It has the property that the integral of this function is 1:
+\begin{gather}
+\int_{t = -\infty}^{\infty} \delta(t) dt = 1
+\end{gather}
+If the \(g(t)\) is convoluted with a function \(v(t)\) the response of the system for \(v(t)\) as input is obtained:
+\begin{gather}
+v(t)*g(t) = \int_{\tau = 0}^{\infty} v(\tau)g(t-\tau)d\tau = f(v(t))
+\end{gather}
+\cite{DouglasBb}
+By using the convolution theorem:
+\begin{gather}
+\mathfrak{L}\{g(t)\}\mathfrak{L}\{v(t)\} = \mathfrak{L}\{g*v\}(t)
+\end{gather}
+\cite{ABELL2018399}
+the transfer function is defined as:
+\begin{gather}
+\mathfrak{L}\{f(\delta(t))\}
+\end{gather}
+This definition is usefull since the response of a system for a given input \(u(t)\) can be deterimend by the result of the multiplication \(G(s)U(s)\).
+\cite{DouglasBb}
+Alternatively if a system is given in state space representation the transfer function can be expressed as:
+\begin{gather}
+G(s) = C(sE-A)^{-1}B+D
+\end{gather}
+\cite{BennerGrivet}
 
 \subsection{Controallability and Observability}
 For LTI systems in state space respresentation it can be determend which states are to what degree controllable and observable.
 This can be computed by the controllability and observability gramians:
 \begin{gather}
-W_c = \lim_{t \to \infty} \int_{0}^{t} e^{A\tau}BB^{*}e^{A*\tau}d\tau \label{gram-ctrl}\\
-W_o = \lim_{t \to \infty} \int_{0}^{t} e^{A*\tau}C^{*}Ce^{A\tau}d\tau \label{gram-obsv}
+W_c = \lim_{t \to \infty} \int_{0}^{t} e^{A\tau}BB^{*}e^{A^{*}\tau}d\tau \label{gram-ctrl}\\
+W_o = \lim_{t \to \infty} \int_{0}^{t} e^{A^{*}\tau}C^{*}Ce^{A\tau}d\tau \label{gram-obsv}
 \end{gather}
 The degree of controlability for a state \(x\) can be determined by \(x^{*}W_cx\).
 If the result of this calculation is large, the system is controlable in the \(x\) direction.

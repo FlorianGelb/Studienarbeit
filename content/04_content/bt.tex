@@ -1,1 +1,98 @@
 \section{Balanced Truncation}
+Balanced truncation is a method for model order reduction.
+The goal of balanced truncation is to approximate a system using only the most relevant modes of the system.
+The difference to POD is that the modes are not selected by the variance they capture but by the controlability and observability of the modes.
+This is done by finding a coordinate transform.
+\subsection{Balanceing coordinate transform}
+To find a reduced order model using balanced truncation a orthonormal coordinate transform is applied: \(x = Tz\).
+This yields a new system:
+\begin{gather}
+\dot{z} = \hat{A}z + \hat{B}u \label{z1}\\
+y = \hat{C}z + Du \label{z2} \\
+\hat{A} = T^{-1}AT \quad \hat{B} = T^{-1}B \quad \hat{C} = CT \label{red-sys-mat}
+\end{gather}
+The gramians of this ROM can be obtained by applying  \ref{gram-obsv} and \ref{gram-ctrl} to \ref{red-sys-mat}.
+This yields \(\hat{W}_c = T^{-1}W_cT^{-*}\) and \(\hat{W}_o = T^{*}W_oT\) with  \(T^{-*} := (T^{-1})^{*} := (T^{*})^{-1}\).
+A requirement \(T\) has to satisfy is that it has to make the observability and controlability gramians of the ROM equal and diagonal.
+\begin{gather}
+\hat{W}_c = \hat{W}_o = \Delta \\
+\hat{W}_c \hat{W}_o = \Delta^{2} \\
+T^{-1}W_cW_oT = \Delta^{2} \\
+W_cW_oT = T\Delta^{2} \label{eigendec}
+\end{gather}
+Since \(\Delta\) is a diagonal matrix, \ref{eigendec} is equal to the eigendecomposition of \(W_cW_o\).
+Therefor \(T\) contains the eigenvectors of \(W_cW_o\).
+However \(T\) needs to be rescaled to make \(\hat{W}_c\) and \(\hat{W}_o\) equal.
+Here \(T_u\) denotes the unscaled eigenvectors of this eigendecomposition that yields gramians that are not equal to each other:
+\begin{gather}
+T_u^{-1}W_cT_u^{-*} = \Delta_c \\
+T_u^{*}W_cT_u = \Delta_o 
+\end{gather}
+Scaling \(T_u\) by some diagonal matrix \(\Delta_s\) results in \(\Delta_c = \Delta_o\):
+\begin{gather}
+\Delta_s = \Delta_c^{\frac{1}{4}}\Delta_o^{-\frac{1}{4}} \\
+T = T_u \Delta_s
+\end{gather}
+Another important property of this transform is that the new coordinates are hierachically ordered by observability and controllability.
+\subsection{Mode Truncation}
+Since the goal of balanced truncation is to find a ROM of rank \(r\) that approximates the original system of rank \(n\) with \(r << n\) it is nescessary to truncate the balanced system.
+This yields the following system:
+\begin{gather}
+\frac{d\tilde{x}}{dt} = \tilde{A}\tilde{X} + \tilde{B}u \\
+y = \tilde{C}\tilde{x} + \tilde{D}u
+\end{gather}
+The new state vector \(\tilde{x}\) is defined as:
+\begin{gather}
+\tilde{x} = \begin{bmatrix}
+z_1 \\
+\vdots \\
+z_r
+\end{bmatrix} \quad 
+\zeta = \begin{bmatrix}
+z_{r+1} \\
+\vdots \\
+z_n
+\end{bmatrix} \quad
+z = \begin{bmatrix}
+\tilde{x} \\
+\zeta
+\end{bmatrix} \label{decomp-vecs}\\
+T = \begin{bmatrix}
+\Psi & T_t
+\end{bmatrix} \quad
+T^{-1} = S = \begin{bmatrix}
+\Phi^{*} \\
+S_t
+\end{bmatrix} \label{decomp-mats}
+\end{gather}
+By substituting \ref{decomp-vecs} and \ref{decomp-mats} into the system in \ref{z1} and \ref{z2} the system beecomes:
+\begin{gather}
+\frac{d}{dt} \begin{bmatrix}
+\tilde{x} \\
+\zeta
+\end{bmatrix} = \begin{bmatrix}
+\Phi^{*}A\Psi & \Phi^{*}AT_t \\
+S_tA\Psi & S_tAT_t
+\end{bmatrix} \begin{bmatrix}
+\tilde{x} \\
+\zeta
+\end{bmatrix}
++ \begin{bmatrix}
+\Phi^{*}B \\
+S_tB
+\end{bmatrix} u \\
+y = \begin{bmatrix}
+C \Psi & CT_t
+\end{bmatrix} \begin{bmatrix}
+\tilde{x} \\
+\zeta
+\end{bmatrix} + Du
+\end{gather}
+However the only relevant part of this system is:
+\begin{gather}
+\frac{d\tilde{x}}{dt} = \Phi^{*}A\Psi\tilde{x} + \Phi^{*}Bu \\
+y = C\Psi\tilde{x} + Du 
+\end{gather}
+since this is the only part nescesarry to calculate \(\tilde{x}\).
+\cite{brunton_kutz_2019e}
+
