@@ -36,11 +36,11 @@ T = T_u \Delta_s
 Another important property of this transform is that the new coordinates are hierarchically ordered by observability and controllability.
 It can be shown by deriving some unit vector \(\zeta\) that maximizes the controllability and observability:
 \begin{gather}
-\zeta = arg\max \zeta^{*}W_cW_o\zeta s.t. ||\zeta||_2^{2} = 1 \\
+\zeta = arg\max \, \zeta^{*}W_cW_o\zeta \quad s.t. ||\zeta||_2^{2} = 1 \\
 \frac{d}{d\zeta} \zeta^{*}W_cW_o\zeta - 2\lambda \zeta = 0 \label{opt1}
 \end{gather}
 %https://www.matheplanet.com/matheplanet/nuke/html/viewtopic.php?rd2&topic=128338&start=0#p937673
-As shown here \cite{•} the remaining derivative can be solved in the following way:
+As shown here \cite{170373} the remaining derivative can be solved in the following way:
 \begin{gather}
 \frac{d}{dx} x^{*}Ax = 2Ax \label{der-mat}
 \end{gather}
