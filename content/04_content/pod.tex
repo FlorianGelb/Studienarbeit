@@ -60,11 +60,11 @@ In matrix notation it can be expressed:
 \end{gather}
 By considering \ref{phi-orth}  the equiation \ref{u-galer} can be expressed as a system of ODEs which can be solved:
 \begin{gather}
-I \frac{d}{dt} a = \Phi^{*}\mathscr{P}(\partial x) \Phi a
+\frac{d}{dt} a = \Phi^{*}\mathscr{P}(\partial x) \Phi a
 \end{gather}
 After the vector of coefficiants \(a\) for each time step has been computed, the solution can be assembled:
 \begin{gather}
-u(x, t) \approx \Phi(x)a(t)
+u(x, t) \approx \Phi(x)a(t) \label{u-aprox-pod}
 \end{gather} 
 \cite{brunton_kutz_2019c}
 \subsection{Choosing basis vectors}
@@ -83,10 +83,36 @@ SVD is used to decompose the snapshot matrix \(X\).
 Since the columns of the snapshot matrix contain spacial information at a given point in time and the basis vectors are supposed to encode the spacial information of a solution \(u\) the \(r\) most dominant left singular values have to be extracted:
 \begin{gather}
 \tilde{X} = \tilde{U}\tilde{\Sigma}\tilde{V}^{*} \\
-\Phi = [u_1, ..., u_r]
+\Phi = [u_1, ..., u_r] \label{PHI}
 \end{gather}
 Here the FEM solution is obtained by discretizing the PDE into a large number(\(n\)) of spacial nodes.
 This results in a high dimensional system of ODEs.
 Since \(\Phi\) contains only \(r\) column (\(r << n\)) vectors a reduction in order can be achieved.
 However the benefits of this reduced order model are only relevant after the PDE has been solved once using a high dimensional system of ODEs.
 \cite{brunton_kutz_2019c}
+\subsection{ROM for heat equation}
+In order to apply pod to heat equation a snapshot matrix \(X\) has to be generated.
+This is done by the FEM solver described in \ref{FEM}.
+After that \(X\) gets decomposed using the SVD.
+The modes contained in \(\Phi\) is obtained by truncating the left singular vectors of \(X\) according to \ref{PHI}.
+Substituting \(\mathscr{P}\) in \label{label-u-aprox} with heat equation \ref{eq-1d-h} results in the following:
+\begin{gather}
+\Phi \frac{\partial a}{\partial t}  = \alpha \frac{\partial^{2} \Phi}{\partial x^{2}} a + h\\
+\frac{\partial a}{\partial t} = \alpha \Phi^{*}  \frac{\partial^{2} \Phi}{\partial x^{2}} a + \Phi^{*}h
+\end{gather}
+\newpage
+This system of ODEs can now be solved using a Runge-Kutta scheme.
+Note that \(\Phi\) the contains numeric values.
+Therefore derivatives are unstable, especially at the first and last entries of the column vectors of \(\Phi\).
+To reduce this problem the method used to compute the second derivative of \(\Phi\) is the so called spectral derivative.
+The discrete spectral derivative works by computing the FFT of a vector.
+That vector gets multiplied by \((ik)^{d}\), \(d\) is the order of the derivative and \(k\) are the discrete wave numbers.
+After that step the IFFT is applied to obtain the derivative of the original vector.
+\begin{gather}
+f \in \mathbb{C}^{n}, \quad k = [-\frac{n}{2} \hdots \frac{n}{2}]^{T} \\
+\frac{df}{dx} = \mathfrak{F}^{-1}\{i \frac{2 \pi k}{n} \mathfrak{F}\{f\}\} \\
+\frac{d^{2}f}{dx^{2}} = \mathfrak{F}^{-1}\{-\frac{2 \pi k}{n} \mathfrak{F}\{f\}\} \\
+\end{gather}
+\cite{brunton_kutz_2019f}
+
+

@@ -25,8 +25,8 @@ Therefore \(T\) contains the eigenvectors of \(W_cW_o\).
 However \(T\) needs to be rescaled to make \(\hat{W}_c\) and \(\hat{W}_o\) equal.
 Here \(T_u\) denotes the unscaled eigenvectors of this eigendecomposition that yields gramians that are not equal to each other:
 \begin{gather}
-T_u^{-1}W_cT_u^{-*} = \Delta_c \\
-T_u^{*}W_cT_u = \Delta_o 
+T_u^{-1}W_cT_u^{-*} = \Delta_c \label{1}\\
+T_u^{*}W_cT_u = \Delta_o \label{2}
 \end{gather}
 Scaling \(T_u\) by some diagonal matrix \(\Delta_s\) results in \(\Delta_c = \Delta_o\):
 \begin{gather}
@@ -45,7 +45,7 @@ As shown here \cite{170373} the remaining derivative can be solved in the follow
 \frac{d}{dx} x^{*}Ax = 2Ax \label{der-mat}
 \end{gather}
 This holds if \(A\) is symmetric. 
-Here both \(W_c\) and \(W_o\) share the same set of eigenvectors \ref{eigendec}, therefore they commute \cite{170371}.
+Here both \(W_c\) and \(W_o\) share the same set of eigenvectors \ref{1} and \ref{2}, therefore they commute \cite{170371}.
 This means, that the product of \(W_c\) and \(W_o\) is also symmetric \cite{170372}.
 Applying \ref{der-mat} to \ref{opt1} yields:
 \begin{gather}
@@ -69,14 +69,14 @@ z_1 \\
 \vdots \\
 z_r
 \end{bmatrix} \quad 
-\zeta = \begin{bmatrix}
+\tilde{z} = \begin{bmatrix}
 z_{r+1} \\
 \vdots \\
 z_n
 \end{bmatrix} \quad
 z = \begin{bmatrix}
 \tilde{x} \\
-\zeta
+\tilde{z}
 \end{bmatrix} \label{decomp-vecs}\\
 T = \begin{bmatrix}
 \Psi & T_t
@@ -90,13 +90,13 @@ By substituting \ref{decomp-vecs} and \ref{decomp-mats} into the system in \ref{
 \begin{gather}
 \frac{d}{dt} \begin{bmatrix}
 \tilde{x} \\
-\zeta
+\tilde{z}
 \end{bmatrix} = \begin{bmatrix}
 \Phi^{*}A\Psi & \Phi^{*}AT_t \\
 S_tA\Psi & S_tAT_t
 \end{bmatrix} \begin{bmatrix}
 \tilde{x} \\
-\zeta
+\tilde{z}
 \end{bmatrix}
 + \begin{bmatrix}
 \Phi^{*}B \\
@@ -106,7 +106,7 @@ y = \begin{bmatrix}
 C \Psi & CT_t
 \end{bmatrix} \begin{bmatrix}
 \tilde{x} \\
-\zeta
+\tilde{z}
 \end{bmatrix} + Du
 \end{gather}
 However the only relevant part of this system is:
@@ -117,3 +117,28 @@ y = C\Psi\tilde{x} + Du
 since this is the only part nescesarry to calculate \(\tilde{x}\).
 \cite{brunton_kutz_2019e}
 
+\subsection{Computing balanced truncation}
+Since the gramians for controllability and observability are too expensive to compute for large systems the so called empirical gramians are used as an approximation.
+The empirical gramians are calculated by using the discrete-time system matrices from \ref{disc-a} and \ref{disc-b}:
+\begin{gather}
+\mathscr{C}_d = [B_d A_dB_d \hdots dA^{m_o -1}B_d] \\
+\mathscr{O}_d = \begin{bmatrix}
+C_d \\
+C_dA_d \\
+C_dA_d^{m_o - 1}
+\end{bmatrix} \\
+W_c^e = \mathscr{C}_d^{*}\mathscr{C}_d \\
+W_o^e = \mathscr{O}_d^{*}\mathscr{O}_d \\
+m_o, m_c << rank(A)
+\end{gather}
+Now these empirical gramians can be used for optaining the balancing coordinate transform.
+\cite{brunton_kutz_2019e}
+\subsection{State Space representation from heate equation}
+To apply balanced truncation to the heat equation \ref{eq-1d-h} a state space representation of that system has to be found first.
+Note that the system of ODEs resulting from FEM \ref{almost-almost-ss} resembles a state space representation:
+\begin{gather}
+x := c \quad x_0 := c_0 \\
+A := M^{-1}K \quad B:= M^{-1} 
+\end{gather}
+Since the system is realized as simulation all states can be accurately measured \(C := I\) and there is no feed through \(D := 0_{qm}\).
+Now the already described steps for balanced truncation can be applied to the system.

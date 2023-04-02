@@ -27,6 +27,7 @@
 \usepackage{mathrsfs}          % Abkürzungen, Abkürzungsverzeichnis
 \usepackage{titletoc}            % Anpassungen am Inhaltsverzeichnis
 \contentsmargin{0.725cm}         % Abstand im Inhaltsverzeichnis zw. Punkt und Seitenzahl
+\usepackage[hyphens]{url}
 \usepackage[                     % Klickbare Links (enth. auch "nameref", "url" Package)
   hidelinks,                     % Blende die "URL Boxen" aus.
   breaklinks=true                % Breche zu lange URLs am Zeilenende um
@@ -53,7 +54,6 @@
 % Diese Werte sind aber gute Startwerte.
 \widowpenalty10000
 \clubpenalty10000
-
 % ---- Für das Quellenverzeichnis
 \usepackage[
 	backend = biber,                % Verweis auf biber
@@ -93,6 +93,7 @@
 \usepackage{scrhack}                    % Hack zur Verw. von listings in KOMA-Script
 \usepackage{listings}                   % Darstellung von source-code
 \usepackage{xcolor}                     % Einfache Verwendung von Farben
+
 \input{content/00_latex/quellcodeStyle}  % Weitere Details sind ausgelagert
 
 \usepackage{algorithm}                  % Für Algorithmen-Umgebung (ähnlich wie lstlistings Umgebung)

@@ -46,6 +46,19 @@ The matrices \(A \in \mathbb{R}^{n \times n}\),
 \(C \in \mathbb{R}^{q \times n}\) and
 \(D \in \mathbb{R}^{q \times m}\) are constant matrices.
 \cite{BennerGrivet}
+\subsection{State Space of discrete time systems}
+A system can represented as discrete system in the following form:
+\begin{gather}
+x_{k+1} = A_dx_k + B_dx_k \label{disc-a} \\
+y_{k+1} = C_dx_x + D_du_k \label{disc-b}\\
+x_{k} = x_{k\Delta t}
+\end{gather}
+The matrices \(A_d\) to \(D_d\) can be obtained from the continuous system in the following way:
+\begin{gather}
+A_d = e^{A\Delta t} \quad B_d = \int_0^{\Delta t} e^{A\tau}B d\tau \\
+C_d = C \quad D_d = D
+\end{gather}
+\cite{brunton_kutz_2019g}
 \subsection{Transfer Function}
 To understand the transfer function the impulse response has to be defined first.
 The impuls responce of a system is given by choosing the following function as input to the system:
