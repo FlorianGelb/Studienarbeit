@@ -1,3 +1,55 @@
 \section{Modal truncation}
-\section{Diagonal canonical form}
-A LTI system with transfer function \(G(s)\) can be written 
+\subsection{Diagonal canonical form}
+A LTI system \((A, B, C, D)\) with transfer function \(G(s)\) can be written in the following way:
+\begin{gather}
+I = \{1, 2, \hdots, n\} \\
+G(s) = D + \sum_{i \in I} \frac{\Phi_i}{s-\lambda_i} \label{dcnf}
+\end{gather}
+
+The set \(\Lambda = \{\lambda_1, \hdots, \lambda_n\}\) denotes the eigenvalues of the matrix \(A\) in state space.
+This resembles the partial fraction decomposition of \(G(s)\) \cite{vuillemin2020optimal}.
+The residue \(\Phi\) can be computed using the eigendecomposition of \(A\) and using the eigenvectors for a coordinate transform:
+\begin{gather}
+AX = X\Delta \quad X \zeta =  x 
+\end{gather}
+The system matrices have to be transformed accordingly:
+\begin{gather}
+\hat{A} = X^{-1}AX = \Delta \\
+\hat{B} = X^{-1}B \quad \hat{C} = CX \\
+\hat{D} = D
+\end{gather}
+Those transformed matrices are used to calculate the transfer function \ref{tf-from-ss}:
+\begin{gather}
+G(s) = CX(sI - \Delta)^{-1}X^{-1}B + D\\
+= D + \begin{bmatrix}
+C x_1 && \hdots && Cx_n
+\end{bmatrix} diag\{\frac{1}{s-\lambda_1}, \hdots, \frac{1}{s-\lambda_n}\} \begin{bmatrix}
+x_1^{-1}B \\
+\vdots \\
+x_n^{-1}B
+\end{bmatrix} \\
+= D + \sum_{i \in I} \frac{c_i b_i^{T}}{s - \lambda_i} 
+\Rightarrow \Phi_i = c_i b_i^{T}
+\end{gather}
+\cite{Benner}
+
+\subsection{Optimal modal truncation}
+The goal of modal truncation is to find a subset of the indices \(I\)  such that only \(r\) elements are contained in this subset:
+\begin{gather}
+I_r \subseteq I, \quad |I_r| = r
+\end{gather}
+Using this subset as indices in \ref{dcnf} a truncation is obtained, yielding a system defined by a new transfer function \(\hat{G}(s)\).
+The set \(I_r\) has to be chosen such that the error \(||G(s) - \hat{G(s)}||_{H_n}\) becomes minimal.
+Here  \(H_n\) denotes either the \(H_2\) or \(H_{\infty}\) norm.
+As shown in \cite{vuillemin2020optimal} other norms are also usable but for simplicity only the two stated norms are used.
+This yields the following optimization problem:
+\begin{gather}
+\min_{\alpha} G_{\alpha}(s) = D_{\alpha} + \sum_{i \in I} \alpha_i \frac{\Phi_i}{s - \lambda_i} s.t.\\
+\alpha^{T}\alpha = r \\
+J = \{(\lambda_i, \lambda_j) \in I | \lambda_i \in \mathbb{C}, Im(\lambda_i) > 0, \lambda_i = \bar{\lambda_j}\}
+\end{gather}
+Where \(\alpha \in \{0, 1\}^{n}\) is some binary vector with \(\alpha^{T} \alpha = r\).
+In case some \(\lambda_i \in \Lambda\) is a complex number and \(i \in I_r\), the index of the according complex conjugate eigenvalue has to selected too, if \(Im(\lambda_i) > 0)\) \(\lambda_j = \bar{\lambda}_i \in \Lambda \wedge i \in I_r \Rightarrow j \in I_r\). 
+
+
+
