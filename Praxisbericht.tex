@@ -81,6 +81,8 @@
 % ---- Inhalt der Arbeit
 \cleardoublepage
 \pagenumbering{arabic}                  % Arabische Seitenzahlen für den Hauptteil
+\begingroup
+\let\clearpage\relax
 \include{content/04_content/HeatEq}
 \include{content/04_content/FEM}
 \include{content/04_content/svd}
@@ -90,6 +92,7 @@
 \include{content/04_content/bt}
 \include{content/04_content/mt}
 \include{content/04_content/impl}
+\endgroup
 
 \setlength{\parskip}{0.5\baselineskip}  % Abstand zwischen Absätzen
 \rmfamily

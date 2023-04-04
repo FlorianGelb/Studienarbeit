@@ -1,5 +1,5 @@
 \section{Modal truncation}
-\subsection{Diagonal canonical form}
+\subsection{Diagonal canonical form} \label{dcnf}
 A LTI system \((A, B, C, D)\) with transfer function \(G(s)\) can be written in the following way:
 \begin{gather}
 I = \{1, 2, \hdots, n\} \\
@@ -40,16 +40,36 @@ I_r \subseteq I, \quad |I_r| = r
 \end{gather}
 Using this subset as indices in \ref{dcnf} a truncation is obtained, yielding a system defined by a new transfer function \(\hat{G}(s)\).
 The set \(I_r\) has to be chosen such that the error \(||G(s) - \hat{G(s)}||_{H_n}\) becomes minimal.
-Here  \(H_n\) denotes either the \(H_2\) or \(H_{\infty}\) norm.
-As shown in \cite{vuillemin2020optimal} other norms are also usable but for simplicity only the two stated norms are used.
+Here  \(H_n\) denotes the \(H_2\)  norm.
+As shown in \cite{vuillemin2020optimal} other norms are also usable but for simplicity only the stated norm is used.
+Furthermore in case some \(\lambda_i \in \Lambda, Im(\lambda_i) > 0\) is a complex number  \(i \in I_r\), the index of the according complex conjugate eigenvalue has to selected too, if \(\lambda_j = \bar{\lambda}_i \in \Lambda \wedge i \in I_r \Rightarrow j \in I_r\). 
 This yields the following optimization problem:
 \begin{gather}
-\min_{\alpha} G_{\alpha}(s) = D_{\alpha} + \sum_{i \in I} \alpha_i \frac{\Phi_i}{s - \lambda_i} s.t.\\
+G_{\alpha}(s) = D_{\alpha} + \sum_{i \in I} \alpha_i \frac{\Phi_i}{s - \lambda_i} \\ 
+\min_{\alpha} ||G(s) - G_{\alpha}(s)|| \\\ s.t. \quad
 \alpha^{T}\alpha = r \\
-J = \{(\lambda_i, \lambda_j) \in I | \lambda_i \in \mathbb{C}, Im(\lambda_i) > 0, \lambda_i = \bar{\lambda_j}\}
+J = \{(\lambda_i, \lambda_j) \in I | \lambda_i \in \mathbb{C}, Im(\lambda_i) > 0, \lambda_i = \bar{\lambda_j}\} \\
+a_{.,j} = -a_{.,l} = 1, \quad	(i, j) \in J \\
+A\alpha = 0
 \end{gather}
-Where \(\alpha \in \{0, 1\}^{n}\) is some binary vector with \(\alpha^{T} \alpha = r\).
-In case some \(\lambda_i \in \Lambda\) is a complex number and \(i \in I_r\), the index of the according complex conjugate eigenvalue has to selected too, if \(Im(\lambda_i) > 0)\) \(\lambda_j = \bar{\lambda}_i \in \Lambda \wedge i \in I_r \Rightarrow j \in I_r\). 
-
-
+Where \(\alpha \in \{0, 1\}^{n}\) is some binary vector with \(\alpha^{T} \alpha = r\) that represents the selection of indices.
+By defining the error of that system as:
+\begin{gather}
+\epsilon_{\alpha}(s) = G(s) - G_{\alpha} \\
+||\epsilon_{\alpha}(s)||_2^2 = \sum_{i, k \in I} (1-\alpha_i) \frac{tr(\phi_i \phi_k^{T})}{-\lambda_i - \lambda_k}(1-\alpha_k) \\
+||\epsilon_{\alpha}(s)||_2^2 = (1-\alpha)Q(1-\alpha) \\
+q_{ij} = \frac{tr(\phi_i \phi_k^{T})}{-\lambda_i - \lambda_k^*}
+\end{gather} 
+This leads to a new optimization problem:
+\begin{gather}
+\min_{\alpha} \quad (1-\alpha)Q(1-\alpha) \label{opt-h2}\\
+s.t. \quad \alpha^T\alpha = r \\
+A\alpha = 0
+\end{gather}
+\cite{vuillemin2020optimal}
+\subsection{Applying modal truncation to heat equation}
+As described in \ref{heat-ss} the system matrices \((A, B, C, D)\) can be obtained for the given heat equation.
+Now by applying \ref{tf-from-ss} yields the corresponding transfer function \(G(s)\).
+By calculating the partial fraction decomposition as described in \ref{dcnf} the DCNF can be obtained.
+Solving \ref{opt-h2} yields some selection of terms that minimizes the error in \(H_2\).
 
