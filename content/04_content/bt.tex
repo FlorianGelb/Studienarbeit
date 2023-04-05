@@ -1,9 +1,9 @@
 \section{Balanced Truncation}
 Balanced truncation is a method for model order reduction.
 The goal of balanced truncation is to approximate a system using only the most relevant modes of the system.
-The difference to POD is that the modes are not selected by the variance they capture but by the controlability and observability of the modes.
+The difference to POD is that the modes are not selected by the variance they capture but by the controllability and observability of the modes.
 This is done by finding a coordinate transform.
-\subsection{Balanceing coordinate transform}
+\subsection{Balanceing Coordinate Transform}
 To find a reduced order model using balanced truncation a orthonormal coordinate transform is applied: \(x = Tz\).
 This yields a new system:
 \begin{gather}
@@ -13,7 +13,7 @@ y = \hat{C}z + Du \label{z2} \\
 \end{gather}
 The gramians of this ROM can be obtained by applying  \ref{gram-obsv} and \ref{gram-ctrl} to \ref{red-sys-mat}.
 This yields \(\hat{W}_c = T^{-1}W_cT^{-*}\) and \(\hat{W}_o = T^{*}W_oT\) with  \(T^{-*} := (T^{-1})^{*} := (T^{*})^{-1}\).
-A requirement \(T\) has to satisfy is that it has to make the observability and controlability gramians of the ROM equal and diagonal.
+A requirement \(T\) has to satisfy is that it has to make the observability and controllability gramians of the ROM equal and diagonal.
 \begin{gather}
 \hat{W}_c = \hat{W}_o = \Delta \\
 \hat{W}_c \hat{W}_o = \Delta^{2} \\
@@ -46,7 +46,7 @@ As shown here \cite{170373} the remaining derivative can be solved in the follow
 \end{gather}
 This holds if \(A\) is symmetric. 
 Here both \(W_c\) and \(W_o\) share the same set of eigenvectors \ref{1} and \ref{2}, therefore they commute \cite{170371}.
-This means, that the product of \(W_c\) and \(W_o\) is also symmetric \cite{170372}.
+This means that the product of \(W_c\) and \(W_o\) is also symmetric \cite{170372}.
 Applying \ref{der-mat} to \ref{opt1} yields:
 \begin{gather}
 W_cW_o\zeta = \lambda \zeta
@@ -86,7 +86,7 @@ T^{-1} = S = \begin{bmatrix}
 S_t
 \end{bmatrix} \label{decomp-mats}
 \end{gather}
-By substituting \ref{decomp-vecs} and \ref{decomp-mats} into the system in \ref{z1} and \ref{z2} the system beecomes:
+By substituting \ref{decomp-vecs} and \ref{decomp-mats} into the system in \ref{z1} and \ref{z2} the system becomes:
 \begin{gather}
 \frac{d}{dt} \begin{bmatrix}
 \tilde{x} \\
@@ -114,10 +114,10 @@ However the only relevant part of this system is:
 \frac{d\tilde{x}}{dt} = \Phi^{*}A\Psi\tilde{x} + \Phi^{*}Bu \\
 y = C\Psi\tilde{x} + Du 
 \end{gather}
-since this is the only part nescesarry to calculate \(\tilde{x}\).
-\cite{brunton_kutz_2019e}
+since this is the only part necessary to calculate \(\tilde{x}\)
+\cite{brunton_kutz_2019e}.
 
-\subsection{Computing balanced truncation}
+\subsection{Computing Balanced Truncation}
 Since the gramians for controllability and observability are too expensive to compute for large systems the so called empirical gramians are used as an approximation.
 The empirical gramians are calculated by using the discrete-time system matrices from \ref{disc-a} and \ref{disc-b}:
 \begin{gather}
@@ -131,9 +131,8 @@ W_c^e = \mathscr{C}_d^{*}\mathscr{C}_d \\
 W_o^e = \mathscr{O}_d^{*}\mathscr{O}_d \\
 m_o, m_c << rank(A)
 \end{gather}
-Now these empirical gramians can be used for optaining the balancing coordinate transform.
-\cite{brunton_kutz_2019e}
-\subsection{State Space representation from heate equation} \label{heat-ss}
+Now these empirical gramians can be used for obtaining the balancing coordinate transform \cite{brunton_kutz_2019e}.
+\subsection{State Space Representation from Heat Equation} \label{heat-ss}
 To apply balanced truncation to the heat equation \ref{eq-1d-h} a state space representation of that system has to be found first.
 Note that the system of ODEs resulting from FEM \ref{almost-almost-ss} resembles a state space representation:
 \begin{gather}

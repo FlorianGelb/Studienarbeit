@@ -4,15 +4,14 @@
 There are mainly three different problems in control theory.
 To analyse a system it has to be identified first.
 A mathematical model has to be found that relates the input of that system to it's output.
-After a model has been found, it is helpfull to simulate the system to find out which input results in which output.
+After a model has been found, it is helpful to simulate the system to find out which input results in which output.
 Simulations have to fit the system and offer the advantage over real experiments of reducing cost and risks attached to them.
 The last of the three major problems is the control problem.
-Now that the underlying model is known and the system can be simulated, a controler for that system can be designed.
-Here the controler is a system that feeds some input to the system that is to be controlled to generate some desired output.
-\cite{DouglasBa}
+Now that the underlying model is known and the system can be simulated, a controller for that system can be designed.
+Here the controller is a system that feeds some input to the system that is to be controlled to generate some desired output \cite{DouglasBa}.
 For this paper the second problem is the most important one, since the goal of this paper is to compare some methods to make simulations of a system more efficient.
 \subsection{LTI Systems}
-A linear and time invariant (LTI) system is a kind of system that fulfills the following conditions:
+A linear and time invariant (LTI) system is a kind of system that fulfils the following conditions:
 \paragraph{Homogenity:}
 For a system to be a LTI system, the condition that the output of a system \(y(t)\) relates to the input \(u(t)\) by a linear operator \(f\):
 \begin{gather}
@@ -21,7 +20,7 @@ cy(t) = f(cu(t))
 \end{gather}
 This means that if the input \(u\) changes in magnitude by a constant factor of \(c\) the output \(y\) also changes by the factor of \(c\).
 \paragraph{Superposition:}
-The second requirement is superpostion:
+The second requirement is superposition:
 \begin{gather}
 y_1(t) + y_2(t) = f(u_1(t) + u_2(t))
 \end{gather}
@@ -32,9 +31,8 @@ A system that is time invariant has the property that if the input \(u\) is shif
 y(t - \tau) = f(u(t-\tau))
 \end{gather}
 LTI systems are important because they can be used to approximate non LTI systems over some region.
-This is usefull since LTI systems are well understood.
-\cite{DouglasB}
-\subsection{State Space representation}
+This is useful since LTI systems are well understood \cite{DouglasB}.
+\subsection{State Space Representation}
 A LTI system can be expressed as a system of ODEs that relates the input \(u\) to its output \(y\).
 The vector \(x\) denotes the states of a system.
 \begin{gather}
@@ -46,7 +44,7 @@ The matrices \(A \in \mathbb{R}^{n \times n}\),
 \(C \in \mathbb{R}^{q \times n}\) and
 \(D \in \mathbb{R}^{q \times m}\) are constant matrices.
 \cite{BennerGrivet}
-\subsection{State Space of discrete time systems}
+\subsection{State Space of Discrete Time Systems}
 A system can represented as discrete system in the following form:
 \begin{gather}
 x_{k+1} = A_dx_k + B_dx_k \label{disc-a} \\
@@ -61,7 +59,7 @@ C_d = C \quad D_d = D
 \cite{brunton_kutz_2019g}
 \subsection{Transfer Function}
 To understand the transfer function the impulse response has to be defined first.
-The impuls responce of a system is given by choosing the following function as input to the system:
+The impulse response of a system is given by choosing the following function as input to the system:
 \begin{gather}
 g(t) = f(\delta(t))
 \end{gather}
@@ -80,18 +78,17 @@ If the \(g(t)\) is convoluted with a function \(v(t)\) the response of the syste
 \begin{gather}
 v(t)*g(t) = \int_{\tau = 0}^{\infty} v(\tau)g(t-\tau)d\tau = f(v(t))
 \end{gather}
-\cite{DouglasBb}
+\cite{DouglasBb} \\
 By using the convolution theorem:
 \begin{gather}
 \mathfrak{L}\{g(t)\}\mathfrak{L}\{v(t)\} = \mathfrak{L}\{g*v\}(t)
 \end{gather}
-\cite{ABELL2018399}
+\cite{ABELL2018399}\\
 the transfer function is defined as:
 \begin{gather}
 \mathfrak{L}\{f(\delta(t))\}
 \end{gather}
-This definition is usefull since the response of a system for a given input \(u(t)\) can be deterimend by the result of the multiplication \(G(s)U(s)\).
-\cite{DouglasBb}
+This definition is useful since the response of a system for a given input \(u(t)\) can be determined by the result of the multiplication \(G(s)U(s)\) \cite{DouglasBb}.
 Alternatively if a system is given in state space representation the transfer function can be expressed as:
 \begin{gather}
 G(s) = C(sE-A)^{-1}B+D \label{tf-from-ss}
@@ -99,14 +96,13 @@ G(s) = C(sE-A)^{-1}B+D \label{tf-from-ss}
 \cite{BennerGrivet}
 
 \subsection{Controallability and Observability}
-For LTI systems in state space respresentation it can be determend which states are to what degree controllable and observable.
+For LTI systems in state space representation it can be determined which states are to what degree controllable and observable.
 This can be computed by the controllability and observability gramians:
 \begin{gather}
 W_c = \lim_{t \to \infty} \int_{0}^{t} e^{A\tau}BB^{*}e^{A^{*}\tau}d\tau \label{gram-ctrl}\\
 W_o = \lim_{t \to \infty} \int_{0}^{t} e^{A^{*}\tau}C^{*}Ce^{A\tau}d\tau \label{gram-obsv}
 \end{gather}
-The degree of controlability for a state \(x\) can be determined by \(x^{*}W_cx\).
-If the result of this calculation is large, the system is controlable in the \(x\) direction.
+The degree of controllability for a state \(x\) can be determined by \(x^{*}W_cx\).
+If the result of this calculation is large, the system is controllable in the \(x\) direction.
 By swapping \(W_c\) with \(W_o\) the degree of observability in state \(x\) can be computed: \(x^{*}W_ox\).
-Again if the resulting value is large, the system can be obseverd well in state \(x\).
-\cite{brunton_kutz_2019d}
+Again if the resulting value is large, the system can be observed well in state \(x\) \cite{brunton_kutz_2019d}.

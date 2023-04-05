@@ -1,6 +1,6 @@
 \section{Finite Element Method} \label{FEM}
 The finite element method (FEM) is a method to approximate solutions for differential equations (DE) within a certain domain \(\Omega\).
-This is done by discretizing the spacial domain.
+This is done by discretizing the spatial domain.
 Assume that a DE is given by:
 \begin{gather}
 m, n \in \mathbb{N} \quad \zeta \in \Omega \subset \mathbb{R} \quad m \geq 1 \\
@@ -30,7 +30,7 @@ If \(\mu\) is substituted with \ref{eq-aprox} the following is obtained:
 \sum_{j = 1}^{N} ((\int_{\Omega} \frac{\partial^{m} \phi_{j}}{\partial \zeta^{m}} \phi_{k} \, d\zeta) c_{j}(t) - g((\int_{\Omega} \phi_k \phi_j d\zeta) c_{j}(t)))  = \int_{\Omega}  r(\zeta, t) \phi_{k}        \, d\zeta \quad \forall \phi_{k} \in \phi \label{eq-al}
 \end{gather}
 
-It is also necessary to apply divergence theorem to the first integral term taking into account that \(y\) at \(\Gamma\) is 0.
+It is also necessary to apply the divergence theorem to the first integral term taking into account that \(y\) at \(\Gamma\) is 0.
 Since \(\zeta\) is one dimensional, the divergence theorem becomes integration by parts:
 \begin{gather}
 \int_{\Omega} \frac{\partial^{m} \phi_{j}}{\partial \zeta^{m}} \phi_{k} \, d\zeta = - \int_{\Omega} \frac{\partial^{m-1} \phi_{j}}{\partial \zeta^{m-1}} \frac{\partial \phi_{k}}{\partial \zeta} \, d\zeta \quad \forall \phi_{k} \in \phi \label{eq-ibp}
@@ -61,7 +61,7 @@ The set of basis functions is defined as a set of piecewise linear functions wit
 \cite{Gustafsson2011d}
 
 
-The stepsize \(\Delta x\) is defined by \(\Delta x = \frac{x_n - x_0}{n-1}\). \label{def-delta-x}
+The step size \(\Delta x\) is defined by \(\Delta x = \frac{x_n - x_0}{n-1}\). \label{def-delta-x}
 This results in the following system of ODEs:
 \begin{gather}
 \sum_{j=1}^N(\int_{\chi} \phi_{j}\phi_{k}dx)\frac{dc_{j}}{dt} = \alpha \sum_{j = 1}^N(-\int_{\chi} \frac{d\phi_{j}}{dx}\frac{d\phi_{j}}{dx}dx)c_{j}(t) + \int_{\chi}h(x, t) \phi_{k} dx
@@ -87,8 +87,8 @@ k_{ij} = \begin{cases}
 \end{cases}
 \end{gather}
 However it is necessary to approximate \(d\) for each point in time using numerical integration schemes.
-Furthermore to solve this system of ODEs numerically an initial condition \(c_{0}\) has to be known.
-\cite{Gustafsson2011b}
+Furthermore to solve this system of ODEs numerically an initial condition \(c_{0}\) has to be known 
+\cite{Gustafsson2011b}.
 
 
 It can be obtained using a least squares (LS) approach:
@@ -107,7 +107,7 @@ This system of ODEs can be solved using an euler scheme:
 \begin{gather}
 c_{t+1} = \Delta t M^{-1}(Kc_{t} + d) + c_{t} \label{fem-euler}
 \end{gather}
-\subsubsection{Force boundary conidtions}
+\subsubsection{Force Boundary Conidtions}
 Keep in mind that vector \(d\) is time dependent and has to be recomputed for each time step.
 To force the boudary condition \(u(x, t) = 0 \; x \in \Gamma\) the first and last entry of any \(c_{t}\) has to be zero:
 \begin{gather}

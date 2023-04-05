@@ -5,7 +5,7 @@ The conduction of heat  within a medium can be described using the following par
 \frac{\partial u}{\partial t} = \alpha \nabla^{2} u \label{heat}
 \end{gather}
 With \(u\) being a function of space and time and \(\alpha\) being a positive constant.
-For this paper \(u\) will be defined in terms of one spacial dimension:
+For this paper \(u\) will be defined in terms of one spatial dimension:
 \begin{gather}
 u := u(x, t) \\
 \frac{\partial u}{\partial t} = \alpha \frac{\partial^{2} u}{\partial x^{2}} \\
@@ -23,7 +23,7 @@ For this paper it is assumed that the initial condition is known:
 f: \chi \rightarrow \mathbb{R} \\
 u(x, t_{0}) = f(x) 
 \end{gather} 
-\subsection{Solving the Heat Equation using Fourier transform}
+\subsection{Solving the Heat Equation using Fourier Transform}
 Applying the Fourier transform (FT) w.r.t \(x\) to \ref{eq-1d-h} yields the inhomogeneous ordinary differential equation (ODE):
 
 \begin{gather}
@@ -36,8 +36,8 @@ A solution to \ref{eq-1d-h-ft} is given by:
 \hat{u} = \hat{u}_{0} + \hat{u}_{p}
 \end{gather}
 Where \(\hat{u}_{0}\) is the homogeneous solution and \(\hat{u}_{p}\) is the particular integral.
-In order to solve this ODE for the particular integral \(\hat{h}\) has to be known. \cite{Papula2015}
-The choice of \(h\) is, except to some restrictions, arbitrary.
+In order to solve this ODE for the particular integral \(\hat{h}\) has to be known \cite{Papula2015}.
+The choice of \(h\) is, except for some restrictions, arbitrary.
 Therefore an approximate solution to \ref{eq-1d-h-ft} \(\hat{u}_{a}\) is obtained by the forward euler scheme:
 \begin{gather}
 \frac{d}{dt} \hat{u} \approx \frac{\Delta \hat{u}}{\Delta t} \\
@@ -54,3 +54,5 @@ This initial condition is obtained by applying the discrete Fourier transform (D
 The forward euler scheme is used here because it is fairly easy to implement.
 By applying the  inverse discrete Fourier transform (IDFT) to \(\hat{u}_{a}\) an approximate solution to \ref{eq-1d-h} can be obtained.
 To decrease computing time, the fast Fourier transform (FFT) and inverse fast Fourier transform (IFFT) is used instead of the DFT and IDFT.
+A problem with solving the heat equation in this way is that it cannot handle boundary conditions.
+In order to solve the heat equation as initial boundary value problem (IBVP) the finite element method is used.

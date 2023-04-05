@@ -1,5 +1,5 @@
 \section{Modal truncation}
-\subsection{Diagonal canonical form} \label{dcnf}
+\subsection{Diagonal Canonical Form} \label{dcnf}
 A LTI system \((A, B, C, D)\) with transfer function \(G(s)\) can be written in the following way:
 \begin{gather}
 I = \{1, 2, \hdots, n\} \\
@@ -33,7 +33,7 @@ x_n^{-1}B
 \end{gather}
 \cite{Benner}
 
-\subsection{Optimal modal truncation}
+\subsection{Optimal Modal Truncation}
 The goal of modal truncation is to find a subset of the indices \(I\)  such that only \(r\) elements are contained in this subset:
 \begin{gather}
 I_r \subseteq I, \quad |I_r| = r
@@ -67,7 +67,7 @@ s.t. \quad \alpha^T\alpha = r \\
 A\alpha = 0
 \end{gather}
 \cite{vuillemin2020optimal}
-\subsection{Applying modal truncation to heat equation}
+\subsection{Applying Modal Truncation to Heat Equation}
 As described in \ref{heat-ss} the system matrices \((A, B, C, D)\) can be obtained for the given heat equation.
 Now by applying \ref{tf-from-ss} yields the corresponding transfer function \(G(s)\).
 By calculating the partial fraction decomposition as described in \ref{dcnf} the DCNF can be obtained.

@@ -2,14 +2,13 @@
 The implementation of the discussed methods for solving the heat equation and for model order reduction was done in Matlab.
 Matlab was chosen as the programming language because it natively features matrix multiplication which finds heavy use in the previously mentioned methods.
 The second reason for this selection is that there exist ToolBoxes that already implement certain model order reduction methods such as MORLAB \cite{benner_werner} or MOR toolbox \cite{MORT}.
-The following figure shows the class diagramm of the implementation:
+The following figure shows the class diagram of the implementation:
 \newline
 
 \begin{figure}[H]
 \includegraphics[ width=\textwidth]{images/class}
 \caption{Class diagramm of MOR and FEM implementation}
 \end{figure}
-\newpage
 \section{Class main}
 The class main is responsible for generating the finite element solution, model order reduction steps and plotting the results. The process can be seen in the following flow chart:
 \begin{figure}[H]
@@ -18,9 +17,9 @@ The class main is responsible for generating the finite element solution, model 
 \caption{Flow chart of main class}
 \end{figure}
 The first step is to generate a parameter object.
-The parameter object stores all parameters in order to increase the transparancy and robustness of the programm.
+The parameter object stores all parameters in order to increase the transparency and robustness of the program.
 The second step is to iterate the array of stated algorithms to solve the heat equation.
-The options are to solve the heat equation using finite element method \ref{FEM} or using fourier transform \ref{HE}.
+The options are to solve the heat equation using finite element method \ref{FEM} or using Fourier transform \ref{HE}.
 After all solver objects have been generated, the according solutions are being computed.
 After that, the MOR methods are displayed.
 The final step is to display the solutions.
@@ -36,10 +35,9 @@ FEM is implemented in the following way:
 The first step is to set the parameters.
 After that the matrices discussed in \ref{FEM} are being constructed.
 The next step is to solve the resulting system of ODEs and pass the solution to a solution object.
-\newpage
 \subsection{Construct Matrices}
 As defined in \ref{def-mat-a}  the matrices \(K\) and \(M\) have to be constructed.
-Also to compute the initial condition given by \(u_0\) \(F\) has to be knows \ref{F}.
+Also to compute the initial condition given by \(u_0\) \(F\) has to be known \ref{F}.
 This is done by the following method:
 \begin{algorithm}[H]
 \caption{Construct matrices \(K\), \(M\) and \(F\)}
@@ -68,8 +66,8 @@ This is done by the following method:
 \end{algorithmic}
 \end{algorithm}
 
-\subsection{Compute vector d(t)}
-As discussed in \ref{FEM} vectord \(d\) has to be computed for each time step:
+\subsection{Compute Vector d(t)}
+As discussed in \ref{FEM} vector \(d\) has to be computed for each time step:
 \begin{algorithm}[H]
 \caption{Construct vector d}
 \begin{algorithmic}[1]
@@ -80,13 +78,13 @@ As discussed in \ref{FEM} vectord \(d\) has to be computed for each time step:
 \State $\textbf{return } d$
 \end{algorithmic}
 \end{algorithm}
-The entries of vector \(d\) become the integral of the product  of a basisfunction and \(h\) evaluated at timestep \(t_0\).
-This timestep is a argument of that method.
+The entries of vector \(d\) become the integral of the product  of a basis function and \(h\) evaluated at time step \(t_0\).
+This time step is a argument of that method.
 
 \subsection{Solve System of ODEs}
 The most important step in the process of generating a solution is to solve the system of ordinary differential equations that FEM yields:
 \begin{algorithm}[H]
-\caption{Solve system of ODEs using euler's scheme}
+\caption{Solve system of ODEs using euler scheme}
 \begin{algorithmic}[1]
 \State $[F, K, M] \gets \textit{construct\_matrices()}$
 \State $C \gets zeros(nodes, n\_time\_steps)$
@@ -111,10 +109,10 @@ The most important step in the process of generating a solution is to solve the 
 \end{algorithmic}
 \end{algorithm}
 In the first line the matrices \(F\), \(K\) and \(M\) are retrieved.
-After that the initial vector of coefficiants \(c_0\) is computed using LS \ref{c0} in line three.
+After that the initial vector of coefficients \(c_0\) is computed using LS \ref{c0} in line three.
 The next two following lines force the boundary conditions as stated in \ref{force-bound}.
 In the lines 8 to 13 \ref{fem-euler} is implemented.
-In the last step the coefficiants are interpolated in spatial direction to fit the given domain \(X\) and stored in a solution object.
+In the last step the coefficients are interpolated in spatial direction to fit the given domain \(X\) and stored in a solution object.
 
 
 	

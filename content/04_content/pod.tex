@@ -1,14 +1,14 @@
 \section{Proper Orthogonal Decomposition}
 The proper orthogonal decomposition (POD) is a method for model order reduction.
 The reduction in computational effort is done by approximating a solution to a PDE using an orthogonal expansion.
-The basis functions are obtained by decomposing a set of solutions to othe PDE using the SVD.
+The basis functions are obtained by decomposing a set of solutions for the PDE using the SVD.
 \subsection{Orthogonal Expansion}
 A function \(f: \mathbb{R} \times \mathbb{R} \rightarrow \mathbb{R}\) can be represented by the series:
 \begin{gather}
 f(x, t) = \sum_{i = 1}^{\infty}a_i(t)\phi_i(x) \\
 x, t \in \mathbb{R} \label{ref-orth-exp}
 \end{gather}
-Here all \(\phi(x)\) are orthorgonal basis functions.
+Here all \(\phi(x)\) are orthogonal basis functions.
 \begin{gather}
 \langle\phi_i, \phi_j\rangle =\begin{cases}
 1, \quad \text{if } i = j \\
@@ -26,21 +26,21 @@ a_i(t) = \frac{\langle \phi_i, f \rangle}{\langle \phi_i, \phi_i \rangle} \label
 \end{gather}
 \cite{Gustafsson2011e}
 \subsection{Proper Orthogonal Decomposition for PDEs}
-Since a PDEs are equations in terms of partial derivatives, the notation \(\mathscr{P}(\partial x) u\) is introduced, which denotes a differential operator in terms of the spacial variables \(x\) for a function \(u(x,t,p\).
+Since a PDEs are equations in terms of partial derivatives, the notation \(\mathscr{P}(\partial x) u\) is introduced, which denotes a differential operator in terms of the spatial variables \(x\) for a function \(u(x,t,p\).
 The vector \(p\) contains some parameters.
 This is done to provide a more abstract way to denote PDEs:
 \begin{gather}
 \frac{\partial u}{\partial t} = \mathscr{P}(\partial x) u
 \end{gather}
-\cite{Gustafsson2011f}
-Solving for \(u\) is often dificult to imposible.
-A method that is often used to solve PDEs is called seperation of variables.
-This spereation of variables assumes, that the underlying solution \(u(x, t)\) can be expressed by \ref{ref-orth-exp}, to solve for \(a_k, 0 \leq k \leq n\).
-Since it is not practical to compute an infite series, \(u\) only gets appriximated by using \ref{ref-orth-aprox} instead:
+\cite{Gustafsson2011f} \\
+Solving for \(u\) is often difficult to impossible.
+A method that is often used to solve PDEs is called separation of variables.
+This separation of variables assumes, that the underlying solution \(u(x, t)\) can be expressed by \ref{ref-orth-exp}, to solve for \(a_k, 0 \leq k \leq n\).
+Since it is not practical to compute an infinite series, \(u\) only gets approximated by using \ref{ref-orth-aprox} instead:
 \begin{gather}
 \sum_{i = 1} ^{n} \frac{\partial a_i}{\partial t} \phi_i = \sum_{i = 1} ^{n} \mathscr{P}(\partial x) \phi_i a_i \label{label-u-aprox} 
 \end{gather}
-By discretizing the spacial dimension got along \(x\) \ref{label-u-aprox} can be expressed using marix notation:
+By discretizing the spatial dimension got along \(x\) \ref{label-u-aprox} can be expressed using matrix notation:
 \begin{gather}
 \Phi = \begin{bmatrix}
 \phi_0, ..., \phi_n
@@ -48,8 +48,8 @@ By discretizing the spacial dimension got along \(x\) \ref{label-u-aprox} can be
 \Phi \frac{d}{dt}a = \mathscr{P}(\partial x) \Phi a
 \end{gather}
 Since the solution \(u\) is unknown \ref{sol-ai} cannot be computed.
-However the fact, that all \(\phi\) are orthogonal to each oter, can be used to solve for all \(a_k\).
-It can be done by computing the inner product of \ref{label-u-aprox} with all basis funktions:
+However, the fact, that all \(\phi\) are orthogonal to each other, can be used to solve for all \(a_k\).
+It can be done by computing the inner product of \ref{label-u-aprox} with all basis functions:
 \begin{gather}
 \langle \sum_{i = 1} ^{n} \frac{\partial a_i}{\partial t} \phi_i, \phi_k \rangle = \langle\sum_{i = 1} ^{n} \mathscr{P}(\partial x) \phi_i a_i, \phi_k \rangle \quad \forall 0 \leq k \leq n \label{u-galer}
 \end{gather}
@@ -58,39 +58,38 @@ In matrix notation it can be expressed:
 \begin{gather}
 \Phi^{*}\Phi \frac{d}{dt}a = \Phi^{*}\mathscr{P}(\partial x) \Phi a
 \end{gather}
-By considering \ref{phi-orth}  the equiation \ref{u-galer} can be expressed as a system of ODEs which can be solved:
+By considering \ref{phi-orth}  the equation \ref{u-galer} can be expressed as a system of ODEs which can be solved:
 \begin{gather}
 \frac{d}{dt} a = \Phi^{*}\mathscr{P}(\partial x) \Phi a
 \end{gather}
-After the vector of coefficiants \(a\) for each time step has been computed, the solution can be assembled:
+After the vector of coefficients \(a\) for each time step has been computed, the solution can be assembled:
 \begin{gather}
 u(x, t) \approx \Phi(x)a(t) \label{u-aprox-pod}
 \end{gather} 
 \cite{brunton_kutz_2019c}
-\subsection{Choosing basis vectors}
+\subsection{Selection of Basis Vectors}
 As discussed in the previous section, a set of basis vectors can be used to generate approximate solutions to PDEs.
 However it was not discussed how those basis functions are chosen.
-For POD to work, a so called snapshot matrix \(X\) has to be available.
+For POD to work, a so-called snapshot matrix \(X\) has to be available.
 This snapshot matrix stores a set of solutions where \(x_k\) is the solution for a PDE at time step \(k\Delta t\):
 \begin{gather}
 X = \begin{bmatrix}
 x_1, ..., x_m
 \end{bmatrix}
 \end{gather}
-The solutions can be obtained by conducting an expirment on a physical system that is described by the PDE or by simulating the evolution of that PDE.
+The solutions can be obtained by conducting an experiment on a physical system that is described by the PDE or by simulating the evolution of that PDE.
 In this paper the solution is obtained using FEM \ref{FEM}.
 SVD is used to decompose the snapshot matrix \(X\).
-Since the columns of the snapshot matrix contain spacial information at a given point in time and the basis vectors are supposed to encode the spacial information of a solution \(u\) the \(r\) most dominant left singular values have to be extracted:
+Since the columns of the snapshot matrix contain spatial information at a given point in time and the basis vectors are supposed to encode the spatial information of a solution \(u\) the \(r\) most dominant left singular values have to be extracted:
 \begin{gather}
 \tilde{X} = \tilde{U}\tilde{\Sigma}\tilde{V}^{*} \\
 \Phi = [u_1, ..., u_r] \label{PHI}
 \end{gather}
-Here the FEM solution is obtained by discretizing the PDE into a large number(\(n\)) of spacial nodes.
+Here the FEM solution is obtained by discretizing the PDE into a large number(\(n\)) of spatial nodes.
 This results in a high dimensional system of ODEs.
 Since \(\Phi\) contains only \(r\) column (\(r << n\)) vectors a reduction in order can be achieved.
-However the benefits of this reduced order model are only relevant after the PDE has been solved once using a high dimensional system of ODEs.
-\cite{brunton_kutz_2019c}
-\subsection{ROM for heat equation}
+However the benefits of this reduced order model are only relevant after the PDE has been solved once using a high dimensional system of ODEs \cite{brunton_kutz_2019c}.
+\subsection{ROM for Heat Equation}
 In order to apply pod to heat equation a snapshot matrix \(X\) has to be generated.
 This is done by the FEM solver described in \ref{FEM}.
 After that \(X\) gets decomposed using the SVD.
@@ -101,11 +100,11 @@ Substituting \(\mathscr{P}\) in \label{label-u-aprox} with heat equation \ref{eq
 \frac{\partial a}{\partial t} = \alpha \Phi^{*}  \frac{\partial^{2} \Phi}{\partial x^{2}} a + \Phi^{*}h
 \end{gather}
 This system of ODEs can now be solved using a Runge-Kutta scheme.
-Note that \(\Phi\) the contains numeric values.
+Note that \(\Phi\) contains numeric values.
 Therefore derivatives are unstable, especially at the first and last entries of the column vectors of \(\Phi\).
-To reduce this problem the method used to compute the second derivative of \(\Phi\) is the so called spectral derivative.
+To reduce this problem the method used to compute the second derivative of \(\Phi\) is the so-called spectral derivative.
 The discrete spectral derivative works by computing the FFT of a vector.
-That vector gets multiplied by \((ik)^{d}\), \(d\) is the order of the derivative and \(k\) are the discrete wave numbers.
+That vector is multiplied by \((ik)^{d}\), \(d\) is the order of the derivative and \(k\) are the discrete wave numbers.
 After that step the IFFT is applied to obtain the derivative of the original vector.
 \begin{gather}
 f \in \mathbb{C}^{n}, \quad k = [-\frac{n}{2} \hdots \frac{n}{2}]^{T} \\
