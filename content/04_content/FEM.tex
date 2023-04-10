@@ -87,6 +87,11 @@ k_{ij} = \begin{cases}
 \end{cases}
 \end{gather}
 However it is necessary to approximate \(d\) for each point in time using numerical integration schemes.
+By assuming that the following decomposition holds:
+\begin{gather}
+h(x, t) = \sum_{i = 1}^{N} \phi_i(x) \upsilon(t)
+\end{gather}
+the vector \(d\) in \ref{eq-heat-almost-ss} can be expressed as \(M\upsilon(t)\).
 Furthermore to solve this system of ODEs numerically an initial condition \(c_{0}\) has to be known 
 \cite{Gustafsson2011b}.
 
@@ -101,11 +106,11 @@ c_{0} = M^{-1}F  \label{c0}
 
 Observe that by multiplying \ref{eq-heat-almost-ss} with \(M^{-1}\) (\ref{ap-K-inv}) yields a system of ODEs:
 \begin{gather}
-\dot{c} = M^{-1}Kc + M^{-1}d \label{almost-almost-ss}
+\dot{c} = M^{-1}Kc + M^{-1}M\upsilon \label{almost-almost-ss}
 \end{gather}
 This system of ODEs can be solved using an euler scheme:
 \begin{gather}
-c_{t+1} = \Delta t M^{-1}(Kc_{t} + d) + c_{t} \label{fem-euler}
+c_{t+1} = \Delta t (M^{-1}Kc_{t} + I\upsilon) + c_{t} \label{fem-euler}
 \end{gather}
 \subsubsection{Force Boundary Conidtions}
 Keep in mind that vector \(d\) is time dependent and has to be recomputed for each time step.
@@ -115,7 +120,7 @@ c_{t}^{1} = 0 \quad c_{t}^{n} = 0 \quad \forall t
 \end{gather}
 Therefore the Matrix \(M^{-1}\) has to be adjusted:
 \begin{gather}
-0 = \Delta t m (Kc + d) \\
+0 = \Delta t (mKc + M\upsilon) \\
 \Rightarrow m = [0, 0, 0, \dots , 0] \label{force-bound}
 \end{gather}
 Here \(m\) is the first row vector of \(M^{-1}\) or the last one respectively \cite{Gustafsson2011b}.

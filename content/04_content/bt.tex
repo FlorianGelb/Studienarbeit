@@ -137,7 +137,7 @@ To apply balanced truncation to the heat equation \ref{eq-1d-h} a state space re
 Note that the system of ODEs resulting from FEM \ref{almost-almost-ss} resembles a state space representation:
 \begin{gather}
 x := c \quad x_0 := c_0 \\
-A := M^{-1}K \quad B:= M^{-1} 
+A := M^{-1}K \quad B:= I
 \end{gather}
 Since the system is realized as simulation all states can be accurately measured \(C := I\) and there is no feed through \(D := 0_{qm}\).
 Now the already described steps for balanced truncation can be applied to the system.

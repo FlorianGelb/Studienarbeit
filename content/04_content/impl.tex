@@ -66,21 +66,6 @@ This is done by the following method:
 \end{algorithmic}
 \end{algorithm}
 
-\subsection{Compute Vector d(t)}
-As discussed in \ref{FEM} vector \(d\) has to be computed for each time step:
-\begin{algorithm}[H]
-\caption{Construct vector d}
-\begin{algorithmic}[1]
-\State $d \gets zeros(nodes, 1)$
-\For{$i=1  \; \textbf{to} \; nodes$}
-\State $d(i) \gets trapz(\phi_i \cdot h(x, t_0))$
-\EndFor 
-\State $\textbf{return } d$
-\end{algorithmic}
-\end{algorithm}
-The entries of vector \(d\) become the integral of the product  of a basis function and \(h\) evaluated at time step \(t_0\).
-This time step is a argument of that method.
-
 \subsection{Solve System of ODEs}
 The most important step in the process of generating a solution is to solve the system of ordinary differential equations that FEM yields:
 \begin{algorithm}[H]
@@ -95,7 +80,7 @@ The most important step in the process of generating a solution is to solve the 
 \State $N \gets M^{-1}K$
 \For{$t=2  \; \textbf{to} \; n\_time\_steps$}
 \State $d \gets \textit{generate\_h\_disc(t)}$
-\State $c_{n} \gets \Delta t N c_{0} + M^{-1} h + c_{0} $
+\State $c_{n} \gets \Delta t N c_{0} + h(t) + c_{0} $
 \State $c_{0} \gets c_{n}$
 \State $C(:, t) \gets c_{n}$
 \EndFor
