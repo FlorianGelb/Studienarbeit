@@ -71,5 +71,14 @@ A\alpha = 0
 As described in \ref{heat-ss} the system matrices \((A, B, C, D)\) can be obtained for the given heat equation.
 Now by applying \ref{tf-from-ss} yields the corresponding transfer function \(G(s)\).
 By calculating the partial fraction decomposition as described in \ref{dcnf} the DCNF can be obtained.
-Solving \ref{opt-h2} yields some selection of terms that minimizes the error in \(H_2\).
+Since \(B\) and \(C\) are given by some identity matrix and \(D\) is a zero matrix the upper error bound of the error in \(H_2\) norm is given as
+\begin{gather}
+||\epsilon(s)||_{H_2} \leq \sum_{i \in I_r^{c}} \frac{1}{\sqrt{-2Re(\lambda_i)}}
+\end{gather}\cite{vuillemin2020optimal}. 
+Since for stable systems \(Re(\lambda) < 0 \forall \lambda \in \Lambda\) this upper bound can be expressed as follows with \(\Lambda_{\epsilon} = \{Re(\lambda_i)| \lambda_i \in \Lambda i \in I_r^{c}\}\)
+\begin{gather}
+||\epsilon(s)||_{H_2} \leq \sum_{i \in I_r^{c}} \frac{1}{\sqrt{2|Re(\lambda_i)|}} \leq \frac{|I_r^{c}|}{\sqrt{2|\max(\Lambda_{\epsilon})|}} \\
+\end{gather}
+To minimize this upper bound \(|\max(\Lambda_{\epsilon})|\) has to be maximized.
+This is achieved by selecting the entries of \(\Lambda_{\epsilon}\) such that it contains \(n - r\) largest real parts of the eigenvalues in \(\Lambda\).
 
