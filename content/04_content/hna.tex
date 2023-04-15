@@ -1,0 +1,63 @@
+\section{Hankel Norm Approximation}
+The goal of the Hankel Norm Approximation (HNA) is to find a reduced order system that approximates a system \(G\) such that the error in the so called Hankel norm becomes minimal.
+The Hankel norm is defined as:
+\begin{gather}
+||G(s)||_H = \sqrt{\lambda_{max}(W_cW_o)}
+\end{gather}
+\cite{singh}.
+Therefore the problem can be stated as follows
+\begin{gather}
+G_r = arg\min ||G - G_r||_H \label{hna-prob}
+\end{gather}
+\subsection{System Spaces}
+For the following section it is necessary to define the four following system spaces: \(L_{\infty}\), \(H_{\infty}\), \(H_{\infty}^-\) and \(H_{\infty}^-(r)\).
+\paragraph{\(L_{\infty}\)}
+\(G \in L_{\infty}\) iff  \(\sup_{\omega}||G(i\omega)|| < \infty\).
+\paragraph{\(H_{\infty}\)}
+\(G \in H_{\infty}\) iff  \(\forall \lambda \in \mathbb{C}_{-}\).
+Here \(\lambda\) are the eigenvalues of \(A\).
+\paragraph{\(H_{\infty}^-\)}
+\(G \in H_{\infty}^-\) iff \(G(-s) \in H_{\infty}\).
+\paragraph{\(H_{\infty}^-(r)\)}
+\(G \in H_{\infty}^-(r)\) iff \(G \in L_{\infty}\) and 
+\(\lambda = \lambda_+ \cap \lambda_- = \{\lambda_1, ..., \lambda_n \}\) with \(\lambda_{\circ} = \{\lambda_i \in \lambda | \lambda_i \in \mathbb{C}\_{\circ}\}\) and \(|\lambda_-| \leq r\).
+
+
+\subsection{Optimal Solution}
+A lower bound for \(\min ||G - G_r||_H\) is established by lemma 7.1 in \cite{glover84}
+\begin{gather}
+\min ||G - G_r||_H \geq \sigma_{r+1}
+\end{gather}.
+
+Here \(\sigma_{r+1}\) is the \(r+1\)th largest hankel singular value of \(G\).
+Hence a system \(G_r\) is optimal if \(||G - G_r||_H = \sigma_{r+1}\).
+
+It is important to note that the Hankel norm can is related to the \(L_{\infty}\) norm through the Nehari Theorem
+\begin{gather}
+G \in H_{\infty}, \quad F \in H_{\infty}^-, \quad G - F \in \L_{\infty} \\
+||G||_H = \min_{F \in H^{-}_{\infty}} ||G - F||_{\infty}
+\end{gather}.
+
+Also the Adamjan-Arov-Krein theorem has to be stated to find a optimal solution to the stated minimization problem
+\begin{gather}
+G \in H_{\infty}, \quad Q \in H_{\infty}^-(r), \quad G - Q \in \L_{\infty} \\
+\min_{Q \in H_{\infty}^{-}} ||G-Q||_{\infty} = \sigma_{r+1}
+\end{gather}
+.
+
+Suppose there is an optimal system \(Q^{*} = G_r + F\) with \(Q^{*}  \in H_{\infty}^-(r), G_r \in H_{\infty}, F \in H_{\infty}^-\).
+It has the following error bound
+\begin{gather}
+||G - G_r||_{\infty} = ||G - Q^{*} + F||_{\infty} \leq \sigma_{r+1} + ||F||_{\infty}.
+\end{gather}
+If \(||F||_{\infty}\) is small enough, the stable part of \(Q^{*}\) can be used as a reduced order model.
+It is also an optimal solution to \ref{hna-prob}
+\begin{gather}
+||G - G_r||_H = \min_{F \in H^{-}_{\infty}} ||G - G_r - F||_{\infty} = \min_{Q \in H_{\infty}^{-}} ||G-Q||_{\infty} = \sigma_{r+1}
+\end{gather}
+.
+
+\cite{sandberg}
+
+
+
