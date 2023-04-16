@@ -40,7 +40,7 @@ G \in H_{\infty}, \quad F \in H_{\infty}^-, \quad G - F \in \L_{\infty} \\
 
 Also the Adamjan-Arov-Krein theorem has to be stated to find a optimal solution to the stated minimization problem
 \begin{gather}
-G \in H_{\infty}, \quad Q \in H_{\infty}^-(r), \quad G - Q \in \L_{\infty} \\
+G \in H_{\infty}, \quad Q \in H_{\infty}^-(r), \quad G - Q \in L_{\infty} \\
 \min_{Q \in H_{\infty}^{-}} ||G-Q||_{\infty} = \sigma_{r+1}
 \end{gather}
 .
@@ -48,7 +48,7 @@ G \in H_{\infty}, \quad Q \in H_{\infty}^-(r), \quad G - Q \in \L_{\infty} \\
 Suppose there is an optimal system \(Q^{*} = G_r + F\) with \(Q^{*}  \in H_{\infty}^-(r), G_r \in H_{\infty}, F \in H_{\infty}^-\).
 It has the following error bound
 \begin{gather}
-||G - G_r||_{\infty} = ||G - Q^{*} + F||_{\infty} \leq \sigma_{r+1} + ||F||_{\infty}.
+||G - G_r||_{\infty} = ||G - Q^{*} + F||_{\infty} \leq \sigma_{r+1} + ||F||_{\infty}. \label{fmin}
 \end{gather}
 If \(||F||_{\infty}\) is small enough, the stable part of \(Q^{*}\) can be used as a reduced order model.
 It is also an optimal solution to \ref{hna-prob}
@@ -59,5 +59,77 @@ It is also an optimal solution to \ref{hna-prob}
 
 \cite{sandberg}
 
+\subsection{Constructing \(Q^{*}\)}
+The first step to construct an optimal system \(Q^{*}\) is to construct an balanced realization of the system \(G = (A, B, C, D) \in H_{\infty}\)that is to be reduced, as described in section \ref{balre}.
+Hence the gramians \(W_c\) and \(W_o\) are equal and diagonal.
+\begin{gather}
+W_c = \begin{bmatrix}
+P_1 & 0 \\
+0 & \sigma_{r+1}I_l
+\end{bmatrix}, \quad
+W_o = \begin{bmatrix}
+Q_1 & 0 \\
+0 & \sigma_{r+1}I_l
+\end{bmatrix}
+\end{gather}
+Now \(G\) is partitioned in the following way
+\begin{gather}
+A = \begin{bmatrix}
+A_{11} & A_{12} \\
+A_{21} & A_{22}
+\end{bmatrix}, \quad 
+B = \begin{bmatrix}
+B_{1}  \\
+B_{2} 
+\end{bmatrix}, \quad 
+C = \begin{bmatrix}
+C_{1}  \\
+C_{2} 
+\end{bmatrix}
+\end{gather}
+.
+
+Also a unitary matrix \(U\) has to be defined such tat \(B_2 = -C_2^TU\) and \(U^TU = I\). 
+Further more a matrix \(E_1 = P_1Q_1-\sigma_{r+1}^2I\) is introduced.
+
+Then a system \(Q^* = (\hat{A}, \hat{B}, \hat{C}, \hat{D})\) can be defined
+\begin{gather}
+\hat{A} = E_1^{-1}(\sigma_{r+1}^2A_{11}^T + Q_1 A_{11}P_1 - \sigma_{r+1}C_1^TUB_1^T) \\
+\hat{B} = E_1^{-1}(Q_1B_1 + \sigma_{r+1}C_1^TU)\\
+\hat{C} = C_1P_1 + \sigma_{r+1}UB_1^T \\
+\hat{D} = D - \sigma_{r+1}U
+\end{gather}
+.
+\cite{sandberg}
+
+\subsection{Decomposition of \(Q^{*}\)}
+The final step is to decompose \(Q^{*}\) into two systems \(G_r \in H_{\infty}, F \in H_{\infty}^{-}\).
+To achieve this \(Q^{*}\) can be expressed in the diagonal canonical form described in section \ref{dcnf}.
+\begin{gather}
+Q^{*} = D + \sum_{i=1}^{r} \frac{\phi_i}{s-\lambda_i} 
+\end{gather}
+.
 
 
+This can no be decomposed into three systems \(K \in H_\infty, V \in H_{\infty}^-\) and \(\tilde{D}\) with
+\begin{gather}
+Re(\lambda_i) \in \mathbb{C}_{circ} \forall i \in I_{\circ} \\
+K = \sum_{i \in I_-} \frac{\phi_i}{s-\lambda_i} \\
+V = \sum_{i \in I_+} \frac{\phi_i}{s-\lambda_i} \\
+\tilde{D} = \hat{D}
+\end{gather}
+.
+
+
+Since \(\tilde{D}\) is some constant it does not have any poles.
+Therefore \(K + D \in H_\infty\) and \(V + D \in H_{\infty}^-\) which leads to two different decompositions \(Q^{*} = (K + \tilde{D}) + V \) and \(Q^{*} = K + (V + \tilde{D})\).
+From \ref{fmin} it is clear that \(||F||_{\infty}\) has to be as small as possible to minimize the error bound.
+It can be shown that \(Q^{*} = (K + \tilde{D}) + V \) is the optimal decomposition.
+Suppose \(Q^{*} = K + (V + \tilde{D})\) was the optimal decomposition, then the according lower bound has to be smaller
+\begin{gather}
+||G-K||_{\infty} \leq ||G-(K+\tilde{D})||_{\infty} \\
+\sigma_{r+1}||V + \tilde{D}||_{\infty} \leq \sigma_{r+1}||V||_{\infty} \\
+||V + \tilde{D}||_{\infty} \leq ||V||_{\infty} + ||\tilde{D}||_{\infty} \geq ||V||_{\infty} \\
+\Rightarrow ||G-K||_{\infty} \geq ||G-(K+\tilde{D})||_{\infty}
+\end{gather}
+Therefore \(G_r = K + D\) and \(F = V\).
