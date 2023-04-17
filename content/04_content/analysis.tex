@@ -1,1 +1,19 @@
 \chapter{Comparison of MOR Methods} \label{analysis}
+The previously mentioned methods for model order reduction will be compared regarding time domain error, frequency domain error and computational speed.
+The time domain error will be obtained by compareing the FEM solution to a given approximation.
+To get insights into the frequency domain error, the error system of a reduced order model will be analysed.
+The computational speed will be determined by measuring the time it takes to generate a ROM.
+Here it is assumed that the implementations provided by MORLAB are programmed in a sufficiently effective manner.
+\section{Time Domain Error}
+The time domain error will defined as \(\epsilon = Y - \hat{Y}\) where \(Y\) and \(\hat{Y}\) denote the matrices storing the output of the systems \(G\) and \(G_r\).
+Since the output matrices are usually rather large, it is inpractical to use \(\epsilon\) directly.
+Therefore  \(||\epsilon||_{max}\)  and \(||\epsilon||_{F}\)  will be considered.
+The maximumsnorm will be used to show the magnitude of the worst occuring error.
+Since this is subsceptible to spikes the error is also meassured using the Frobeniusnorm to get a meassure of the error that respects all data points.
+Here two aspects are interesting.
+The first one is how the errors behaves as \(r\) gets larger and the second aspect is how the error evolves over time for some fixed \(r\).
+To get data about the first aspect \(||\epsilon||_{max}\)  and \(||\epsilon||_{F}\) will be meassured for increasing \(r\).
+Data about the second aspect will be gathered by calculating the norm of the error between the column vectors of \(Y\) and \(\hat{Y}\) for some fixed \(r\), \(\epsilon_{t} = ||Y_t - \hat{Y}_t||_{2}\) where \(A_t\) denotes the \(t^{th}\) column vector of \(A\).
+Since here vectors are compared the euclidean norm is used since it is compatible to the frobenius norm.
+The chebychev norm can also be used as vector norm.
+
