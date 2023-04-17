@@ -1,8 +1,8 @@
 \section{Hankel Norm Approximation}
 The goal of the Hankel Norm Approximation (HNA) is to find a reduced order system that approximates a system \(G\) such that the error in the so called Hankel norm becomes minimal.
-The Hankel norm is defined as:
+The Hankel norm is defined to be the largest hankel singular value
 \begin{gather}
-||G(s)||_H = \sqrt{\lambda_{max}(W_cW_o)}
+||G(s)||_H = \sigma_{max} = \sqrt{\lambda_{max}(W_cW_o)}
 \end{gather}
 \cite{singh}.
 Therefore the problem can be stated as follows
@@ -132,4 +132,12 @@ Suppose \(Q^{*} = K + (V + \tilde{D})\) was the optimal decomposition, then the 
 ||V + \tilde{D}||_{\infty} \leq ||V||_{\infty} + ||\tilde{D}||_{\infty} \geq ||V||_{\infty} \\
 \Rightarrow ||G-K||_{\infty} \geq ||G-(K+\tilde{D})||_{\infty}
 \end{gather}
+.
+
 Therefore \(G_r = K + D\) and \(F = V\).
+
+\section{Applying HNA to Heat Equation}
+To apply HNA to heat equation a state space representation of the system is needed to compute a reduced order system as described in the previous section.
+How the state space is constructed is already covered in section \ref{heat-ss}.
+However in contrast to the other mentioned methods, recovering an approximation of the full state solution is not trivial.
+Therfore in further analysis of the reduced system only error in frequency domain will be considered for HNA.

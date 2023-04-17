@@ -89,7 +89,7 @@ Here the FEM solution is obtained by discretizing the PDE into a large number(\(
 This results in a high dimensional system of ODEs.
 Since \(\Phi\) contains only \(r\) column (\(r << n\)) vectors a reduction in order can be achieved.
 However the benefits of this reduced order model are only relevant after the PDE has been solved once using a high dimensional system of ODEs \cite{brunton_kutz_2019c}.
-\subsection{ROM for Heat Equation}
+\subsection{POD for Heat Equation}
 In order to apply pod to heat equation a snapshot matrix \(X\) has to be generated.
 This is done by the FEM solver described in \ref{FEM}.
 After that \(X\) gets decomposed using the SVD.
@@ -113,4 +113,12 @@ f \in \mathbb{C}^{n}, \quad k = [-\frac{n}{2} \hdots \frac{n}{2}]^{T} \\
 \end{gather}
 \cite{brunton_kutz_2019f}
 
-
+Figure \ref{FIG-POD} shows a solution to heat equation using FEM and an approximation using POD with \(u(x, t) = 0, x_0 = 10000^{70\times1}, n = 70, n_{approx} = 10\).
+It is clearly visible that there are some differences, especially near the edges.
+However a more detailed analysis of the results are covered in chapter \ref{analysis}.
+\begin{figure}[H]
+\centering
+\includegraphics[ width=12.5cm]{images/pod}
+\caption{FEM solution and POD approximation for heat equation}
+\label{FIG-POD}
+\end{figure}

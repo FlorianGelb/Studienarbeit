@@ -22,6 +22,7 @@ W_cW_oT = T\Delta^{2} \label{eigendec}
 \end{gather}
 Since \(\Delta\) is a diagonal matrix, \ref{eigendec} is equal to the eigendecomposition of \(W_cW_o\).
 Therefore \(T\) contains the eigenvectors of \(W_cW_o\).
+The values contained in \(\Delta\) are known as hankel singular values.
 However \(T\) needs to be rescaled to make \(\hat{W}_c\) and \(\hat{W}_o\) equal.
 Here \(T_u\) denotes the unscaled eigenvectors of this eigendecomposition that yields gramians that are not equal to each other:
 \begin{gather}
@@ -132,6 +133,7 @@ W_o^e = \mathscr{O}_d^{*}\mathscr{O}_d \\
 m_o, m_c << rank(A)
 \end{gather}
 Now these empirical gramians can be used for obtaining the balancing coordinate transform \cite{brunton_kutz_2019e}.
+
 \subsection{State Space Representation from Heat Equation} \label{heat-ss}
 To apply balanced truncation to the heat equation \ref{eq-1d-h} a state space representation of that system has to be found first.
 Note that the system of ODEs resulting from FEM \ref{almost-almost-ss} resembles a state space representation:
@@ -141,5 +143,13 @@ A := M^{-1}K \quad B:= I
 \end{gather}
 Since the system is realized as simulation all states can be accurately measured \(C := I\) and there is no feed through \(D := 0_{qm}\).
 Now the already described steps for balanced truncation can be applied to the system.
+
+Figure \ref{FIG-BT} shows a solution to heat equation using FEM and an approximation using BT with \(u(x, t) = 0, x_0 = 10000^{70\times1}, n = 70, n_{approx} = 10\).
+\begin{figure}[H]
+\centering
+\includegraphics[ width=12.5cm]{images/bt}
+\caption{FEM solution and BT approximation for heat equation}
+\label{FIG-BT}
+\end{figure}
 
 
