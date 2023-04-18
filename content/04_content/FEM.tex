@@ -67,6 +67,16 @@ This results in the following system of ODEs:
 \sum_{j=1}^N(\int_{\chi} \phi_{j}\phi_{k}dx)\frac{dc_{j}}{dt} = \alpha \sum_{j = 1}^N(-\int_{\chi} \frac{d\phi_{j}}{dx}\frac{d\phi_{j}}{dx}dx)c_{j}(t) + \int_{\chi}h(x, t) \phi_{k} dx
 \quad \forall \phi_{k} \in \phi \label{eq-heat-fem}
 \end{gather}
+Since \(\phi_k \phi_j \neq 0\) for \(k = j, k = j \pm 1\) (\ref{eq-heat-fem}) 
+can be expressed as 
+\begin{gather}
+q_1\dot{c}_{j-1} + q_2 \dot{c}_{j} + q_1 \dot{c}_{j+1} = p_1 c_{j-1} + p_2 c_{j} + p_1 c_{j+1} + H(x,t)
+\end{gather}
+where \(p\) and \(q\) are some constants derived later.
+For \(j=1\)  and \(j=n\) some new coefficients \(c_0, c_{n+1}\) are introduced.
+To force the boundary condition they are set to zero \(c_0 = c_{n+1} = 0\).
+It follows that \(h(x, t)\) and \(c_j(0)\) have to satisfy the boundary condition too.
+
 Using matrix notation this becomes:
 \begin{gather}
 M^{N \times N}, K^{N \times N} \\
@@ -86,24 +96,25 @@ k_{ij} = \begin{cases}
 0, otherwise
 \end{cases}
 \end{gather}
-However it is necessary to approximate \(d\) for each point in time using numerical integration schemes.
-By assuming that the following decomposition holds:
-\begin{gather}
-h(x, t) = \sum_{i = 1}^{N} \phi_i(x) \upsilon(t)
-\end{gather}
-the vector \(d\) in \ref{eq-heat-almost-ss} can be expressed as \(M\upsilon(t)\).
 Furthermore to solve this system of ODEs numerically an initial condition \(c_{0}\) has to be known 
 \cite{Gustafsson2011b}.
-
-
 It can be obtained using a least squares (LS) approach:
 \begin{gather}
 \sum_{j = 1}^N \langle \phi_j, \phi_k \rangle c_{j}(0) = \langle f, \phi_{k} \rangle \quad \forall \phi_k \in \phi \\
 Mc_{0} = F \label{F}\\ 
 c_{0} = M^{-1}F  \label{c0}
 \end{gather}
-\cite{Gustafsson2011c}
-
+\cite{Gustafsson2011c}.
+However since the basis functions are piecewise linear functions, the coefficients are \(c_0 = \begin{bmatrix}
+f(0), f(\Delta x), ..., f(n)
+\end{bmatrix}^T\)
+\cite{Gustafsson2011g}.
+It is necessary to approximate \(d\) for each point in time using numerical integration schemes.
+By assuming that the following decomposition holds:
+\begin{gather}
+h(x, t) = \sum_{i = 1}^{N} \phi_i(x) \upsilon(t)
+\end{gather}
+the vector \(d\) in \ref{eq-heat-almost-ss} can be expressed as \(M\upsilon(t)\).
 Observe that by multiplying \ref{eq-heat-almost-ss} with \(M^{-1}\) (\ref{ap-K-inv}) yields a system of ODEs:
 \begin{gather}
 \dot{c} = M^{-1}Kc + M^{-1}M\upsilon \label{almost-almost-ss}
@@ -112,17 +123,6 @@ This system of ODEs can be solved using an euler scheme:
 \begin{gather}
 c_{t+1} = \Delta t (M^{-1}Kc_{t} + I\upsilon) + c_{t} \label{fem-euler}
 \end{gather}
-\subsubsection{Force Boundary Conidtions}
-Keep in mind that vector \(d\) is time dependent and has to be recomputed for each time step.
-To force the boudary condition \(u(x, t) = 0 \; x \in \Gamma\) the first and last entry of any \(c_{t}\) has to be zero:
-\begin{gather}
-c_{t}^{1} = 0 \quad c_{t}^{n} = 0 \quad \forall t
-\end{gather}
-Therefore the Matrix \(M^{-1}\) has to be adjusted:
-\begin{gather}
-0 = \Delta t (mKc + M\upsilon) \\
-\Rightarrow m = [0, 0, 0, \dots , 0] \label{force-bound}
-\end{gather}
-Here \(m\) is the first row vector of \(M^{-1}\) or the last one respectively \cite{Gustafsson2011b}.
+
 Using \ref{eq-aprox} and the computed coefficients \(c\) the function \(u(x,t)\) can be approximated.
 However this is equivalent to linear interpolation between \(c_{n}\) and \(c_{n+1}\) (Appendix \ref{ap-lin-interp}).
