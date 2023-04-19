@@ -88,6 +88,32 @@ Since the columns of the snapshot matrix contain spatial information at a given 
 Here the FEM solution is obtained by discretizing the PDE into a large number(\(n\)) of spatial nodes.
 This results in a high dimensional system of ODEs.
 Since \(\Phi\) contains only \(r\) column (\(r << n\)) vectors a reduction in order can be achieved.
+The number of modes \(r\) is determined by the variance that has to be persevered.
+Figure \ref{FIG-POD-VAR} shows the variance each mode stores.
+Here the first two modes alread store almost 97\% of the variance.
+\begin{figure}[H]
+\centering
+\includegraphics[ width=12.5cm]{images/pod_modes}
+\caption{Variance of Modes}
+\label{FIG-POD-VAR}
+\end{figure}
+These two modes are displayed on \ref{FIG-POD-HIGH-MODES}.
+\begin{figure}[H]
+\centering
+\includegraphics[ width=12.5cm]{images/pod_high_var_modes}
+\caption{Leading High Variance Modes}
+\label{FIG-POD-HIGH-MODES}
+\end{figure}
+Setting the variance too high inlcudes also low variance modes that will introduce some errors.
+Some low variance modes are displayed on \ref{FIG-POD-LOW-MODES}.
+\begin{figure}[H]
+\centering
+\includegraphics[ width=12.5cm]{images/pod_low_var_modes}
+\caption{Modes 30 to 35}
+\label{FIG-POD-LOW-MODES}
+\end{figure}
+Figure \ref{FIG-POD-VAR} shows that modes 30 to 35 almost have zero contribution to the snapshot matrix.
+Therefore including them will introduce noise to the approximation and will increase computations.
 However the benefits of this reduced order model are only relevant after the PDE has been solved once using a high dimensional system of ODEs \cite{brunton_kutz_2019c}.
 \subsection{POD for Heat Equation}
 In order to apply pod to heat equation a snapshot matrix \(X\) has to be generated.
@@ -113,7 +139,7 @@ f \in \mathbb{C}^{n}, \quad k = [-\frac{n}{2} \hdots \frac{n}{2}]^{T} \\
 \end{gather}
 \cite{brunton_kutz_2019f}
 
-Figure \ref{FIG-POD} shows a solution to heat equation using FEM and an approximation using POD with \(u(x, t) = 0, x_0 = 10000^{70\times1}, n = 70, n_{approx} = 10\).
+Figure \ref{FIG-POD} shows a solution to heat equation using FEM and an approximation using POD with \(u(x, t) = 0, x_0 = 10000^{70\times1}, n = 70, variance = 90\%\).
 It is clearly visible that there are some differences, especially near the edges.
 However a more detailed analysis of the results are covered in chapter \ref{analysis}.
 \begin{figure}[H]
