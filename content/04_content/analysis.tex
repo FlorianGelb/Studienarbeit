@@ -20,15 +20,9 @@ There was no exact method for determining the parameters in this way.
 \section{Time Domain Error}
 The time domain error will defined as \(\epsilon = Y - \hat{Y}\) where \(Y\) and \(\hat{Y}\) denote the matrices storing the output of the systems \(G\) and \(G_r\).
 Since the output matrices are usually rather large, it is impractical to use \(\epsilon\) directly.
-Therefore  \(||\epsilon||_{max}\)  and \(||\epsilon||_{F}\) as well as \(\epsilon\) will be considered.
-The maximum norm will be used to show the magnitude of the worst occurring error.
-Since this is susceptible to spikes the error is also measured using the Frobenius norm to get a measure of the error that respects all data points.
+Therefore  \(||\epsilon||_{F}\) will be considered.
+The error is measured using the Frobenius norm to get a measure of the error that respects all data points.
 Here two aspects are interesting.
-The first one is how the errors behaves as \(r\) gets larger and the second aspect is how the error evolves over time for some fixed \(r\).
-To get data about the first aspect \(||\epsilon||_{max}\)  and \(||\epsilon||_{F}\) will be measured for increasing \(r\).
-Data about the second aspect will be gathered by calculating the norm of the error between the column vectors of \(Y\) and \(\hat{Y}\) for some fixed \(r\), \(\epsilon_{t} = ||Y_t - \hat{Y}_t||_{2}\) where \(A_t\) denotes the \(t^{th}\) column vector of \(A\).
-Since here vectors are compared the euclidean norm is used since it is compatible to the Frobenius norm.
-The Chebychev norm can also be used as vector norm.
 There will be two different initial conditions considered.
 The first one is \(x(0, x) = 1\).
 It is chosen in this way to display the workings of the boundary condition.
@@ -38,63 +32,107 @@ Therefore \(u(t) = 0\), where \(u\) denotes the systems input.
 The second initial condition is \(x(0, x) = 4\sin(\frac{2\pi}{L}x)\) with random input.
 The initial condition is sinusoidal since it is easy to approximate.
 The input is random to show the error of the models if the inputs are erratic.
-\subsection{Absolute error}
-\paragraph{Proper Orthogonal decomposition}
-\begin{figure}
-\centering
-\includegraphics[ width=\textwidth]{images/test_modes_pod}
-\label{Variance captured by POD Modes}
-\label{FIG-POD-MODES}
-\end{figure}
+\pagebreak
+\subsection{Proper Orthogonal decomposition}
+\subsection{Modal Truncation is Equal to Balanced Truncation}
+The results for BT and MT are the same since \(B = C\) and \(A\) is symmetric.
+Remember that \(A^{n\times n} = M^{-1}K\) where both \(K\) and \(M\) are symmetric, hence \(A\) is symmetric \cite{170372}.
+The eigenvectors of a symmetric matrix are mutually orthogonal \cite{Zhang}.
+Therefore the eigendecomposition of  \(A\) is
+\begin{gather}
+AX = X\Delta
+\end{gather}.
+The eigenvalues of a symmetric matrix are real .
+It is assumed that \(\Delta = diag(\lambda_1, ..., \lambda_n) \lambda_1 \geq \lambda_2 \geq ... \geq \lambda_n\).
+where \(XX^T = X^TX = I\).
+By applying \(x = X\zeta\) to the system, the system becomes
+\begin{gather}
+\dot{\zeta} = \Delta \zeta + X^{T}u(t) \label{sys-zeta1}\\
+\zeta = X\zeta + Du(t) \label{sys-zeta2}
+\end{gather}
+The grammians of that systems are
+\begin{gather}
+W_c = \lim_{t \to \infty} \int_{0}^{t} e^{\Delta\tau}Ie^{\Delta\tau}d\tau \label{gramc} \\
+= \lim_{t \to \infty} \int_{0}^{t} e^{2\Delta\tau}d\tau \\
+= \lim_{t \to \infty} (e^{\Delta t} - I)\Delta^{-1} \\
+W_o = \lim_{t \to \infty} \int_{0}^{t} e^{\Delta\tau}Ie^{\Delta\tau}d\tau \label{gramo} \\
+= \lim_{t \to \infty} \int_{0}^{t} e^{2\Delta\tau}d\tau \\
+= \lim_{t \to \infty} (e^{\Delta t} - I)\Delta^{-1}
+\end{gather}
+Therefore \(W_c = W_o\), where \(W_c\) and \(W_o\) are diagonal for stable systems.
+Since the transfer of heat is a stable process, it is assumed that the according system is stable.
+\begin{gather}
+W_c = W_o = \lim_{t \to \infty} (e^{\Delta t} - I)\Delta^{-1} \\
+= -\Delta^{-1} 
+\end{gather}
+\cite{658289}
+\begin{gather}
+W_C = W_o = \begin{bmatrix}
+\frac{-1}{\lambda_1} && 0 && \hdots && 0 \\
+0 && \frac{-1}{\lambda_2}&& 0 && \vdots \\
+\vdots && 0 && \ddots && \vdots \\
+0 && 0 && \hdots && \frac{-1}{\lambda_n}
+\end{bmatrix}
+\end{gather}
+This shows that the eigenvectors of \(A\) satisfy the conditions for balancing transformation \(T\) in section \ref{bt}.
+Since the eigenvalues are all negative and real the order \(\delta_{11} \geq \delta_{22} \geq ...  \delta_{nn}\) applies.
+This enables the mode truncation described in section \ref{bt}.
+\begin{gather}
+\tilde{x} = \begin{bmatrix}
+\zeta_1 \\
+\vdots \\
+\zeta_r
+\end{bmatrix} \quad 
+\tilde{z} = \begin{bmatrix}
+\zeta_{r+1} \\
+\vdots \\
+\zeta_n
+\end{bmatrix} \quad
+z = \begin{bmatrix}
+\tilde{x} \\
+\tilde{z}
+\end{bmatrix}\\
+X= \begin{bmatrix}
+X_r && X_{n-r}
+\end{bmatrix} \quad
+X^{-1} = \begin{bmatrix}
+X_r^{*} \\
+X_{n-r}
+\end{bmatrix} \\
+\frac{d\tilde{x}}{dt} = \Delta_r \tilde{x} + X^{-1}_ru \\
+y = X_r\tilde{x} + Du 
+\end{gather}
+The transfer function of the system described in (\ref{sys-zeta1}) and (\ref{sys-zeta2}) can be obtained using the DCNF section \ref{dcnf}, this section also shows that the transfer function of the transformed system is equal to the transfer function of the original system.
+Section \ref{mtht} shows that the optimal truncation here is to keep the terms corresponding to the \(r\) largest eigenvalues of \(A\).
+The resulting system in state space representation is
+\begin{gather}
+\tilde{x} = \begin{bmatrix}
+\zeta_1 \\
+\vdots \\
+\zeta_r
+\end{bmatrix} \quad 
+\tilde{z} = \begin{bmatrix}
+\zeta_{r+1} \\
+\vdots \\
+\zeta_n
+\end{bmatrix} \quad
+z = \begin{bmatrix}
+\tilde{x} \\
+\tilde{z}
+\end{bmatrix}\\
+X= \begin{bmatrix}
+X_r && X_{n-r}
+\end{bmatrix} \quad
+X^{-1} = \begin{bmatrix}
+X_r^{*} \\
+X_{n-r}
+\end{bmatrix} \\
+\frac{d\tilde{x}}{dt} = \Delta_r \tilde{x} + X^{-1}_ru \\
+y = X_r\tilde{x} + Du 
+\end{gather}
+This system is equal to the system retrieved by Balanced Truncation for \(T = X\).
 
 
-\begin{figure}[H]
-\begin{subfigure}{.5\textwidth}
-\centering
-\includegraphics[ width=7.5cm]{images/abs\_Proper Orthorgonal Decomposition\_10\_100}
-\caption{Absolute error POD, var=10\%}
-\label{FIG-ABS-POD10}
-\end{subfigure}
-\begin{subfigure}{.5\textwidth}
-\centering
-\includegraphics[ width=7.5cm]{images/abs\_Proper Orthorgonal Decomposition\_25\_100}
-\caption{Absolute error POD, var=25\%}
-\label{FIG-ABS-POD25}
-\end{subfigure}
-\caption{Absolute error POD, var=10\% and var=25\%}
-\label{FIG-ABS_POD1}
-\end{figure}
 
 
-\begin{figure}[H]
-\begin{subfigure}{.5\textwidth}
-\centering
-\includegraphics[ width=7.5cm]{images/abs\_Proper Orthorgonal Decomposition\_50\_100}
-\caption{Absolute error POD, var=50\%}
-\label{FIG-ABS-POD50}
-\end{subfigure}
-\begin{subfigure}{.5\textwidth}
-\centering
-\includegraphics[ width=7.5cm]{images/abs\_Proper Orthorgonal Decomposition\_75\_100}
-\caption{Absolute error POD, var=75\%}
-\label{FIG-ABS-POD75}
-\end{subfigure}
-\caption{Absolute error POD, var=50\% and var=75\%}
-\label{FIG-ABS_POD2}
-\end{figure}
 
-\begin{figure}[H]
-\begin{subfigure}{.5\textwidth}
-\includegraphics[ width=7.5cm]{images/abs\_Proper Orthorgonal Decomposition\_99\_100}
-\caption{Absolute error POD, var=99\%}
-\label{FIG-ABS-POD100}
-\end{subfigure}
-\begin{subfigure}{.5\textwidth}
-\centering
-\includegraphics[ width=7.5cm]{images/abs\_Proper Orthorgonal Decomposition\_100\_100}
-\caption{Absolute error POD, var=100\%}
-\label{FIG-ABS-POD100}
-\end{subfigure}
-\caption{Absolute error POD, var=99\% and var=100\%}
-\label{FIG-ABS_POD3}
-\end{figure}
