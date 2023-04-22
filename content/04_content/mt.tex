@@ -21,14 +21,14 @@ The system matrices have to be transformed accordingly:
 Those transformed matrices are used to calculate the transfer function \ref{tf-from-ss}:
 \begin{gather}
 G(s) = CX(sI - \Delta)^{-1}X^{-1}B + D\\
-= D + \begin{bmatrix}
+= \begin{bmatrix}
 C x_1 && \hdots && Cx_n
 \end{bmatrix} diag\{\frac{1}{s-\lambda_1}, \hdots, \frac{1}{s-\lambda_n}\} \begin{bmatrix}
 x_1^{-1}B \\
 \vdots \\
 x_n^{-1}B
-\end{bmatrix} \\
-= D + \sum_{i \in I} \frac{c_i b_i^{T}}{s - \lambda_i} 
+\end{bmatrix} + D \\
+= \sum_{i \in I} \frac{c_i b_i^{T}}{s - \lambda_i}  + D
 \Rightarrow \Phi_i = c_i b_i^{T}
 \end{gather}
 \cite{Benner}
