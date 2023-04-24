@@ -166,6 +166,19 @@ However for \(r \leq \frac{n}{3}\) the error converges to zero as \(r\) increase
 \end{figure}
 It is noticeable that similar to BT and MT the error for \(x(0, x) = \sin(\frac{2\pi}{L}x)\) starts higher than for \(x(0, x) = 1\) and then decays quite fast.
 
+\section{Frequency Domain Error}
+The frequency domain error for \(G_{\epsilon }= G - G_r\) will be determined using the \(H_{\infty}\) norm.
+For a MIMO system this is the maximum singular value of the frequency response of the transfermatrix.
+It can be interpreted as the maximum gain from the \(i^{th}\) input to the \(i^{th}\) output \cite{eugenio}.
+The \(H2\) cannot be used to get a measure of the error since the ROM that HNA yields has nonzero feedthrough matrix, therefore \(||G_{\epsilon}||_{H_{2}}\) is infinite. 
+\subsection{Proper Orthogonal Decomposition}
+\subsection{Modal Truncation}
+\subsection{Balanced Truncation}
+\subsection{Hankel Norm Approximation}
+
+
+
+
 \subsection{Modal Truncation is Equal to Balanced Truncation}
 The results for BT and MT are the same since \(B = C\) and \(A\) is symmetric.
 Remember that \(A^{n\times n} = M^{-1}K\) where both \(K\) and \(M\) are symmetric, hence \(A\) is symmetric \cite{170372}.
