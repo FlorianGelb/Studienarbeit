@@ -137,3 +137,82 @@ Suppose \(Q^{*} = K + (V + \tilde{D})\) was the optimal decomposition, then the 
 Therefore \(G_r = K + D\) and \(F = V\).
 
 \section{Applying HNA to Heat Equation}
+
+\section{Truncation is Equal to Balanced Truncation}
+The results for BT and MT are the same since \(B = C\) and \(A\) is symmetric.
+Remember that \(A^{n\times n} = M^{-1}K\) where both \(K\) and \(M\) are symmetric, hence \(A\) is symmetric \cite{170372}.
+The eigenvectors of a symmetric matrix are mutually orthogonal \cite{Zhang}.
+Therefore the eigendecomposition of  \(A\) is
+\begin{gather}
+AX = X\Delta
+\end{gather}.
+The eigenvalues of a symmetric matrix are real .
+It is assumed that \(\Delta = diag(\lambda_1, ..., \lambda_n)\) with \(\lambda_1 \geq \lambda_2 \geq ... \geq \lambda_n\).
+where \(XX^T = X^TX = I\).
+By applying \(x = X\zeta\) to the system, the system becomes
+\begin{gather}
+\dot{\zeta} = \Delta \zeta + X^{T}u(t) \label{sys-zeta1}\\
+\zeta = X\zeta + Du(t) \label{sys-zeta2}
+\end{gather}
+The grammians of that systems are
+\begin{gather}
+W_c = \lim_{t \to \infty} \int_{0}^{t} e^{\Delta\tau}Ie^{\Delta\tau}d\tau \label{gramc} \\
+= \lim_{t \to \infty} \int_{0}^{t} e^{2\Delta\tau}d\tau \\
+= \lim_{t \to \infty} (e^{\Delta t} - I)\Delta^{-1} \\
+W_o = \lim_{t \to \infty} \int_{0}^{t} e^{\Delta\tau}Ie^{\Delta\tau}d\tau \label{gramo} \\
+= \lim_{t \to \infty} \int_{0}^{t} e^{2\Delta\tau}d\tau \\
+= \lim_{t \to \infty} (e^{\Delta t} - I)\Delta^{-1}
+\end{gather}
+Therefore \(W_c = W_o\), where \(W_c\) and \(W_o\) are diagonal for stable systems.
+Since the transfer of heat is a stable process, it is assumed that the according system is stable.
+\begin{gather}
+W_c = W_o = \lim_{t \to \infty} (e^{\Delta t} - I)\Delta^{-1} \\
+= -\Delta^{-1} 
+\end{gather}
+\cite{658289}
+\begin{gather}
+W_C = W_o = \begin{bmatrix}
+\frac{-1}{\lambda_1} && 0 && \hdots && 0 \\
+0 && \frac{-1}{\lambda_2}&& 0 && \vdots \\
+\vdots && 0 && \ddots && \vdots \\
+0 && 0 && \hdots && \frac{-1}{\lambda_n}
+\end{bmatrix}
+\end{gather}
+This shows that the eigenvectors of \(A\) satisfy the conditions for balancing transformation \(T\) in section \ref{bt}.
+Since the eigenvalues are all negative and real the order \(\delta_{11} \geq \delta_{22} \geq ...  \delta_{nn}\) applies.
+This enables the mode truncation described in section \ref{bt}.
+\begin{gather}
+\tilde{x} = \begin{bmatrix}
+\zeta_1 \\
+\vdots \\
+\zeta_r
+\end{bmatrix} \quad 
+\tilde{z} = \begin{bmatrix}
+\zeta_{r+1} \\
+\vdots \\
+\zeta_n
+\end{bmatrix} \quad
+z = \begin{bmatrix}
+\tilde{x} \\
+\tilde{z}
+\end{bmatrix}\\
+X= \begin{bmatrix}
+X_r && X_{n-r}
+\end{bmatrix} \quad
+X^{-1} = \begin{bmatrix}
+X_r^{*} \\
+X_{n-r}
+\end{bmatrix} \\
+\frac{d\tilde{x}}{dt} = \Delta_r \tilde{x} + X^{-1}_ru \\
+y = X_r\tilde{x} + Du 
+\end{gather}
+The transfer function of that system is
+\begin{gather}
+G(s) = X_r(sI - \Delta_r^{-1})X_r^{T}+D = X_r diag(\frac{1}{s-\lambda_1}, ..., \frac{1}{s-\lambda_r})X_r^{T}+D \\
+= \sum_{i=1}^{r} \frac{1}{s-\lambda_i} + D
+\end{gather}
+This resembles the DCNF of that system where the terms corresponding to the \(n-r\) smallest eigenvalues are truncated.
+As shown in section \ref{mtht} this is the optimal modal truncation.
+Therefore modal truncation and balanced truncation yields the same system.
+
+
