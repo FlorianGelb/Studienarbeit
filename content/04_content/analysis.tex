@@ -279,6 +279,57 @@ The plot shows that the frequency domain error of the ROM obtained using POD wit
 The best choice for minimal \(H_{\infty}\) error here is clearly HNA. 
 The error of HNA is significantly lower than the error of the other three methods.
 
+\section{Processing Time}
+The processing time is obtained by measuring the time it takes to build the reduced order model.
+To make sure that the measurements are reliable to some degree, each measurement is taken ten times.
+This choice is arbitrary, but was taken to keep overall computing time in check.
+Those measurements are depicted as box plots in the following figures.
+
+\subsection{Proper Orthogonal Decomposition}
+Figure \ref{FIG-T-POD} shows the processing time of POD.
+It can be observed that the time it takes to compute a POD model, is quite constant for  \(1 \geq r \geq 100\).
+This implies that the implementation of the algorithm is efficient to an extend that the range of \(r\) is too small to gain information about the relation between \(r\) and the processing time.
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{images/time/POD}
+\caption{Processing time POD}
+\label{FIG-T-POD}
+\end{figure}
+
+
+
+\subsection{Modal Truncation}
+Figure \ref{FIG-T-MT} shows the processing time of modal truncation.
+It is noticeable that \(r = 100\) yields the lowest time to compute.
+This is to be expected since in this case modal truncation is equal to applying a coordinate transform to the original system.
+For \(r \neq 100\) there is seemingly some \(r\) around fifty that offers some optimal computing speed.
+Again this could be due to the rather small range of  \(r\).
+Figure \ref{FIG-T-MT}
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{images/time/MT}
+\caption{Processing time MT}
+\label{FIG-T-MT}
+\end{figure}
+
+
+\subsection{Balanced Truncation}
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{images/time/BT}
+\caption{Processing time BT}
+\label{FIG-T-BT}
+\end{figure}
+
+
+\subsection{Hankel Norm Approximation}
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{images/time/HNA}
+\caption{Processing time HNA}
+\label{FIG-T-HNA}
+\end{figure}
+
 
 
 
