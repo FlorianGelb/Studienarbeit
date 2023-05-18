@@ -1,0 +1,29 @@
+\chapter{Conclusion and Outlook}
+\section{Conclusion}
+In summary, the basics were first described.
+First, the 1D heat equation was explained and a naïve approach to solving it was presented.
+This approach had the problem that no boundary conditions could be met.
+For this reason, the finite element method was introduced and then it was described how the heat equation can be discretised and solved with this method.
+Subsequently, various fundamentals were dealt with that were necessary for understanding the later procedures for model order reduction.
+These were explained in the following chapter.
+The orthogonal decomposition, the modal truncation, the balanced truncation and the hankel norm approximation were used.
+It is striking that the modal truncation and the balanced truncation are identical for the example system resulting from the heat equation.
+In the following chapter, in which the presented methods were compared in terms of \(L2\) error, \(H_{\infty}\) error and running time, this finding was confirmed. The errors of the modal truncation and the balanced truncation were identical.
+It is also noticeable that both the \(L2\) error and the \(H_{\infty}\) error for POD depend strongly on the initial values of the system used to create the snapshot matrix.
+This can be explained by the fact that constant initial values in particular are difficult to approximate with a small number of orthogonal basis vectors, while sinusoidal initial values are very easy to approximate.
+In comparison, balanced truncation and modal truncation are the best in terms of \(L2\) and \(H_{\infty}\) error. 
+Hankel norm approximation is only slightly worse here.
+POD was by far the worst, especially if the snapshot matrix was created with constant initial values.
+In terms of computing time, balanced truncation and hankel norm approximation differ only slightly. 
+Proper orthogonal decomposition is about a factor of 2 faster here.
+A rather naive approach was chosen for the implementation of the POD algorithm, without any special optimisation of the performance.
+This speaks for the simplicity of the method.
+Modal truncation performed best. 
+It was about an order of magnitude faster than balanced truncation or hankel norm approximation.
+Thus it can be said that modal truncation is the best method, in terms of computing time and error, for model order reduction for the system described.
+   
+\section{Outlook}
+It would be worthwhile to investigate how the selected methods behave for more complex systems than the 1D heat equation.
+Possible systems would be 3D heat equations for inhomogeneous materials or, for example, 3D Navier-Stokes equations for the simulation of fluids.
+It would be interesting to choose the system in such a way that the system cannot be arbitrarily influenced from the outside and that not every state can be measured perfectly, as this has led to modal truncation and balanced truncation giving the same results.
+It would also make sense to use larger initial systems for the comparisons, since it has been shown that, especially in the time measurement, hardly any significant statements have been made regarding the runtime as a function of the model order.

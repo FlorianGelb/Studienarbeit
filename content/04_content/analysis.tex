@@ -289,6 +289,7 @@ Those measurements are depicted as box plots in the following figures.
 Figure \ref{FIG-T-POD} shows the processing time of POD.
 It can be observed that the time it takes to compute a POD model, is quite constant for  \(1 \geq r \geq 100\).
 This implies that the implementation of the algorithm is efficient to an extend that the range of \(r\) is too small to gain information about the relation between \(r\) and the processing time.
+The measurements are mainly between 0.012 and 0.022 seconds.
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{images/time/POD}
@@ -304,7 +305,7 @@ It is noticeable that \(r = 100\) yields the lowest time to compute.
 This is to be expected since in this case modal truncation is equal to applying a coordinate transform to the original system.
 For \(r \neq 100\) there is seemingly some \(r\) around fifty that offers some optimal computing speed.
 Again this could be due to the rather small range of  \(r\).
-Figure \ref{FIG-T-MT}
+The most measurements are in a range between 3.5 and 5 milliseconds.
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{images/time/MT}
@@ -314,6 +315,8 @@ Figure \ref{FIG-T-MT}
 
 
 \subsection{Balanced Truncation}
+Figure \ref{FIG-T-BT} displays the processing time with respect to the model order \(r\).
+Again it is fairly constant where the majority of measurements is in a range between 0.03 and 0.04 seconds.
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{images/time/BT}
@@ -323,6 +326,10 @@ Figure \ref{FIG-T-MT}
 
 
 \subsection{Hankel Norm Approximation}
+Figure \ref{FIG-T-HNA} shows the the processing time dependent on the model order.
+It is striking that for \(r = 99\) and \(r = 100\) the processing time is significantly lower than in the remaining measurements.
+The exact reason for this is unclear, however it could be speculated that for \(r=100\) only a balanced realization is computed and therefore many steps of the algorithm could be skipped.
+Except for those two outliers the range of the majority of the measurements is 0.036 to 0.043 seconds.
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{images/time/HNA}
@@ -330,6 +337,13 @@ Figure \ref{FIG-T-MT}
 \label{FIG-T-HNA}
 \end{figure}
 
+\subsection{Comparison of processing time}
+The fastest method here is modal truncation.
+It is roughly one order of magnitude faster than the remaining methods.
+Balanced truncation and hankel norm approximation are quite similar in processing time, however hankel norm approximation is slightly slower.
+The slowest method is hankel norm approximation.
+This is not surprising since POD uses a naive implementation, no toolbox is used.
+So the best method when it comes to processing speed is modal truncation.
 
 
 

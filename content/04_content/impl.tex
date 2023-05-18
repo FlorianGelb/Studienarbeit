@@ -3,12 +3,17 @@ The implementation of the discussed methods for solving the heat equation and fo
 Matlab was chosen as the programming language because it natively features matrix multiplication which finds heavy use in the previously mentioned methods.
 The second reason for this selection is that there exist ToolBoxes that already implement certain model order reduction methods such as MORLAB \cite{benner_werner} or MOR toolbox \cite{MORT}.
 The following figure shows the class diagram of the implementation:
-\newline
 
 \begin{figure}[H]
-\includegraphics[ width=\textwidth]{images/class}
-\caption{Class diagramm of MOR and FEM implementation}
+\includegraphics[width=\textwidth]{images/container}
+\caption{Class diagram of MOR and FEM implementation}
 \end{figure}
+
+\begin{figure}[H]
+\includegraphics[width=\textwidth]{images/main}
+\caption{Class diagram main}
+\end{figure}
+
 \section{Class main}
 The class main is responsible for generating the finite element solution, model order reduction steps and plotting the results. The process can be seen in the following flow chart:
 \begin{figure}[H]
