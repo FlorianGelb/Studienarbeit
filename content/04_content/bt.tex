@@ -11,7 +11,7 @@ This yields a new system
 y = \hat{C}z + Du \label{z2} \\
 \hat{A} = T^{-1}AT \quad \hat{B} = T^{-1}B \quad \hat{C} = CT \,.\label{red-sys-mat}
 \end{gather}
-The gramians of this ROM can be obtained by applying  \ref{gram-obsv} and \ref{gram-ctrl} to \ref{red-sys-mat}.
+The gramians of this ROM can be obtained by applying  (\ref{gram-obsv}) and (\ref{gram-ctrl}) to (\ref{red-sys-mat}).
 This yields \(\hat{W}_c = T^{-1}W_cT^{-*}\) and \(\hat{W}_o = T^{*}W_oT\) with  \(T^{-*} := (T^{-1})^{*} := (T^{*})^{-1}\).
 A requirement \(T\) has to satisfy is that it has to make the observability and controllability gramians of the ROM equal and diagonal
 \begin{gather}
@@ -20,14 +20,14 @@ A requirement \(T\) has to satisfy is that it has to make the observability and 
 T^{-1}W_cW_oT = \Delta^{2} \\
 W_cW_oT = T\Delta^{2}  \,. \label{eigendec}
 \end{gather}
-Since \(\Delta\) is a diagonal matrix, \ref{eigendec} is equal to the eigendecomposition of \(W_cW_o\).
+Since \(\Delta\) is a diagonal matrix, (\ref{eigendec}) is equal to the eigendecomposition of \(W_cW_o\).
 Therefore \(T\) contains the eigenvectors of \(W_cW_o\).
 The values contained in \(\Delta\) are known as hankel singular values.
 However \(T\) needs to be rescaled to make \(\hat{W}_c\) and \(\hat{W}_o\) equal.
 Here \(T_u\) denotes the unscaled eigenvectors of this eigendecomposition that yields gramians that are not equal to each other
 \begin{gather}
-T_u^{-1}W_cT_u^{-*} = \Delta_c \label{1}\\
-T_u^{*}W_cT_u = \Delta_o  \,. \label{2}
+T_u^{-1}W_cT_u^{-*} = \Delta_c \label{e1}\\
+T_u^{*}W_cT_u = \Delta_o  \,. \label{e2}
 \end{gather}
 Scaling \(T_u\) by some diagonal matrix \(\Delta_s\) results in \(\Delta_c = \Delta_o\)
 \begin{gather}
@@ -46,9 +46,9 @@ As shown here \cite{170373} the remaining derivative can be solved in the follow
 \frac{d}{dx} x^{*}Ax = 2Ax \,. \label{der-mat}
 \end{gather}
 This holds if \(A\) is symmetric. 
-Here both \(W_c\) and \(W_o\) share the same set of eigenvectors \ref{1} and \ref{2}, therefore they commute \cite{170371}.
+Here both \(W_c\) and \(W_o\) share the same set of eigenvectors (\ref{e1}) and (\ref{e2}), therefore they commute \cite{170371}.
 This means that the product of \(W_c\) and \(W_o\) is also symmetric \cite{170372}.
-Applying \ref{der-mat} to \ref{opt1} yields
+Applying (\ref{der-mat}) to (\ref{opt1}) yields
 \begin{gather}
 W_cW_o\zeta = \lambda \zeta \,.
 \end{gather}
@@ -87,7 +87,7 @@ T^{-1} = S = \begin{bmatrix}
 S_t
 \end{bmatrix}  \,. \label{decomp-mats}
 \end{gather}
-By substituting \ref{decomp-vecs} and \ref{decomp-mats} into the system in \ref{z1} and \ref{z2} the system becomes
+By substituting (\ref{decomp-vecs}) and (\ref{decomp-mats}) into the system in (\ref{z1}) and (\ref{z2}) the system becomes
 \begin{gather}
 \frac{d}{dt} \begin{bmatrix}
 \tilde{x} \\
@@ -121,7 +121,7 @@ since this is the only part necessary to calculate \(\tilde{x}\)
 
 \subsection{Computing Balanced Truncation}
 Since the gramians for controllability and observability are too expensive to compute for large systems the so called empirical gramians are used as an approximation.
-The empirical gramians are calculated by using the discrete-time system matrices from \ref{disc-a} and \ref{disc-b}
+The empirical gramians are calculated by using the discrete-time system matrices from (\ref{disc-a}) and (\ref{disc-b})
 \begin{gather}
 \mathscr{C}_d = \begin{bmatrix}B_d & A_dB_d & \hdots & dA^{m_o -1}B_d\end{bmatrix} \\
 \mathscr{O}_d = \begin{bmatrix}
@@ -136,8 +136,8 @@ m_o, m_c << rank(A)  \,.
 Now these empirical gramians can be used for obtaining the balancing coordinate transform \cite{brunton_kutz_2019e}.
 
 \subsection{State Space Representation from Heat Equation} \label{heat-ss}
-To apply balanced truncation to the heat equation \ref{eq-1d-h} a state space representation of that system has to be found first.
-Note that the system of ODEs resulting from FEM \ref{almost-almost-ss} resembles a state space representation
+To apply balanced truncation to the heat equation (\ref{eq-1d-h}) a state space representation of that system has to be found first.
+Note that the system of ODEs resulting from FEM (\ref{almost-almost-ss}) resembles a state space representation
 \begin{gather}
 x := c \quad x_0 := c_0 \\
 A := M^{-1}K \quad B:= I  \,.

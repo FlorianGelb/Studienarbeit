@@ -71,10 +71,7 @@
 \renewcommand*{\chapterpagestyle}{plain}
 \pagestyle{plain}
 \include{content/03_indexes/abkuerzungen}
-\listoffigures                          % Erzeugen des Abbildungsverzeichnisses 
-\listoftables                           % Erzeugen des Tabellenverzeichnisses
-\renewcommand{\lstlistlistingname}{source-codeverzeichnis}
-\lstlistoflistings                      % Erzeugen des Listenverzeichnisses
+\listoffigures                          % Erzeugen des Abbildungsverzeichnisses                      % Erzeugen des Tabellenverzeichnisses                    % Erzeugen des Listenverzeichnisses
 \setcounter{savepage}{\value{page}}
 
 
@@ -111,7 +108,7 @@
 \pagestyle{plain}
 \pagenumbering{Roman}                   % Römische Seitenzahlen
 \setcounter{page}{\numexpr\value{savepage}+1}
-\printbibliography[title=Literaturverzeichnis]
+\printbibliography[title=Bibliography]
 
 % ---- Anhang
 \appendix

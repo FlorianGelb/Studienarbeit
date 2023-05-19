@@ -24,7 +24,7 @@ The class main is responsible for generating the finite element solution, model 
 The first step is to generate a parameter object.
 The parameter object stores all parameters in order to increase the transparency and robustness of the program.
 The second step is to iterate the array of stated algorithms to solve the heat equation.
-The options are to solve the heat equation using finite element method \ref{FEM} or using Fourier transform \ref{HE}.
+The options are to solve the heat equation using finite element method section \ref{FEM} or using Fourier transform section \ref{HE}.
 After all solver objects have been generated, the according solutions are being computed.
 After that, the MOR methods are displayed.
 The final step is to display the solutions or return the \(L2\), \(H_{\infty}\) error of each ROM.
@@ -75,7 +75,7 @@ Here \(dt\), \(T\) and \(h\) are provided by the parameter object,
 \(dt\) is the time step, \(T\) is the time limit to which the solution is to be computed and \(h\) is the input to the system.
 Since this method is common among all classes derived from the container class, only the solution is stored in the solution object.
 The remaining fields of that object are set in the child class after the object has been returned.
-Those classes derived form container can be seen on \ref{fig-class-2}.
+Those classes derived form container can be seen on figure \ref{fig-class-2}.
 \begin{figure}[H]
 \includegraphics[width=\textwidth]{images/container}
 \caption{Class diagram of MOR and FEM implementation}
@@ -92,7 +92,7 @@ To save time no solutions are generated in this case.
 
 \section{Class containerFEM}
 The class containerFEM is responsible for generating a solution and the state space representation of the system using finite element method.
-FEM is implemented as shown on \ref{fig-fem-flow}.
+FEM is implemented as shown on figure \ref{fig-fem-flow}.
 \begin{figure}[H]
 \includegraphics[ width=\textwidth]{images/seq-fem}
 \caption{Flow chart for FEM class}
@@ -100,10 +100,10 @@ FEM is implemented as shown on \ref{fig-fem-flow}.
 \end{figure}
 
 The first step is to set the parameters.
-After that the matrices discussed in \ref{FEM} are being constructed.
+After that the matrices discussed in section \ref{FEM} are being constructed.
 The next step is to solve the resulting system of ODEs and pass the solution to a solution object.
 \subsection{Construct Matrices}
-As defined in \ref{def-mat-a}  the matrices \(K\) and \(M\) have to be constructed.
+As defined in (\ref{def-mat-a})  the matrices \(K\) and \(M\) have to be constructed.
 This is done by the following method:
 \begin{algorithm}[H]
 \caption{Construct matrices \(K\) and \(M\)}
@@ -140,11 +140,10 @@ After the solution is generated, the returned solution object gets filled with t
 \section{Class createPOD}
 The implementation of proper orthogonal decomposition is not included in the use MORLAB package.
 Therefore it is implemented in the createPOD class.
-The first step is to construct the matrx \(Phi\) as described in \ref{chap-pod}.
+The first step is to construct the matrix \(\Phi\) as described in section \ref{chap-pod}.
 This is done by computing the SVD of the provided FEM solution and truncating the resulting \(U\) matrix, such that the \(r\) most dominant modes are included.
 In the following step the transformed initial condition and the spacial derivative of \(Phi\) is computed.
 The spacial derivative is computed using the spectral derivative.
-This method to approximate the derivative  is chosen over approximations using the difference quotient since it yields better results, especially at the fist and last entry of each column in \(\Phi\).
 In the last step the resulting system of ODEs is solved using the implemented euler scheme and the resulting solution object is filled.
 \begin{algorithm}[H]
 \caption{Create POD}
@@ -155,33 +154,28 @@ In the last step the resulting system of ODEs is solved using the implemented eu
 \hspace*{\algorithmicindent} solution object
 \begin{algorithmic}[1]
 \Procedure{solve}{}
-\State rom\_time $\gets$ []
-\If time
+\If{time}
 \For{$i=1  \; \textbf{to} \; 10$}
 \State $T1 = tic$
 \State [$U$, $S$, $V$] $\gets SVD(X, "econ")$
 \State $\Phi = U(:, 1:r)$
-\State $\Phi_{xx} \gets []$
 \For{$i=1  \; \textbf{to} \; r$}
 \State $\Phi_{xx}(:, i) \gets spectral\_der(\Phi(:, i))$
+\State rom\_time(i) $\gets T1 - toc$
 \EndFor
-\State rom\_time(i) $\gets T1 - T2$
 \EndFor
 \State sol $\gets$ solution(NaN, "POD", $X$, NaN)
 \State sol.rom\_time $\gets$ rom\_time
 \EndIf
 \State [$U$, $S$, $V$] $\gets SVD(X, "econ")$
 \State $\Phi = U(:, 1:r)$
-\State $\Phi_{xx} \gets []$
 \For{$i=1  \; \textbf{to} \; r$}
 \State $\Phi_{xx}(:, i) \gets spectral\_der(\Phi(:, i))$
 \EndFor
-\State $a_0 \gets \Phi^{T} u_0$
-\State $sol \gets euler(\alpha \Phi^{T} \Phi_{xx}, \Phi^{T}, \phi, a0)$
+\State $sol \gets euler(\alpha \Phi^{T} \Phi_{xx}, \Phi^{T}, \phi, \Phi^{T} u_0)$
 \State rom = struct("A", $\alpha \Phi^{T} \Phi_{xx}$, "B",$\Phi^{T}$, "C", $\Phi$, "D", parameterObj.D);
 \State sol.method = "Proper Orthogonal Decomposition"
-\State sol.pred = $X$
-\State sol.reduced\_model = rom
+\State sol.pred = $X$, sol.reduced\_model = rom
 \EndProcedure
 \end{algorithmic}
 \end{algorithm}

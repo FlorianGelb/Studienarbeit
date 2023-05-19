@@ -34,21 +34,21 @@ This is done to provide a more abstract way to denote PDEs
 \cite{Gustafsson2011f} \\
 Solving for \(u\) is often difficult to impossible.
 A method that is often used to solve PDEs is called separation of variables.
-This separation of variables assumes, that the underlying solution \(u(x, t)\) can be expressed by \ref{ref-orth-exp}, to solve for \(a_k, 0 \leq k \leq n\).
-Since it is not practical to compute an infinite series, \(u\) only gets approximated by using \ref{ref-orth-aprox} instead
+This separation of variables assumes, that the underlying solution \(u(x, t)\) can be expressed by (\ref{ref-orth-exp}), to solve for \(a_k, 0 \leq k \leq n\).
+Since it is not practical to compute an infinite series, \(u\) only gets approximated by using (\ref{ref-orth-aprox}) instead
 \begin{gather}
 \sum_{i = 1} ^{n} \frac{\partial a_i}{\partial t} \phi_i = \sum_{i = 1} ^{n} \mathfrak{P}(\partial x) \phi_i a_i \,. \label{label-u-aprox} 
 \end{gather}
-By discretizing the spatial dimension got along \(x\) \ref{label-u-aprox} can be expressed using matrix notation
+By discretizing the spatial dimension got along \(x\) (\ref{label-u-aprox}) can be expressed using matrix notation
 \begin{gather}
 \Phi = \begin{bmatrix}
 \phi_0 & ... & \phi_n
 \end{bmatrix} \label{mat-phi}\\
 \Phi \frac{d}{dt}a = \mathfrak{P}(\partial x) \Phi a \,.
 \end{gather}
-Since the solution \(u\) is unknown \ref{sol-ai} cannot be computed.
+Since the solution \(u\) is unknown (\ref{sol-ai}) cannot be computed.
 However, the fact, that all \(\phi\) are orthogonal to each other, can be used to solve for all \(a_k\).
-It can be done by computing the inner product of \ref{label-u-aprox} with all basis functions
+It can be done by computing the inner product of (\ref{label-u-aprox}) with all basis functions
 \begin{gather}
 \left\langle \sum_{i = 1} ^{n} \frac{\partial a_i}{\partial t} \phi_i, \phi_k \right\rangle = \left\langle\sum_{i = 1} ^{n} \mathfrak{P}(\partial x) \phi_i a_i, \phi_k \right\rangle \quad, \quad 0 \leq k \leq n \,. \label{u-galer}
 \end{gather}
@@ -57,7 +57,7 @@ In matrix notation it can be expressed
 \begin{gather}
 \Phi^{T}\Phi \frac{d}{dt}a = \Phi^{T}\mathfrak{P}(\partial x) \Phi a \,.
 \end{gather}
-By considering \ref{phi-orth}  the equation \ref{u-galer} can be expressed as a system of ODEs which can be solved
+By considering (\ref{phi-orth})  the equation (\ref{u-galer}) can be expressed as a system of ODEs which can be solved
 \begin{gather}
 \frac{d}{dt} a = \Phi^{T}\mathfrak{P}(\partial x) \Phi a \,.
 \end{gather}
@@ -76,7 +76,7 @@ x_1 & ...& x_m
 \end{bmatrix} \,.
 \end{gather}
 The solutions can be obtained by conducting an experiment on a physical system that is described by the PDE or by simulating the evolution of that PDE.
-In this paper the solution is obtained using FEM \ref{FEM}.
+In this paper the solution is obtained using FEM from section \ref{FEM}.
 SVD is used to decompose the snapshot matrix \(X\).
 Since the columns of the snapshot matrix contain spatial information at a given point in time and the basis vectors are supposed to encode the spatial information of a solution \(u\) the \(r\) most dominant left singular values have to be extracted
 \begin{gather}
@@ -95,7 +95,7 @@ Here the first two modes alread store almost 97\% of the variance.
 \caption{Variance of Modes}
 \label{FIG-POD-VAR}
 \end{figure}
-These two modes are displayed on \ref{FIG-POD-HIGH-MODES}.
+These two modes are displayed on figure \ref{FIG-POD-HIGH-MODES}.
 \begin{figure}[H]
 \centering
 \includegraphics[ width=12.5cm]{images/pod_high_var_modes}
@@ -103,7 +103,7 @@ These two modes are displayed on \ref{FIG-POD-HIGH-MODES}.
 \label{FIG-POD-HIGH-MODES}
 \end{figure}
 Setting the variance too high inlcudes also low variance modes that will introduce some errors.
-Some low variance modes are displayed on \ref{FIG-POD-LOW-MODES}.
+Some low variance modes are displayed on figure \ref{FIG-POD-LOW-MODES}.
 \begin{figure}[H]
 \centering
 \includegraphics[ width=12.5cm]{images/pod_low_var_modes}

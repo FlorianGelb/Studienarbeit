@@ -1,13 +1,12 @@
 \section{Hankel Norm Approximation}
 The goal of the Hankel Norm Approximation (HNA) is to find a reduced order system that approximates a system \(G\) such that the error in the so called Hankel norm becomes minimal.
-The Hankel norm is defined to be the largest hankel singular value
+The Hankel norm is defined to be the largest hankel singular value \cite{singh}
 \begin{gather}
-||G(s)||_H = \sigma_{max} = \sqrt{\lambda_{max}(W_cW_o)}
-\end{gather}
-\cite{singh}.
+||G(s)||_H = \sigma_{max} = \sqrt{\lambda_{max}(W_cW_o)} \,.
+\end{gather}.
 Therefore the problem can be stated as follows
 \begin{gather}
-G_r = arg\min ||G - G_r||_H \label{hna-prob}
+G_r = \argmin ||G - G_r||_H \,. \label{hna-prob}
 \end{gather}
 \subsection{System Spaces}
 For the following section it is necessary to define the four following system spaces: \(L_{\infty}\), \(H_{\infty}\), \(H_{\infty}^-\) and \(H_{\infty}^-(r)\).
@@ -26,42 +25,39 @@ Here \(\lambda\) are the eigenvalues of \(A\).
 \subsection{Optimal Solution}
 A lower bound for \(\min ||G - G_r||_H\) is established by lemma 7.1 in \cite{glover84}
 \begin{gather}
-\min ||G - G_r||_H \geq \sigma_{r+1}
-\end{gather}.
+\min ||G - G_r||_H \geq \sigma_{r+1} \,.
+\end{gather}
 
 Here \(\sigma_{r+1}\) is the \(r+1\)th largest hankel singular value of \(G\).
 Hence a system \(G_r\) is optimal if \(||G - G_r||_H = \sigma_{r+1}\).
 
 It is important to note that the Hankel norm can is related to the \(L_{\infty}\) norm through the Nehari Theorem
 \begin{gather}
-G \in H_{\infty}, \quad F \in H_{\infty}^-, \quad G - F \in \L_{\infty} \\
-||G||_H = \min_{F \in H^{-}_{\infty}} ||G - F||_{\infty}
-\end{gather}.
+G \in H_{\infty}, \quad F \in H_{\infty}^-, \quad G - F \in L_{\infty} \\
+||G||_H = \min_{F \in H^{-}_{\infty}} ||G - F||_{\infty} \,.
+\end{gather}
 
 Also the Adamjan-Arov-Krein theorem has to be stated to find a optimal solution to the stated minimization problem
 \begin{gather}
 G \in H_{\infty}, \quad Q \in H_{\infty}^-(r), \quad G - Q \in L_{\infty} \\
-\min_{Q \in H_{\infty}^{-}} ||G-Q||_{\infty} = \sigma_{r+1}
+\min_{Q \in H_{\infty}^{-}} ||G-Q||_{\infty} = \sigma_{r+1} \,.
 \end{gather}
-.
 
 Suppose there is an optimal system \(Q^{*} = G_r + F\) with \(Q^{*}  \in H_{\infty}^-(r), G_r \in H_{\infty}, F \in H_{\infty}^-\).
 It has the following error bound
 \begin{gather}
-||G - G_r||_{\infty} = ||G - Q^{*} + F||_{\infty} \leq \sigma_{r+1} + ||F||_{\infty}. \label{fmin}
+||G - G_r||_{\infty} = ||G - Q^{*} + F||_{\infty} \leq \sigma_{r+1} + ||F||_{\infty}\,. \label{fmin}
 \end{gather}
 If \(||F||_{\infty}\) is small enough, the stable part of \(Q^{*}\) can be used as a reduced order model.
-It is also an optimal solution to \ref{hna-prob}
-\begin{gather}
-||G - G_r||_H = \min_{F \in H^{-}_{\infty}} ||G - G_r - F||_{\infty} = \min_{Q \in H_{\infty}^{-}} ||G-Q||_{\infty} = \sigma_{r+1}
-\end{gather}
-.
-
+It is also an optimal solution to (\ref{hna-prob}) 
 \cite{sandberg}
+\begin{gather}
+||G - G_r||_H = \min_{F \in H^{-}_{\infty}} ||G - G_r - F||_{\infty} = \min_{Q \in H_{\infty}^{-}} ||G-Q||_{\infty} = \sigma_{r+1} \,.
+\end{gather}
 
 \subsection{Constructing \(Q^{*}\)}
 The first step to construct an optimal system \(Q^{*}\) is to construct an balanced realization of the system \(G = (A, B, C, D) \in H_{\infty}\)that is to be reduced, as described in section \ref{balre}.
-Hence the gramians \(W_c\) and \(W_o\) are equal and diagonal.
+Hence the gramians \(W_c\) and \(W_o\) are equal and diagonal
 \begin{gather}
 W_c = \begin{bmatrix}
 P_1 & 0 \\
@@ -70,7 +66,7 @@ P_1 & 0 \\
 W_o = \begin{bmatrix}
 Q_1 & 0 \\
 0 & \sigma_{r+1}I_l
-\end{bmatrix}
+\end{bmatrix} \,. 
 \end{gather}
 Now \(G\) is partitioned in the following way
 \begin{gather}
@@ -85,55 +81,46 @@ B_{2}
 C = \begin{bmatrix}
 C_{1}  \\
 C_{2} 
-\end{bmatrix}
+\end{bmatrix} \,.
 \end{gather}
-.
 
 Also a unitary matrix \(U\) has to be defined such tat \(B_2 = -C_2^TU\) and \(U^TU = I\). 
 Further more a matrix \(E_1 = P_1Q_1-\sigma_{r+1}^2I\) is introduced.
 
-Then a system \(Q^* = (\hat{A}, \hat{B}, \hat{C}, \hat{D})\) can be defined
-\begin{gather}
-\hat{A} = E_1^{-1}(\sigma_{r+1}^2A_{11}^T + Q_1 A_{11}P_1 - \sigma_{r+1}C_1^TUB_1^T) \\
-\hat{B} = E_1^{-1}(Q_1B_1 + \sigma_{r+1}C_1^TU)\\
-\hat{C} = C_1P_1 + \sigma_{r+1}UB_1^T \\
-\hat{D} = D - \sigma_{r+1}U
-\end{gather}
-.
-\cite{sandberg}
+Then a system \(Q^* = (\hat{A}, \hat{B}, \hat{C}, \hat{D})\) can be defined \cite{sandberg}
+\begin{align}
+\hat{A} &= E_1^{-1}(\sigma_{r+1}^2A_{11}^T + Q_1 A_{11}P_1 - \sigma_{r+1}C_1^TUB_1^T) \\
+\hat{B} &= E_1^{-1}(Q_1B_1 + \sigma_{r+1}C_1^TU)\\
+\hat{C} &= C_1P_1 + \sigma_{r+1}UB_1^T \\
+\hat{D} &= D - \sigma_{r+1}U \,.
+\end{align}
 
 \subsection{Decomposition of \(Q^{*}\)}
 The final step is to decompose \(Q^{*}\) into two systems \(G_r \in H_{\infty}, F \in H_{\infty}^{-}\).
-To achieve this \(Q^{*}\) can be expressed in the diagonal canonical form described in section \ref{dcnf}.
+To achieve this \(Q^{*}\) can be expressed in the diagonal canonical form described in section \ref{secdcnf}.
 \begin{gather}
-Q^{*} = D + \sum_{i=1}^{r} \frac{\phi_i}{s-\lambda_i} 
+Q^{*} = D + \sum_{i=1}^{r} \frac{\phi_i}{s-\lambda_i} \,.
 \end{gather}
-.
-
 
 This can no be decomposed into three systems \(K \in H_\infty, V \in H_{\infty}^-\) and \(\tilde{D}\) with
 \begin{gather}
 Re(\lambda_i) \in \mathbb{C}_{circ} \forall i \in I_{\circ} \\
 K = \sum_{i \in I_-} \frac{\phi_i}{s-\lambda_i} \\
 V = \sum_{i \in I_+} \frac{\phi_i}{s-\lambda_i} \\
-\tilde{D} = \hat{D}
+\tilde{D} = \hat{D} \,.
 \end{gather}
-.
-
 
 Since \(\tilde{D}\) is some constant it does not have any poles.
 Therefore \(K + D \in H_\infty\) and \(V + D \in H_{\infty}^-\) which leads to two different decompositions \(Q^{*} = (K + \tilde{D}) + V \) and \(Q^{*} = K + (V + \tilde{D})\).
-From \ref{fmin} it is clear that \(||F||_{\infty}\) has to be as small as possible to minimize the error bound.
+From (\ref{fmin}) it is clear that \(||F||_{\infty}\) has to be as small as possible to minimize the error bound.
 It can be shown that \(Q^{*} = (K + \tilde{D}) + V \) is the optimal decomposition.
 Suppose \(Q^{*} = K + (V + \tilde{D})\) was the optimal decomposition, then the according lower bound has to be smaller
-\begin{gather}
-||G-K||_{\infty} \leq ||G-(K+\tilde{D})||_{\infty} \\
-\sigma_{r+1}||V + \tilde{D}||_{\infty} \leq \sigma_{r+1}||V||_{\infty} \\
-||V + \tilde{D}||_{\infty} \leq ||V||_{\infty} + ||\tilde{D}||_{\infty} \geq ||V||_{\infty} \\
-\Rightarrow ||G-K||_{\infty} \geq ||G-(K+\tilde{D})||_{\infty}
-\end{gather}
-.
-
+\begin{align}
+||G-K||_{\infty} &\leq ||G-(K+\tilde{D})||_{\infty} \\
+\sigma_{r+1}||V + \tilde{D}||_{\infty} &\leq \sigma_{r+1}||V||_{\infty} \\
+||V + \tilde{D}||_{\infty} &\leq ||V||_{\infty} + ||\tilde{D}||_{\infty} \geq ||V||_{\infty} \\
+\Rightarrow ||G-K||_{\infty} &\geq ||G-(K+\tilde{D})||_{\infty} \,.
+\end{align}
 Therefore \(G_r = K + D\) and \(F = V\).
 
 \subsection{Applying HNA to Heat Equation}
@@ -144,43 +131,43 @@ Remember that \(A^{n\times n} = M^{-1}K\) where both \(K\) and \(M\) are symmetr
 The eigenvectors of a symmetric matrix are mutually orthogonal \cite{Zhang}.
 Therefore the eigendecomposition of  \(A\) is
 \begin{gather}
-AX = X\Delta
+AX = X\Delta \,.
 \end{gather}.
 The eigenvalues of a symmetric matrix are real .
 It is assumed that \(\Delta = diag(\lambda_1, ..., \lambda_n)\) with \(\lambda_1 \geq \lambda_2 \geq ... \geq \lambda_n\).
 where \(XX^T = X^TX = I\).
 By applying \(x = X\zeta\) to the system, the system becomes
-\begin{gather}
-\dot{\zeta} = \Delta \zeta + X^{T}u(t) \label{sys-zeta1}\\
-\zeta = X\zeta + Du(t) \label{sys-zeta2}
-\end{gather}
+\begin{align}
+\dot{\zeta} &= \Delta \zeta + X^{T}u(t) \label{sys-zeta1}\\
+\zeta &= X\zeta + Du(t) \,. \label{sys-zeta2}
+\end{align}
 The grammians of that systems are
-\begin{gather}
-W_c = \lim_{t \to \infty} \int_{0}^{t} e^{\Delta\tau}Ie^{\Delta\tau}d\tau \label{gramc} \\
-= \lim_{t \to \infty} \int_{0}^{t} e^{2\Delta\tau}d\tau \\
-= \lim_{t \to \infty} (e^{\Delta t} - I)\Delta^{-1} \\
-W_o = \lim_{t \to \infty} \int_{0}^{t} e^{\Delta\tau}Ie^{\Delta\tau}d\tau \label{gramo} \\
-= \lim_{t \to \infty} \int_{0}^{t} e^{2\Delta\tau}d\tau \\
-= \lim_{t \to \infty} (e^{\Delta t} - I)\Delta^{-1}
-\end{gather}
+\begin{align}
+W_c &= \lim_{t \to \infty} \int_{0}^{t} e^{\Delta\tau}Ie^{\Delta\tau}d\tau \label{gramc} \\
+&= \lim_{t \to \infty} \int_{0}^{t} e^{2\Delta\tau}d\tau \\
+&= \lim_{t \to \infty} (e^{\Delta t} - I)\Delta^{-1} \\
+W_o &= \lim_{t \to \infty} \int_{0}^{t} e^{\Delta\tau}Ie^{\Delta\tau}d\tau \label{gramo} \\
+&= \lim_{t \to \infty} \int_{0}^{t} e^{2\Delta\tau}d\tau \\
+&= \lim_{t \to \infty} (e^{\Delta t} - I)\Delta^{-1} \,.
+\end{align}
 Therefore \(W_c = W_o\), where \(W_c\) and \(W_o\) are diagonal for stable systems.
-Since the transfer of heat is a stable process, it is assumed that the according system is stable.
+Since the transfer of heat is a stable process, it is assumed that the according system is stable \cite{658289}
 \begin{gather}
 W_c = W_o = \lim_{t \to \infty} (e^{\Delta t} - I)\Delta^{-1} \\
 = -\Delta^{-1} 
 \end{gather}
-\cite{658289}
+
 \begin{gather}
 W_C = W_o = \begin{bmatrix}
 \frac{-1}{\lambda_1} && 0 && \hdots && 0 \\
 0 && \frac{-1}{\lambda_2}&& 0 && \vdots \\
 \vdots && 0 && \ddots && \vdots \\
 0 && 0 && \hdots && \frac{-1}{\lambda_n}
-\end{bmatrix}
+\end{bmatrix} \,.
 \end{gather}
 This shows that the eigenvectors of \(A\) satisfy the conditions for balancing transformation \(T\) in section \ref{bt}.
 Since the eigenvalues are all negative and real the order \(\delta_{11} \geq \delta_{22} \geq ...  \delta_{nn}\) applies.
-This enables the mode truncation described in section \ref{bt}.
+This enables the mode truncation described in section \ref{bt}
 \begin{gather}
 \tilde{x} = \begin{bmatrix}
 \zeta_1 \\
@@ -204,12 +191,12 @@ X_r^{*} \\
 X_{n-r}
 \end{bmatrix} \\
 \frac{d\tilde{x}}{dt} = \Delta_r \tilde{x} + X^{-1}_ru \\
-y = X_r\tilde{x} + Du 
+y = X_r\tilde{x} + Du \,.
 \end{gather}
 The transfer function of that system is
 \begin{gather}
 G(s) = X_r(sI - \Delta_r^{-1})X_r^{T}+D = X_r diag(\frac{1}{s-\lambda_1}, ..., \frac{1}{s-\lambda_r})X_r^{T}+D \\
-= \sum_{i=1}^{r} \frac{1}{s-\lambda_i} + D
+= \sum_{i=1}^{r} \frac{1}{s-\lambda_i} + D \,.
 \end{gather}
 This resembles the DCNF of that system where the terms corresponding to the \(n-r\) smallest eigenvalues are truncated.
 As shown in section \ref{mtht} this is the optimal modal truncation.

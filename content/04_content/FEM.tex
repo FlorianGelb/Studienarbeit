@@ -27,14 +27,14 @@ Furthermore the residual is required to be orthogonal to all basis functions
 \end{gather}
 
 
-Since the functions in \(\phi\) are known, it is only required to find the coefficients \(c_{j}(t)\) in \ref{eq-aprox}.
-To find those coefficients \ref{eq-req-orth} needs to be expressed as follows
+Since the functions in \(\phi\) are known, it is only required to find the coefficients \(c_{j}(t)\) in (\ref{eq-aprox}).
+To find those coefficients (\ref{eq-req-orth}) needs to be expressed as follows
 \begin{gather}
 \int_{\Omega} \frac{\partial^{m} \mu}{\partial \zeta^{m}} \phi_{k} \, d\zeta  -  \int_{\Omega} g(\mu) \phi_{k}        \, d\zeta = \int_{\Omega}  r(\zeta, t) \phi_{k}        \, d\zeta \quad \forall \phi_{k} \in \phi \,. 
 \end{gather}
 
 
-If \(\mu\) is substituted with \ref{eq-aprox} the following is obtained
+If \(\mu\) is substituted with (\ref{eq-aprox}) the following is obtained
 \begin{gather}
 \sum_{j = 1}^{N} \left( \left( \int_{\Omega} \frac{\partial^{m} \phi_{j}}{\partial \zeta^{m}} \phi_{k} \, d\zeta\right) c_{j}(t) - g\left( \left(\int_{\Omega} \phi_k \phi_j d\zeta\right) c_{j}(t)\right) \right)  = \int_{\Omega}  r(\zeta, t) \phi_{k}        \, d\zeta \quad \forall \phi_{k} \in \phi \,. \label{eq-al}
 \end{gather}
@@ -47,7 +47,7 @@ Since \(\zeta\) is one dimensional, the divergence theorem becomes integration b
 \end{gather}
 
 
-Combining \ref{eq-al} and \ref{eq-ibp} yields
+Combining (\ref{eq-al}) and (\ref{eq-ibp}) yields
 \begin{gather}
 -\sum_{j = 1}^{N} \left(\left(\int_{\Omega} \frac{\partial^{m-1} \phi_{j}}{\partial \zeta^{m-1}} \frac{\partial \phi_{k}}{\partial \zeta} \, d\zeta\right) c_{j}(t) + g\left(\left(\int_{\Omega} \phi_k \phi_j d\zeta\right) c_{j}(t)\right)\right)  = \int_{\Omega}  r(\zeta, t) \phi_{k}        \, d\zeta \quad \forall \phi_{k} \in \phi \,. \label{eq-fem}
 \end{gather}
@@ -55,7 +55,7 @@ Combining \ref{eq-al} and \ref{eq-ibp} yields
 
 This formulation leads to a system of ODEs or a system of linear equations that can be solved either analytically or numerically.
 \subsection{Solving the Heat Equation using FEM}
-This formulation of FEM can be applied to \ref{eq-1d-h}
+This formulation of FEM can be applied to (\ref{eq-1d-h})
 \begin{gather}
 \Omega = \chi \quad \Gamma = \{x_{0}, x_{n}\} \\
 y(\zeta, t) = -u(x, t) \quad g(u) = -\frac{1}{\alpha} \frac{\partial u}{\partial t} \\
@@ -139,8 +139,8 @@ By assuming that the following decomposition holds
 \begin{gather}
 h(x, t) = \sum_{i = 1}^{N} \phi_i(x) \upsilon(t) \,.
 \end{gather}
-the vector \(d\) in \ref{eq-heat-almost-ss} can be expressed as \(M\upsilon(t)\).
-Observe that by multiplying \ref{eq-heat-almost-ss} with \(M^{-1}\) (\ref{ap-K-inv}) yields a system of ODEs
+the vector \(d\) in (\ref{eq-heat-almost-ss}) can be expressed as \(M\upsilon(t)\).
+Observe that by multiplying (\ref{eq-heat-almost-ss}) with \(M^{-1}\) (\ref{ap-K-inv}) yields a system of ODEs
 \begin{gather}
 \dot{c} = M^{-1}Kc + M^{-1}M\upsilon \,. \label{almost-almost-ss}
 \end{gather}

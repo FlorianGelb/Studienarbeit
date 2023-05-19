@@ -31,7 +31,7 @@ This only holds if there is no input to the system.
 Therefore \(u(t) = 0\), where \(u\) denotes the systems input.
 The second initial condition is \(x(0, x) = \sin(\frac{2\pi}{L}x)\) with random input.
 The initial condition is sinusoidal since it is easy to approximate.
-\pagebreak
+
 \subsection{Proper Orthogonal decomposition}
 Figure \ref{FIG-ERR-POD} shows the \(L2\) error of the solution obtained by the POD model.
 \begin{figure}[H]
@@ -67,8 +67,8 @@ This can be seen on figure \ref{fig-pod-100}.
 \end{subfigure}
 \label{fig-pod-100}
 \end{figure}
-The \(L2\) error for \(r=2\) can be seen on \ref{fig:fig-pod-2-100}.
-Here for \(t=0\) the error is the largest and then drops of quickly and seems to converge to roughly 0.3 whereas the error on \ref{fig:fig-pod-100-100} for \(r=100\) is almost zero at \(t=0\) and diverges.
+The \(L2\) error for \(r=2\) can be seen on figure \ref{fig:fig-pod-2-100}.
+Here for \(t=0\) the error is the largest and then drops of quickly and seems to converge to roughly 0.3 whereas the error on figure \ref{fig:fig-pod-100-100} for \(r=100\) is almost zero at \(t=0\) and diverges.
 This problem does not only apply to the initial condition, this problem if the snapshot matrix contains vectors that are poorly approximated using orthogonal basis vectors.
 The low variance modes do not introduce error. 
 In fact they even lower the error and the error is lower in general as it can be seen on figure \ref{FIG-ERR-POD-SIN}.
@@ -118,11 +118,9 @@ Figure \ref{FIG-ERR-MT} shows the \(L2\) error of the ROM obtained by Modal Trun
 It shows that as \(r\) increases the error converges to zero.
 This is to be expected since as \(r\) increases \(G_r\) becomes closer to \(G\).
 For \(x(0, x) = \sin(\frac{2\pi}{L}x)\) the error starts off significantly higher but decays even faster as it can be seen on figure \ref{FIG-ERR-MT-SIN}.
-
+\newpage
 \subsection{Balanced Truncation}
 Figure \ref{FIG-ERR-BT} shows the \(L2\) error of the ROM obtained by Balanced Truncation.
-
-
 \begin{figure}[H]
 \begin{subfigure}[b]{0.5\textwidth}
 \centering
@@ -208,8 +206,8 @@ Therefore the frequency domain error is also dependent on the initial condition.
 This can be seen on figure \ref{FIG-H-POD} and figure \ref{FIG-H-POD-SIN}, they clearly differ from each other.
 For \(x(0, x) = 1\) there are two distinct spikes at \(r=49\) and \(r=63\).
 The reason for them is unclear, however the larger one is three orders of magnitude higher than the peak in the \(H_{\infty}\) error for $x(0, x) =  \sin(\frac{2\pi}{L}x)$.
-This peak is not depicted on \ref{FIG-H-POD-SIN} since it is one single data point that is 14 orders of magnitude higher than the remaining data points.
-The peaks on \ref{FIG-H-POD} are not removed since the remaining data points are also large.
+This peak is not depicted on figure \ref{FIG-H-POD-SIN} since it is one single data point that is 14 orders of magnitude higher than the remaining data points.
+The peaks on figure \ref{FIG-H-POD} are not removed since the remaining data points are also large.
 \begin{figure}[H]
 \begin{subfigure}[b]{0.5\textwidth}
 \centering
@@ -267,7 +265,7 @@ To compare the results directly, the error of the ROMs for all \(r\) are plotted
 However the error is not directly used because of some large peaks in the data, which would render the plot unreadable.
 Instead the \(\log_{10}\) of each data point is taken.
 This is possible since all data points are strictly positive, therefore the order of the data points is preserved while lowering the range between outliers.
-The box plot can be seen on \ref{FIG-H-BOX}.
+The box plot can be seen on figure \ref{FIG-H-BOX}.
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.5\textwidth]{images/freq/H_BOX}
