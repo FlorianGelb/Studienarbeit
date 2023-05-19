@@ -1,6 +1,4 @@
 \section{Fundamentals of Control Theory}
-
-\subsection{Problems in Control Theory}
 There are mainly three different problems in control theory.
 To analyse a system it has to be identified first.
 A mathematical model has to be found that relates the input of that system to it's output.
@@ -11,96 +9,93 @@ Now that the underlying model is known and the system can be simulated, a contro
 Here the controller is a system that feeds some input to the system that is to be controlled to generate some desired output \cite{DouglasBa}.
 For this paper the second problem is the most important one, since the goal of this paper is to compare some methods to make simulations of a system more efficient.
 \subsection{LTI Systems}
-A linear and time invariant (LTI) system is a kind of system that fulfils the following conditions:
+A linear time invariant (LTI) system is a kind of system that fulfils the following conditions:
 \paragraph{Homogenity:}
-For a system to be a LTI system, the condition that the output of a system \(y(t)\) relates to the input \(u(t)\) by a linear operator \(f\):
+For a system to be a LTI system, the condition that the output of a system \(y(t)\) relates to the input \(u(t)\) and the initial condition \(x_0\) by a linear operator \(\mathfrak{f}\)
 \begin{gather}
-y(t) = f(u(t)) \\
-cy(t) = f(cu(t))
+y(t) = \mathfrak{f}(u(t), x_0) \\
+cy(t) = \mathfrak{f}(cu(t),  x_0) \,.
 \end{gather}
 This means that if the input \(u\) changes in magnitude by a constant factor of \(c\) the output \(y\) also changes by the factor of \(c\).
 \paragraph{Superposition:}
-The second requirement is superposition:
+The second requirement is superposition
 \begin{gather}
-y_1(t) + y_2(t) = f(u_1(t) + u_2(t))
+y_1(t) + y_2(t) = \mathfrak{f}(u_1(t) + u_2(t), x_0) \,.
 \end{gather}
 The sum of two outputs \(y_1\) and \(y_2\) has to equal the output of the system with the sum of the inputs \(u_1\) and \(u_2\) as input.
 \paragraph{Time Invariance:}
-A system that is time invariant has the property that if the input \(u\) is shifted in time by some constant \(\tau\) the resulting output is also shifted in time by the same constant:
+A system that is time invariant has the property that if the input \(u\) is shifted in time by some constant \(\tau\) the resulting output is also shifted in time by the same constant
 \begin{gather}
-y(t - \tau) = f(u(t-\tau))
+y(t - \tau) = \mathfrak{f}(u(t-\tau),  x_0) \,.
 \end{gather}
 LTI systems are important because they can be used to approximate non LTI systems over some region.
 This is useful since LTI systems are well understood \cite{DouglasB}.
 \subsection{State Space Representation}
 A LTI system can be expressed as a system of ODEs that relates the input \(u\) to its output \(y\).
 The vector \(x\) denotes the states of a system.
-\begin{gather}
-\dot{x} = Ax + Bu \quad x(t_0) = x_0\\
-y = Cx + Du
-\end{gather}
+\begin{align}
+\dot{x} &= Ax + Bu \quad x(t_0) = x_0\\
+y &= Cx + Du
+\end{align}
 The matrices \(A \in \mathbb{R}^{n \times n}\),
 \(B \in \mathbb{R}^{n \times m}\),
 \(C \in \mathbb{R}^{q \times n}\) and
 \(D \in \mathbb{R}^{q \times m}\) are constant matrices.
 \cite{BennerGrivet}
 \subsection{State Space of Discrete Time Systems}
-A system can represented as discrete system in the following form:
+A system can represented as discrete system in the following form
 \begin{gather}
 x_{k+1} = A_dx_k + B_dx_k \label{disc-a} \\
 y_{k+1} = C_dx_x + D_du_k \label{disc-b}\\
-x_{k} = x_{k\Delta t}
+x_{k} = x_{k\Delta t} \,.
 \end{gather}
-The matrices \(A_d\) to \(D_d\) can be obtained from the continuous system in the following way:
-\begin{gather}
-A_d = e^{A\Delta t} \quad B_d = \int_0^{\Delta t} e^{A\tau}B d\tau \\
-C_d = C \quad D_d = D
-\end{gather}
-\cite{brunton_kutz_2019g}
+The matrices \(A_d\) to \(D_d\) can be obtained from the continuous system in the following way \cite{brunton_kutz_2019g}
+\begin{align}
+A_d &= e^{A\Delta t}, \quad B_d = \int_0^{\Delta t} e^{A\tau}B d\tau, 
+C_d = C, \quad D_d = D \,.
+\end{align}
 \subsection{Transfer Function}
 To understand the transfer function the impulse response has to be defined first.
-The impulse response of a system is given by choosing the following function as input to the system:
-\begin{gather}
-g(t) = f(\delta(t))
-\end{gather}
-The function \(\delta(t)\) is the delta function:
+The impulse response of a system is given by choosing the delta function as input to the system
 \begin{gather}
 \delta(t) = \begin{cases}
 \infty, \quad t = 0 \\
 0 \quad else
 \end{cases}
+g(t) = f(\delta(t)) \,.
 \end{gather}
-It has the property that the integral of this function is 1:
+
+It has the property that the integral of this function is 1
 \begin{gather}
-\int_{t = -\infty}^{\infty} \delta(t) dt = 1
+\int_{t = -\infty}^{\infty} \delta(t) dt = 1 \,.
 \end{gather}
-If the \(g(t)\) is convoluted with a function \(v(t)\) the response of the system for \(v(t)\) as input is obtained:
+If the \(g(t)\) is convoluted with a function \(v(t)\) the response of the system for \(v(t)\) as input is obtained \cite{DouglasBb}
 \begin{gather}
-v(t)*g(t) = \int_{\tau = 0}^{\infty} v(\tau)g(t-\tau)d\tau = f(v(t))
+v(t)*g(t) = \int_{\tau = 0}^{\infty} v(\tau)g(t-\tau)d\tau = f(v(t)) \,.
 \end{gather}
-\cite{DouglasBb} \\
-By using the convolution theorem:
+ \\
+By using the convolution theorem \cite{ABELL2018399}
 \begin{gather}
-\mathfrak{L}\{g(t)\}\mathfrak{L}\{v(t)\} = \mathfrak{L}\{g*v\}(t)
+\mathfrak{L}\{g(t)\}\mathfrak{L}\{v(t)\} = \mathfrak{L}\{g*v\}(t) \,.
 \end{gather}
-\cite{ABELL2018399}\\
-the transfer function is defined as:
+\\
+the transfer function is defined as
 \begin{gather}
-\mathfrak{L}\{f(\delta(t))\}
+\mathfrak{L}\{f(\delta(t))\} \,.
 \end{gather}
 This definition is useful since the response of a system for a given input \(u(t)\) can be determined by the result of the multiplication \(G(s)U(s)\) \cite{DouglasBb}.
-Alternatively if a system is given in state space representation the transfer function can be expressed as:
+Alternatively if a system is given in state space representation the transfer function can be expressed as
 \begin{gather}
-G(s) = C(sE-A)^{-1}B+D \label{tf-from-ss}
+G(s) = C(sI-A)^{-1}B+D \,. \label{tf-from-ss}
 \end{gather}
 \cite{BennerGrivet}
 
-\subsection{Controallability and Observability}
+\subsection{Controllability and Observability}
 For LTI systems in state space representation it can be determined which states are to what degree controllable and observable.
-This can be computed by the controllability and observability gramians:
+This can be computed by the controllability and observability gramians
 \begin{gather}
 W_c = \lim_{t \to \infty} \int_{0}^{t} e^{A\tau}BB^{*}e^{A^{*}\tau}d\tau \label{gram-ctrl}\\
-W_o = \lim_{t \to \infty} \int_{0}^{t} e^{A^{*}\tau}C^{*}Ce^{A\tau}d\tau \label{gram-obsv}
+W_o = \lim_{t \to \infty} \int_{0}^{t} e^{A^{*}\tau}C^{*}Ce^{A\tau}d\tau \,. \label{gram-obsv}
 \end{gather}
 The degree of controllability for a state \(x\) can be determined by \(x^{*}W_cx\).
 If the result of this calculation is large, the system is controllable in the \(x\) direction.

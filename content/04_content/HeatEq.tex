@@ -1,39 +1,47 @@
 \chapter{Fundamentals}
+This chapter covers the fundamentals, necessary for understanding the model order reduction methods.
+First of all a system to apply those methods to is needed.
+Here the 1D heat equation was chosen, since it is fairly easy to solve and to understand the results.
+After that the method of finite elements is introduced.
+This method is used to discretize the 1D heat equation into a solvable system of ODEs since it can handle boundary conditions and initial values.
+One of the most important fundamentals of this paper is the singular value decomposition, since it takes heavy use in the model order reduction methods covered.
+The last Section of this chapter will cover some control system fundamentals.
+Those are needed since three of the model order reduction methods are used in a control system context, hence some explanation on the terminology is needed.
 \section{Heat Equation} \label{HE}
 The conduction of heat  within a medium can be described using the following partial differential equation (PDE):
 \begin{gather}
-\frac{\partial u}{\partial t} = \alpha \nabla^{2} u \label{heat}
+\frac{\partial u}{\partial t} = \alpha \nabla^{2} u\,. \label{heat}
 \end{gather}
-With \(u\) being a function of space and time and \(\alpha\) being a positive constant.
-For this paper \(u\) will be defined in terms of one spatial dimension:
+Here \(u\) is a function of space and time and \(\alpha\) is a positive constant.
+For this paper \(u\) will be defined in terms of one spatial dimension \cite{Gustafsson2011}
 \begin{gather}
 u := u(x, t) \\
 \frac{\partial u}{\partial t} = \alpha \frac{\partial^{2} u}{\partial x^{2}} \\
 x \in \chi \subset \mathbb{R} \quad t \in \tau \subset \mathbb{R} \\
-x_{0} \leq x \leq x_{n} \quad t_{0} \leq t \leq t_{n} 
+x_{0} \leq x \leq x_{n} \quad t_{0} \leq t \leq t_{n}\,.
 \end{gather}
-\cite{Gustafsson2011}
+.
 
 In order to not only model the conduction of heat within a medium but also a heating process, a new function \(h: \chi \times \tau \rightarrow  \mathbb{R}\) is introduced:
 \begin{gather}
-\frac{\partial u}{\partial t} = \alpha \frac{\partial^{2} u}{\partial x^{2}} + h(x,t) \label{eq-1d-h}
+\frac{\partial u}{\partial t} = \alpha \frac{\partial^{2} u}{\partial x^{2}} + h(x,t)\,. \label{eq-1d-h}
 \end{gather}
 For this paper it is assumed that the initial condition is known:
 \begin{gather}
 f: \chi \rightarrow \mathbb{R} \\
-u(x, t_{0}) = f(x) 
+u(x, t_{0}) = f(x)\,.
 \end{gather} 
-\subsection{Solving the Heat Equation using Fourier Transform}
+
 Applying the Fourier transform (FT) w.r.t \(x\) to \ref{eq-1d-h} yields the inhomogeneous ordinary differential equation (ODE):
 
 \begin{gather}
 \hat{u} = \mathfrak{F}(u) \quad \hat{h} = \mathfrak{F}(h) \\
-\frac{d}{dt} \hat{u} = -\alpha\omega^{2}\hat{u} + \hat{h} \label{eq-1d-h-ft}
+\frac{d}{dt} \hat{u} = -\alpha\omega^{2}\hat{u} + \hat{h}\,. \label{eq-1d-h-ft}
 \end{gather}
 
 A solution to \ref{eq-1d-h-ft} is given by:
 \begin{gather}
-\hat{u} = \hat{u}_{0} + \hat{u}_{p}
+\hat{u} = \hat{u}_{0} + \hat{u}_{p}\,.
 \end{gather}
 Where \(\hat{u}_{0}\) is the homogeneous solution and \(\hat{u}_{p}\) is the particular integral.
 In order to solve this ODE for the particular integral \(\hat{h}\) has to be known \cite{Papula2015}.
@@ -42,12 +50,14 @@ Therefore an approximate solution to \ref{eq-1d-h-ft} \(\hat{u}_{a}\) is obtaine
 \begin{gather}
 \frac{d}{dt} \hat{u} \approx \frac{\Delta \hat{u}}{\Delta t} \\
 \hat{u}_{t+1} = \hat{u}_{t} + \Delta t (-\alpha\omega^{2}\hat{u} + \hat{h}) \label{eq-1d-h-es} \\
-\hat{u}_{a} = [\hat{u}_{t_{0}}, ..., \hat{u}_{t_{n}}]
+\hat{u}_{a} = \begin{bmatrix}
+\hat{u}_{t_{0}} & \hdots & \hat{u}_{t_{n}}
+\end{bmatrix}\,.
 \end{gather}
 In order to apply the euler scheme successfully an initial condition   \(\hat{u}_{0}\) has to be known. 
 This initial condition is obtained by applying the discrete Fourier transform (DFT) to an initial temperature distribution along \(x\):
 \begin{gather}
-\hat{u}_{0} = \mathfrak{F}(f(x)) 
+\hat{u}_{0} = \mathfrak{F} \{f(x)\}\,.
 \end{gather} 
 \cite{Gustafsson2011b}
 
