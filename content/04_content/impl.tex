@@ -19,9 +19,8 @@ The class main is responsible for generating the finite element solution, model 
 The first step is to generate a parameter object.
 The parameter object stores all parameters to increase the transparency and robustness of the program.
 The second step is to iterate the array of stated algorithms to solve the heat equation.
-The options are to solve the heat equation using the finite element method section \ref{FEM} or using Fourier transform section \ref{HE}.
+The options are to solve the heat equation using the finite element method section \ref{FEM}.
 After all solver objects have been generated, the according solutions are computed.
-After that, the MOR methods are displayed.
 The final step is to display the solutions or return the \(L2\), \(H_{\infty}\) error of each ROM.
 The processing time can be returned as well.
 
@@ -38,7 +37,7 @@ They are all encapsulated within this class to make distribution and modificatio
 \section{Class container}
 The container class functions like an abstract class.
 It implements some methods, such as \textit{euler()}, to avoid redundancy within its child classes.
-This method takes some Matrices and a vector of initial conditions and generates a solution object that stores the solution generated using an Euler scheme.
+This method takes some matrices and a vector of initial conditions and generates a solution object that stores the solution generated using an Euler scheme.
 If the solution to a ROM is computed, it has to be transformed.
 This step is also done here.
 For this class, no objects are invoked.
@@ -133,11 +132,11 @@ The resulting system of ODEs is solved using the implementation of the Euler sch
 After the solution is generated, the returned solution object gets filled with the according metadata and returned.
 
 \section{Class createPOD}
-The implementation of proper orthogonal decomposition is not included in the use MORLAB package.
+The implementation of proper orthogonal decomposition is not included in the used MORLAB package.
 Therefore it is implemented in the createPOD class.
 The first step is constructing the matrix \(\Phi\) as described in section \ref{chap-pod}.
 This is done by computing the SVD of the provided FEM solution and truncating the resulting \(U\) matrix, such that the \(r\) most dominant modes are included.
-In the following step, the transformed initial condition and the spacial derivative of \(Phi\) are computed.
+In the following step, the transformed initial condition and the spacial derivative of \(\Phi\) are computed.
 The spatial derivative is computed using the spectral derivative.
 In the last step, the resulting system of ODEs is solved using the implemented Euler scheme, and the resulting solution object is filled.
 \begin{algorithm}[H]

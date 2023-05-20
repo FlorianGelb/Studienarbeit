@@ -1,5 +1,5 @@
 \chapter{Fundamentals}
-This chapter covers the fundamentals necessary for understanding the model order reduction methods. First of all, a system to apply those methods is needed. Here the 1D heat equation was chosen since it is fairly easy to solve and to understand the results. After that, the method of finite elements is introduced. This method discretizes the 1D heat equation into a solvable system of ODEs since it can handle boundary conditions and initial values. One of the most important fundamentals of this paper is the singular value decomposition since it takes heavy use in the model order reduction methods covered. The last Section of this chapter will cover some control system fundamentals. Those are needed since three model order reduction methods appear in a control system context. Hence some explanation of the terminology is needed.
+This chapter covers the fundamentals necessary for understanding the model order reduction methods. First of all, a system to apply those methods is needed. Here the 1D heat equation was chosen since it is fairly easy to solve and to understand the results. After that, the method of finite elements is introduced. This method discretizes the 1D heat equation into a solvable system of ODEs since it can handle boundary conditions and initial values. One of the most important fundamentals of this paper is the singular value decomposition since it takes heavy use in the model order reduction methods covered. The last Section of this chapter will cover some control theory fundamentals. Those are needed since three model order reduction methods appear in a control theory context. Hence some explanation of the terminology is needed.
 \section{Heat Equation} \label{HE}
 The following partial differential equation (PDE) describes the conduction of heat  within a medium
 \begin{gather}
@@ -46,11 +46,11 @@ Therefore an approximate solution to \ref{eq-1d-h-ft} \(\hat{u}_{a}\) is obtaine
 \end{bmatrix}\,.
 \end{gather}
 The Euler scheme is applicable if an initial condition \(\hat{u}_{0}\) is known. 
-This initial condition is obtained by applying the discrete Fourier transform (DFT) to an initial temperature distribution along \(x\)
+This initial condition is obtained by applying the discrete Fourier transform (DFT) to an initial temperature distribution along \(x\) \cite{Gustafsson2011b}
 \begin{gather}
 \hat{u}_{0} = \mathfrak{F} \{f(x)\}\,.
 \end{gather} 
-\cite{Gustafsson2011b}
+
 
 The forward Euler scheme is used because it is easy to implement.
 Applying the inverse discrete Fourier transform (IDFT) to \(\hat{u}_{a}\), an approximate solution to (\ref{eq-1d-h}) can be obtained.

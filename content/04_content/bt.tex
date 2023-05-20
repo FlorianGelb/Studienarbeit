@@ -4,14 +4,14 @@ The goal of balanced truncation is to approximate a system using only the most r
 The difference to POD is that the modes are not selected by the variance they capture but by the controllability and observability of the modes.
 The first step to finding such an approximation is to find a coordinate transform.
 \subsection{Balanceing Coordinate Transform} \label{balre}
-An orthonormal coordinate transform is applied to find a reduced-order model using balanced truncation: \(x = Tz\).
+The first step for generating a balanced truncation, is to find a orhtonormal coordinate transform \(x = Tz\).
 This yields a new system
 \begin{gather}
 \dot{z} = \hat{A}z + \hat{B}u \label{z1}\\
 y = \hat{C}z + Du \label{z2} \\
 \hat{A} = T^{-1}AT \quad \hat{B} = T^{-1}B \quad \hat{C} = CT \,.\label{red-sys-mat}
 \end{gather}
-The gramians of this ROM can be obtainable by applying  (\ref{gram-obsv}) and (\ref{gram-ctrl}) to (\ref{red-sys-mat}).
+The gramians of this ROM are obtainable by applying  (\ref{gram-obsv}) and (\ref{gram-ctrl}) to (\ref{red-sys-mat}).
 This yields \(\hat{W}_c = T^{-1}W_cT^{-*}\) and \(\hat{W}_o = T^{*}W_oT\) with  \(T^{-*} := (T^{-1})^{*} := (T^{*})^{-1}\).
 A requirement \(T\) has to satisfy is that it has to make the observability and controllability gramians of the ROM equal and diagonal
 \begin{gather}
@@ -37,7 +37,7 @@ T = T_u \Delta_s  \,.
 Another important property of this transform is that the new coordinates are hierarchically ordered by observability and controllability.
 It can be shown by deriving some unit vector \(\zeta\) that maximizes the controllability and observability
 \begin{gather}
-\zeta = arg\max \, \zeta^{*}W_cW_o\zeta \quad s.t. ||\zeta||_2^{2} = 1 \\
+\zeta = \argmax \, \zeta^{*}W_cW_o\zeta \quad s.t. ||\zeta||_2^{2} = 1 \\
 \frac{d}{d\zeta} \zeta^{*}W_cW_o\zeta - 2\lambda \zeta = 0  \,. \label{opt1}
 \end{gather}
 %https://www.matheplanet.com/matheplanet/nuke/html/viewtopic.php?rd2&topic=128338&start=0#p937673
@@ -57,7 +57,7 @@ It is clear that \(\zeta\) is an eigenvector.
 Since the eigenvalues in \(\Delta\) contain information about how much each eigenvector gets scaled by multiplying it with \(W_cW_o\), the eigenvectors can be ordered by controllability and observability.
 
 \subsection{Mode Truncation}
-Since the goal of balanced truncation is to find a ROM of rank \(r\) that approximates the original system of rank \(n\) with \(r << n\), it is necessary to truncate the balanced system.
+Since the goal of balanced truncation is to find a reduced order model (ROM) of rank \(r\) that approximates the original system of rank \(n\) with \(r << n\), it is necessary to truncate the balanced system.
 This yields the following system:
 \begin{gather}
 \frac{d\tilde{x}}{dt} = \tilde{A}\tilde{X} + \tilde{B}u \\

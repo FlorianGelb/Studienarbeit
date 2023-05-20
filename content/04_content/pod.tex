@@ -27,19 +27,18 @@ a_i(t) = \frac{\langle \phi_i, f \rangle}{\langle \phi_i, \phi_i \rangle} \,. \l
 \subsection{Proper Orthogonal Decomposition for PDEs}
 Since PDEs are equations in terms of partial derivatives, the notation \(\mathfrak{P}(\partial x) u\) is introduced, which denotes a differential operator in terms of the spatial variables \(x\) for a function \(u(x,t,p\).
 The vector \(p\) contains some parameters.
-This notation provides a more abstract way to denote PDEs
+This notation provides a more abstract way to denote PDEs \cite{Gustafsson2011f}
 \begin{gather}
 \frac{\partial u}{\partial t} = \mathfrak{P}(\partial x) u \,.
 \end{gather}
-\cite{Gustafsson2011f} \\
 Solving for \(u\) is often difficult to impossible.
 A common method to solve PDEs is called the separation of variables.
-This separation of variables assumes that the underlying solution \(u(x, t)\) can be expressed by (\ref{ref-orth-exp}) to solve for \(a_k, 0 \leq k \leq n\).
+This separation of variables assumes that the underlying solution \(u(x, t)\) can be expressed by (\ref{ref-orth-exp}), where it has to be solved for \(a_k, 0 \leq k \leq n\).
 Since it is not practical to compute an infinite series, \(u\) only gets approximated by using (\ref{ref-orth-aprox}) instead
 \begin{gather}
 \sum_{i = 1} ^{n} \frac{\partial a_i}{\partial t} \phi_i = \sum_{i = 1} ^{n} \mathfrak{P}(\partial x) \phi_i a_i \,. \label{label-u-aprox} 
 \end{gather}
-By discretizing the spatial dimension got along \(x\) (\ref{label-u-aprox}) can be expressed using matrix notation
+By discretizing the spatial dimension along \(x\) (\ref{label-u-aprox}) can be expressed using matrix notation
 \begin{gather}
 \Phi = \begin{bmatrix}
 \phi_0 & ... & \phi_n
@@ -61,13 +60,13 @@ By considering (\ref{phi-orth}), the equation (\ref{u-galer}) can be expressed a
 \begin{gather}
 \frac{d}{dt} a = \Phi^{T}\mathfrak{P}(\partial x) \Phi a \,.
 \end{gather}
-After the vector of coefficients \(a\) for each time step has been computed, the solution can be assembled \cite{brunton_kutz_2019c}
+After the vector of coefficients \(a\) been computed for each time step has, the solution can be assembled \cite{brunton_kutz_2019c}
 \begin{gather}
 u(x, t) \approx \Phi(x)a(t) \,. \label{u-aprox-pod}
 \end{gather} 
 \subsection{Selection of Basis Vectors}
 As discussed in the previous section, a set of basis vectors can be used to generate approximate solutions to PDEs.
-However, it was not discussed how those basis functions are chosen.
+However, it was not discussed how those basis vectors are chosen.
 For POD to work, a so-called snapshot matrix \(X\) has to be available.
 This snapshot matrix stores a set of solutions where \(x_k\) is the solution for a PDE at time step \(k\Delta t\)
 \begin{gather}
@@ -87,13 +86,13 @@ Here the FEM solution is obtained by discretizing the PDE into a large number(\(
 This results in a high-dimensional system of ODEs.
 Since \(\Phi\) contains only \(r\) column (\(r << n\)) vectors a reduction in order can be achieved.
 The number of modes \(r\) is determined by the variance that has to be persevered.
-Figure \ref{FIG-POD-VAR} shows the variance each mode stores.
+Figure \ref{FIG-POD-VAR-POD} shows the variance each mode stores.
 Here the first two modes already store almost 97\% of the variance.
 \begin{figure}[H]
 \centering
 \includegraphics[ width=12.5cm]{images/pod_modes}
 \caption{Variance of Modes}
-\label{FIG-POD-VAR}
+\label{FIG-POD-VAR-POD}
 \end{figure}
 These two modes are displayed in figure \ref{FIG-POD-HIGH-MODES}.
 \begin{figure}[H]
@@ -110,7 +109,7 @@ Some low variance modes are displayed in figure \ref{FIG-POD-LOW-MODES}.
 \caption{Modes 30 to 35}
 \label{FIG-POD-LOW-MODES}
 \end{figure}
-Figure \ref{FIG-POD-VAR} shows that modes 30 to 35 almost have zero contribution to the snapshot matrix.
+Figure \ref{FIG-POD-VAR-POD} shows that modes 30 to 35 almost have zero contribution to the snapshot matrix.
 Therefore including them will introduce noise to the approximation and will increase computations.
 However, the benefits of this reduced order model are only relevant after the PDE has been solved once using a high dimensional system of ODEs \cite{brunton_kutz_2019c}.
 \subsection{POD for Heat Equation}
@@ -123,7 +122,7 @@ Substituting \(\mathfrak{P}\) in (\ref{u-aprox-pod}) with heat equation \ref{eq-
 \Phi \frac{\partial a}{\partial t}  = \alpha \frac{\partial^{2} \Phi}{\partial x^{2}} a + h\\
 \frac{\partial a}{\partial t} = \alpha \Phi^{T}  \frac{\partial^{2} \Phi}{\partial x^{2}} a + \Phi^{T}h \,.
 \end{gather}
-This system of ODEs can now be solved using a Runge-Kutta scheme.
+This system of ODEs can now be solved using Euler scheme.
 Note that \(\Phi\) contains numeric values.
 Therefore derivatives are unstable, especially at the first and last entries of the column vectors of \(\Phi\).
 To reduce this problem, the method used to compute the second derivative of \(\Phi\) is the so-called spectral derivative.
@@ -140,7 +139,7 @@ f \in \mathbb{C}^{n}, \quad k = \begin{bmatrix}
 
 Figure \ref{FIG-POD} shows a solution to heat equation using FEM and an approximation using POD with \(u(x, t) = 0, x_0 = 10000^{70\times1}, n = 70,\) variance \( = 90\%\).
 The x-axis displays time in seconds, and the y-axis is the object's length.
-It is visible that there are some differences, especially near the edges.
+It is visible that there are some differences, especially near the boundaries.
 However, chapter \ref{analysis} covers a more detailed analysis of the error.
 \begin{figure}[H]
 \centering

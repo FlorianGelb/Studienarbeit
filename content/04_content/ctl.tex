@@ -11,7 +11,7 @@ For this paper, the second problem is the most important one since the goal of t
 \subsection{LTI Systems}
 A linear time-invariant (LTI) system is a kind of system that fulfills the following conditions:
 \paragraph{Homogenity:}
-For a system to be an LTI system, the condition that the output of a system \(y(t)\) relates to the input \(u(t)\) and the initial condition \(x_0\) by a linear operator \(\mathfrak{f}\)
+One of the conditions for a system to be an LTI system, is that the output of a system \(y(t)\) relates to the input \(u(t)\) and the initial condition \(x_0\) by a linear operator \(\mathfrak{f}\)
 \begin{gather}
 y(t) = \mathfrak{f}(u(t), x_0) \\
 cy(t) = \mathfrak{f}(cu(t),  x_0) \,.
@@ -34,14 +34,13 @@ This is useful since LTI systems are well understood \cite{DouglasB}.
 An LTI system can be expressed as a system of ODEs that relates the input \(u\) to its output \(y\).
 The vector \(x\) denotes the states of a system.
 \begin{align}
-\dot{x} &= Ax + Bu \quad x(t_0) = x_0\\
+\dot{x} &= Ax + Bu \quad x(0) = x_0\\
 y &= Cx + Du
 \end{align}
 The matrices \(A \in \mathbb{R}^{n \times n}\),
 \(B \in \mathbb{R}^{n \times m}\),
 \(C \in \mathbb{R}^{q \times n}\) and
-\(D \in \mathbb{R}^{q \times m}\) are constant matrices.
-\cite{BennerGrivet}
+\(D \in \mathbb{R}^{q \times m}\) are constant matrices \cite{BennerGrivet}.
 \subsection{State Space of Discrete-Time Systems}
 A system can be represented as a discrete system in the following form
 \begin{gather}
@@ -51,7 +50,7 @@ x_{k} = x_{k\Delta t} \,.
 \end{gather}
 The matrices \(A_d\) to \(D_d\) can be obtained from the continuous system in the following way \cite{brunton_kutz_2019g}
 \begin{align}
-A_d &= e^{A\Delta t}, \quad B_d = \int_0^{\Delta t} e^{A\tau}B d\tau, 
+A_d &= e^{A\Delta t}, \quad B_d = \int_0^{\Delta t} e^{A\tau}B d\tau,  \quad
 C_d = C, \quad D_d = D \,.
 \end{align}
 \subsection{Transfer Function}
@@ -79,16 +78,16 @@ By using the convolution theorem \cite{ABELL2018399}
 \mathfrak{L}\{g(t)\}\mathfrak{L}\{v(t)\} = \mathfrak{L}\{g*v\}(t) \,.
 \end{gather}
 \\
-the definition of the transfer is as follows
+the definition of the transfer function is as follows
 \begin{gather}
 \mathfrak{L}\{f(\delta(t))\} \,.
 \end{gather}
 This definition is useful since the response of a system for a given input \(u(t)\) can be determined by the result of the multiplication \(G(s)U(s)\) \cite{DouglasBb}.
-Alternatively, for a system in state space representation, the transfer function is
+Alternatively, for a system in state space representation, the transfer function is \cite{BennerGrivet}
 \begin{gather}
 G(s) = C(sI-A)^{-1}B+D \,. \label{tf-from-ss}
 \end{gather}
-\cite{BennerGrivet}
+
 
 \subsection{Controllability and Observability}
 For LTI systems in state space representation, it can be determined which states are to what degree controllable and observable.

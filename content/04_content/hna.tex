@@ -3,7 +3,7 @@ The Hankel Norm Approximation (HNA) aims to find a reduced order system that app
 The Hankel norm is defined to be the largest Hankel singular value \cite{singh}
 \begin{gather}
 ||G(s)||_H = \sigma_{max} = \sqrt{\lambda_{max}(W_cW_o)} \,.
-\end{gather}.
+\end{gather}
 Therefore the problem can be stated as follows
 \begin{gather}
 G_r = \argmin ||G - G_r||_H \,. \label{hna-prob}
@@ -28,7 +28,7 @@ A lower bound for \(\min ||G - G_r||_H\) is established by lemma 7.1 in \cite{gl
 \min ||G - G_r||_H \geq \sigma_{r+1} \,.
 \end{gather}
 
-Here \(\sigma_{r+1}\) is the \(r+1\)th largest hankel singular value of \(G\).
+Here \(\sigma_{r+1}\) is the \(r+1\)th largest Hankel singular value of \(G\).
 Hence a system \(G_r\) is optimal if \(||G - G_r||_H = \sigma_{r+1}\).
 
 It is important to note that the Hankel norm can is related to the \(L_{\infty}\) norm through the Nehari Theorem
@@ -104,7 +104,7 @@ Q^{*} = D + \sum_{i=1}^{r} \frac{\phi_i}{s-\lambda_i} \,.
 
 This can no be decomposed into three systems \(K \in H_\infty, V \in H_{\infty}^-\) and \(\tilde{D}\) with
 \begin{gather}
-Re(\lambda_i) \in \mathbb{C}_{circ} \forall i \in I_{\circ} \\
+\operatorname{Re}(\lambda_i) \in \mathbb{C}_{\circ} \forall i \in I_{\circ} \\
 K = \sum_{i \in I_-} \frac{\phi_i}{s-\lambda_i} \\
 V = \sum_{i \in I_+} \frac{\phi_i}{s-\lambda_i} \\
 \tilde{D} = \hat{D} \,.
@@ -123,8 +123,6 @@ Suppose \(Q^{*} = K + (V + \tilde{D})\) was the optimal decomposition, then the 
 \end{align}
 Therefore \(G_r = K + D\) and \(F = V\).
 
-\subsection{Applying HNA to Heat Equation}
-
 \section{Modal Truncation is Equal to Balanced Truncation}
 The results for BT and MT are the same since \(B = C\) and \(A\) is symmetric.
 Remember that \(A^{n\times n} = M^{-1}K\) where both \(K\) and \(M\) are symmetric, hence \(A\) is symmetric \cite{170372}.
@@ -132,7 +130,7 @@ The eigenvectors of a symmetric matrix are mutually orthogonal \cite{Zhang}.
 Therefore the eigendecomposition of  \(A\) is
 \begin{gather}
 AX = X\Delta \,.
-\end{gather}.
+\end{gather}
 The eigenvalues of a symmetric matrix are real.
 It is assumed that \(\Delta = diag(\lambda_1, ..., \lambda_n)\) with \(\lambda_1 \geq \lambda_2 \geq ... \geq \lambda_n\).
 where \(XX^T = X^TX = I\).
@@ -166,7 +164,7 @@ W_C = W_o = \begin{bmatrix}
 \end{bmatrix} \,.
 \end{gather}
 This shows that the eigenvectors of \(A\) satisfy the conditions for balancing transformation \(T\) in section \ref{bt}.
-Since the eigenvalues are all negative and real the order \(\delta_{11} \geq \delta_{22} \geq ...  \delta_{nn}\) applies.
+Since the eigenvalues are all negative and real the order \(\lambda{11} \geq \lambda_{22} \geq ...  \lambda_{nn}\) applies.
 This enables the mode truncation described in section \ref{bt}
 \begin{gather}
 \tilde{x} = \begin{bmatrix}

@@ -39,8 +39,7 @@ The goal of modal truncation is to find a subset of the indices \(I\)  such that
 I_r \subseteq I, \quad |I_r| = r \,.
 \end{gather}
 Using this subset as indices in (\ref{dcnf}), a truncation is obtained, yielding a system defined by a new transfer function \(\hat{G}(s)\).
-The set \(I_r\) has to be chosen such that the error \(||G(s) - \hat{G(s)}||_{H_n}\) becomes minimal.
-Here  \(H_n\) denotes the \(H_2\)  norm.
+The set \(I_r\) has to be chosen such that the error \(||G(s) - \hat{G(s)}||_{H_2}\) becomes minimal.
 As shown in \cite{vuillemin2020optimal}, other norms are also usable, but only the stated norm is used for simplicity.
 Furthermore, in case some \(\lambda_i \in \Lambda, \operatorname{Im}(\lambda_i) > 0\) is a complex number  \(i \in I_r\), the index of the corresponding complex conjugate eigenvalue has to selected too, if \(\lambda_j = \bar{\lambda}_i \in \Lambda \wedge i \in I_r \Rightarrow j \in I_r\). 
 This yields the following optimization problem
