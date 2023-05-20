@@ -2,16 +2,16 @@
 Balanced truncation is a method for model order reduction.
 The goal of balanced truncation is to approximate a system using only the most relevant modes of the system.
 The difference to POD is that the modes are not selected by the variance they capture but by the controllability and observability of the modes.
-This is done by finding a coordinate transform.
+The first step to finding such an approximation is to find a coordinate transform.
 \subsection{Balanceing Coordinate Transform} \label{balre}
-To find a reduced order model using balanced truncation a orthonormal coordinate transform is applied: \(x = Tz\).
+An orthonormal coordinate transform is applied to find a reduced-order model using balanced truncation: \(x = Tz\).
 This yields a new system
 \begin{gather}
 \dot{z} = \hat{A}z + \hat{B}u \label{z1}\\
 y = \hat{C}z + Du \label{z2} \\
 \hat{A} = T^{-1}AT \quad \hat{B} = T^{-1}B \quad \hat{C} = CT \,.\label{red-sys-mat}
 \end{gather}
-The gramians of this ROM can be obtained by applying  (\ref{gram-obsv}) and (\ref{gram-ctrl}) to (\ref{red-sys-mat}).
+The gramians of this ROM can be obtainable by applying  (\ref{gram-obsv}) and (\ref{gram-ctrl}) to (\ref{red-sys-mat}).
 This yields \(\hat{W}_c = T^{-1}W_cT^{-*}\) and \(\hat{W}_o = T^{*}W_oT\) with  \(T^{-*} := (T^{-1})^{*} := (T^{*})^{-1}\).
 A requirement \(T\) has to satisfy is that it has to make the observability and controllability gramians of the ROM equal and diagonal
 \begin{gather}
@@ -22,7 +22,7 @@ W_cW_oT = T\Delta^{2}  \,. \label{eigendec}
 \end{gather}
 Since \(\Delta\) is a diagonal matrix, (\ref{eigendec}) is equal to the eigendecomposition of \(W_cW_o\).
 Therefore \(T\) contains the eigenvectors of \(W_cW_o\).
-The values contained in \(\Delta\) are known as hankel singular values.
+The values in \(\Delta\) are known as Hankel singular values.
 However \(T\) needs to be rescaled to make \(\hat{W}_c\) and \(\hat{W}_o\) equal.
 Here \(T_u\) denotes the unscaled eigenvectors of this eigendecomposition that yields gramians that are not equal to each other
 \begin{gather}
@@ -53,11 +53,11 @@ Applying (\ref{der-mat}) to (\ref{opt1}) yields
 W_cW_o\zeta = \lambda \zeta \,.
 \end{gather}
 Since \(\lambda\) is the Lagrange multiplier, it is a scalar. 
-It is clear that \(\zeta\) is a eigenvector.
-Since the eigenvalues in \(\Delta\) contain information about how much each eigenvector gets scaled by multiplying it with \(W_cW_o\) the eigenvectors can be ordered by controllability and observability.
+It is clear that \(\zeta\) is an eigenvector.
+Since the eigenvalues in \(\Delta\) contain information about how much each eigenvector gets scaled by multiplying it with \(W_cW_o\), the eigenvectors can be ordered by controllability and observability.
 
 \subsection{Mode Truncation}
-Since the goal of balanced truncation is to find a ROM of rank \(r\) that approximates the original system of rank \(n\) with \(r << n\) it is necessary to truncate the balanced system.
+Since the goal of balanced truncation is to find a ROM of rank \(r\) that approximates the original system of rank \(n\) with \(r << n\), it is necessary to truncate the balanced system.
 This yields the following system:
 \begin{gather}
 \frac{d\tilde{x}}{dt} = \tilde{A}\tilde{X} + \tilde{B}u \\
@@ -111,7 +111,7 @@ C \Psi & CT_t
 \end{bmatrix} + Du
  \,.
 \end{gather}
-However the only relevant part of this system is
+However, the only relevant part of this system is
 \begin{gather}
 \frac{d\tilde{x}}{dt} = \Phi^{*}A\Psi\tilde{x} + \Phi^{*}Bu \\
 y = C\Psi\tilde{x} + Du  
@@ -120,7 +120,7 @@ since this is the only part necessary to calculate \(\tilde{x}\)
 \cite{brunton_kutz_2019e}.
 
 \subsection{Computing Balanced Truncation}
-Since the gramians for controllability and observability are too expensive to compute for large systems the so called empirical gramians are used as an approximation.
+Since the gramians for controllability and observability are too expensive to compute for large systems, the so-called empirical gramians are used as an approximation.
 The empirical gramians are calculated by using the discrete-time system matrices from (\ref{disc-a}) and (\ref{disc-b})
 \begin{gather}
 \mathscr{C}_d = \begin{bmatrix}B_d & A_dB_d & \hdots & dA^{m_o -1}B_d\end{bmatrix} \\
@@ -136,13 +136,13 @@ m_o, m_c << rank(A)  \,.
 Now these empirical gramians can be used for obtaining the balancing coordinate transform \cite{brunton_kutz_2019e}.
 
 \subsection{State Space Representation from Heat Equation} \label{heat-ss}
-To apply balanced truncation to the heat equation (\ref{eq-1d-h}) a state space representation of that system has to be found first.
+A state space representation of that system must be found first to apply balanced truncation to the heat equation (\ref{eq-1d-h}).
 Note that the system of ODEs resulting from FEM (\ref{almost-almost-ss}) resembles a state space representation
 \begin{gather}
 x := c \quad x_0 := c_0 \\
 A := M^{-1}K \quad B:= I  \,.
 \end{gather}
-Since the system is realized as simulation all states can be accurately measured \(C := I\) and there is no feed through \(D := 0_{qm}\).
+Since the system is realized as a simulation, all states can be accurately measured \(C := I\), and there is no feed through \(D := 0_{qm}\).
 Now the already described steps for balanced truncation can be applied to the system.
 
 Figure \ref{FIG-BT} shows a solution to heat equation using FEM and an approximation using BT with \(u(x, t) = 0, x_0 = 10000^{70\times1}, n = 70, n_{approx} = 10\).
@@ -152,5 +152,7 @@ Figure \ref{FIG-BT} shows a solution to heat equation using FEM and an approxima
 \caption{FEM solution and BT approximation for heat equation}
 \label{FIG-BT}
 \end{figure}
+
+
 
 

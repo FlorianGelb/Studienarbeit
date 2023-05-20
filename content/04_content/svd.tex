@@ -1,21 +1,21 @@
 \section{Singular Value Decomposition}
 The Singular Value Decomposition (SVD) is a matrix factorization with guaranteed existence.
-It can be used to obtain low rank approximations of a matrix or pseudo inverses for ill posed linear system of equations.
-It is also related to FT by providing a data specific set of orthogonal bases instead of a generic set of sines and cosines. For this paper the SVD will be used for generating low rank approximations of matrices \cite{brunton_kutz_2019b}.
+It can be used to obtain low-rank approximations of a matrix or pseudo inverses for an ill-posed linear system of equations.
+It is also related to FT by providing a data-specific set of orthogonal bases instead of a generic set of sines and cosines. For this paper, the SVD will be used for generating low-rank approximations of matrices \cite{brunton_kutz_2019b}.
 \subsection{Properties}
 A matrix \(X \in \mathbb{R}^{n \times m}\) can be decomposed in the following way
 \begin{gather}
 X = U \Sigma V^{T} \,.
 \end{gather}
 Here \(U \in\mathbb{R}^{n \times n}\) and \(V \in\mathbb{R}^{m \times m}\) are unitary matrices and \(\Sigma \in \mathbb{R}^{n \times m}\) is a real valued ordered diagonal matrix.
-The columns of \(U\) provide a set of orthonormal basis vectors for the column space of \(X\), \(V\) contains orthonormal basis vectors for the row space of \(X\). The matrix \(\Sigma\) assigns a magnitude ('importance') to the product of \(U\) and \(V^{T}\)  \cite{brunton_kutz_2019a}.
+The columns of \(U\) provide a set of orthonormal basis vectors for the column space of \(X\), and \(V\) contains orthonormal basis vectors for the row space of \(X\). The matrix \(\Sigma\) assigns a magnitude ('importance') to the product of \(U\) and \(V^{T}\)  \cite{brunton_kutz_2019a}.
 Since \(U\) and \(V\) are unitary they have the following property \cite{SZABO2015385}
 \begin{gather}
 U^{T}U = UU^{T} = I \\
 V^{T}V = VV^{T} = I \,.
 \end{gather}
 
-In case \(n \geq m\) the so called economy SVD can be used to factorize the matrix \(X\)
+In case \(n \geq m\), the so-called economy SVD can be used to factorize the matrix \(X\)
 \begin{gather}
 X = \begin{bmatrix}
 \hat{U} & \hat{U}^{\bot}
@@ -32,7 +32,7 @@ Therefore the dimensionality of \(\hat{U}\) and \(\hat{\Sigma}\) is less or equa
 
 \subsection{Hierarchy of correlations}
 As already stated, the matrix \(\Sigma\) assigns a magnitude to \(UV^{T}\).
-This magnitude can be seen as the square of the variance the bases in \(U\) and \(V\) capture.
+This magnitude is the square of the variance of the bases in \(U\) and \(V\) capture.
 Assume that \(X^{T}X\) and \(XX^{T}\) denote correlation matrices
 \cite{brunton_kutz_2019b}.
 A correlation matrix is a matrix that stores correlation coefficients between multiple measurements. 
@@ -55,7 +55,7 @@ The correlation coefficient between two column vectors of \(X\) is calculated as
 
 
 
-Since all column vectors have zero mean and are normalized this becomes \cite{harv}
+Since all column vectors have zero means and are normalized, this becomes \cite{harv}
 \begin{gather}
 \operatorname{corr}(x_i, x_{i'}) = cov(x_i, x_{i'})= x_i^{T}x_{i'} \,.
 \end{gather}
@@ -90,12 +90,12 @@ XX^{T}U = U \begin{bmatrix}
 \end{bmatrix} \\
 X^{T}XV = V\hat{\Sigma}^{2} \,.
 \end{gather}
-This shows that \(V\) contains the eigenvectors of the row-wise correlation matrix and \(U\) contains the eigenvectors of the column-wise correlation matrix.
-The matrix \(\Sigma\) contains the roots of the according eigenvalues and is thereby related to the variance.
+This shows that \(V\) contains the eigenvectors of the row-wise correlation matrix, and \(U\) contains the eigenvectors of the column-wise correlation matrix.
+The matrix \(\Sigma\) contains the roots of the according eigenvalues and is related to the variance.
 By ordering \(U\), \(\Sigma\) and \(V\) by the entries of \(\Sigma\) in a descending order he first row of \(U\) and \(V\) contain the most important basis vectors \cite{brunton_kutz_2019b}.
 
 \subsection{Low-rank approximation}
-A useful property of the SVD is that it can be used to find an hierarchy of rank-\(r\) approximation for a given matrix \(X\).
+A useful property of the SVD is that it can be used to find a hierarchy of rank-\(r\) approximation for a given matrix \(X\).
 An matrix \(\tilde{X}\) that approximates \(X\) is obtained by 
 \begin{gather}
 \tilde{X} = \argmin\limits_{s.t. rank(\tilde{X}) = r} 
@@ -110,7 +110,7 @@ The variance captured by \(\tilde{X}\) can be calculated in the following way \c
 \end{gather}
 
 \subsection{Example low-rank approximation}
-As an example suppose there is a matrix \(X\)
+As an example, suppose there is a matrix \(X\)
 \begin{gather}
 X = \begin{bmatrix}
 3 & 1 & 5 & 5 \\
@@ -120,13 +120,13 @@ X = \begin{bmatrix}
 \end{bmatrix} \,.
 \end{gather}
 By computing the SVD the matrices \(U\), \(\Sigma\) and \(V\) are obtained.
-Now \(\Sigma\) can be used to calculate the cumulative variance for an rank-\(r\) approximation and the variance captured by each basis vector of \(U\) and \(V\).
+Now \(\Sigma\) can be used to calculate the cumulative variance for a rank-\(r\) approximation and the variance captured by each basis vector of \(U\) and \(V\).
 \pgfplotsset{width=6cm,compat=1.9}
 \begin{figure}[H]
 \centering
 \begin{tikzpicture}
 \begin{axis}[
-    title={Variance captured by bases},
+    title={variance captured by bases},
     xlabel={number of singular value},
     ylabel={Variance [\%]},
     xmin=0, xmax=3,
@@ -176,7 +176,7 @@ Now \(\Sigma\) can be used to calculate the cumulative variance for an rank-\(r\
 \caption{Variance and cumulative variance captured by each column vectors of \(U\) and \(V\)}
 \label{var-plt}
 \end{figure}
-On figure \ref{var-plt} the commutative variance and the variance of each basis vector is plotted.
+In figure \ref{var-plt}, the commutative variance and the variance of each basis vector are plotted.
 Here \(X\) can be approximated using the first three leading basis vectors.
 This approximation captures already more than 99\% of the variance.
 The resulting matrix \(\tilde{X}_3\) looks as follows
@@ -187,6 +187,8 @@ The resulting matrix \(\tilde{X}_3\) looks as follows
 -5.10 & -0.60 & 2.34
 \end{bmatrix} \,.
 \end{gather}
+
+
 
 
 

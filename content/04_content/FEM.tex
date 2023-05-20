@@ -1,31 +1,26 @@
 \section{Finite Element Method} \label{FEM}
-The finite element method (FEM) is a method to approximate solutions for differential equations (DE) within a certain domain \(\Omega\).
-This is done by discretizing the spatial domain.
+The finite element method (FEM) is a method to approximate solutions for differential equations (DE) within a certain domain \(\Omega\), by discretizing the spatial domain.
 Assume that a DE is given by
 \begin{gather}
 m, n \in \mathbb{N} \quad \zeta \in \Omega \subset \mathbb{R} \quad m \geq 1 \\
 \frac{\partial^{m} y}{\partial \zeta^{m}} -  g(y) = r(\zeta, t) \,. \label{eq-pde-gen} 
 \end{gather}
 
-
-It is assumed that \(g\) is a linear function that can also contain partial derivatives of \(y\) w.r.t. time, \(y\) takes the value 0 at the boundary \(\Gamma\) and \(y(\zeta, 0) = f(\zeta)\).
+Assuming that \(g\) is a linear function that can also contain partial derivatives of \(y\) w.r.t. time, \(y\) takes the value 0 at the boundary \(\Gamma\) and \(y(\zeta, 0) = f(\zeta)\).
 An approximate solution to \(y\) is given by \(\mu\), which is expressed as a sum of basis functions contained in the set \(\phi\):
 \begin{gather}
 \mu(\zeta, t) = \sum_{j = 1}^{N} c_{j}(t)\phi_{j}(\zeta) \,. \label{eq-aprox}
 \end{gather}
 
-
-The residual is defined as
+The definitial of the residual is as follows
 \begin{gather}
 \mathfrak{r} = \frac{\partial^{m} \mu}{\partial \zeta^{m}} -  g(\mu) - r(\zeta, t) \,.
 \end{gather}
 
-
-Furthermore the residual is required to be orthogonal to all basis functions
+Furthermore, the residual is required to be orthogonal to all basis functions
 \begin{gather}
 \langle \mathfrak{r}, \phi_{k} \rangle = 0 \quad \forall \phi_{k} \in \phi \,. \label{eq-req-orth}
 \end{gather}
-
 
 Since the functions in \(\phi\) are known, it is only required to find the coefficients \(c_{j}(t)\) in (\ref{eq-aprox}).
 To find those coefficients (\ref{eq-req-orth}) needs to be expressed as follows
@@ -33,36 +28,31 @@ To find those coefficients (\ref{eq-req-orth}) needs to be expressed as follows
 \int_{\Omega} \frac{\partial^{m} \mu}{\partial \zeta^{m}} \phi_{k} \, d\zeta  -  \int_{\Omega} g(\mu) \phi_{k}        \, d\zeta = \int_{\Omega}  r(\zeta, t) \phi_{k}        \, d\zeta \quad \forall \phi_{k} \in \phi \,. 
 \end{gather}
 
-
 If \(\mu\) is substituted with (\ref{eq-aprox}) the following is obtained
 \begin{gather}
 \sum_{j = 1}^{N} \left( \left( \int_{\Omega} \frac{\partial^{m} \phi_{j}}{\partial \zeta^{m}} \phi_{k} \, d\zeta\right) c_{j}(t) - g\left( \left(\int_{\Omega} \phi_k \phi_j d\zeta\right) c_{j}(t)\right) \right)  = \int_{\Omega}  r(\zeta, t) \phi_{k}        \, d\zeta \quad \forall \phi_{k} \in \phi \,. \label{eq-al}
 \end{gather}
 
-
-It is also necessary to apply the divergence theorem to the first integral term taking into account that \(y\) at \(\Gamma\) is 0.
+It is also necessary to apply the divergence theorem to the first integral term considering that \(y\) at \(\Gamma\) is 0.
 Since \(\zeta\) is one dimensional, the divergence theorem becomes integration by parts
 \begin{gather}
 \int_{\Omega} \frac{\partial^{m} \phi_{j}}{\partial \zeta^{m}} \phi_{k} \, d\zeta = - \int_{\Omega} \frac{\partial^{m-1} \phi_{j}}{\partial \zeta^{m-1}} \frac{\partial \phi_{k}}{\partial \zeta} \, d\zeta \quad \forall \phi_{k} \in \phi \,. \label{eq-ibp}
 \end{gather}
-
 
 Combining (\ref{eq-al}) and (\ref{eq-ibp}) yields
 \begin{gather}
 -\sum_{j = 1}^{N} \left(\left(\int_{\Omega} \frac{\partial^{m-1} \phi_{j}}{\partial \zeta^{m-1}} \frac{\partial \phi_{k}}{\partial \zeta} \, d\zeta\right) c_{j}(t) + g\left(\left(\int_{\Omega} \phi_k \phi_j d\zeta\right) c_{j}(t)\right)\right)  = \int_{\Omega}  r(\zeta, t) \phi_{k}        \, d\zeta \quad \forall \phi_{k} \in \phi \,. \label{eq-fem}
 \end{gather}
 
-
-This formulation leads to a system of ODEs or a system of linear equations that can be solved either analytically or numerically.
+This formulation leads to a system of ODEs or linear equations that can be solved numerically.
 \subsection{Solving the Heat Equation using FEM}
-This formulation of FEM can be applied to (\ref{eq-1d-h})
+This formulation of FEM applies to (\ref{eq-1d-h})
 \begin{gather}
 \Omega = \chi \quad \Gamma = \{x_{0}, x_{n}\} \\
 y(\zeta, t) = -u(x, t) \quad g(u) = -\frac{1}{\alpha} \frac{\partial u}{\partial t} \\
 m = 2 \quad r(\zeta, t) = \frac{1}{\alpha} h(x,t) \\
 u(x, 0) = f(x) \quad u(x_{0}, t) = 0 \quad u(x_{n}, t) = 0 \,.
 \end{gather}
-
 
 The set of basis functions is defined as a set of piecewise linear functions with constant step size \(\Delta x\)
 \begin{gather}
@@ -75,7 +65,6 @@ The set of basis functions is defined as a set of piecewise linear functions wit
 \end{gather}
 \cite{Gustafsson2011d}
 
-
 The step size \(\Delta x\) is defined by \(\Delta x = \frac{x_n - x_0}{n-1}\). \label{def-delta-x}
 This results in the following system of ODEs
 \begin{gather}
@@ -83,25 +72,22 @@ This results in the following system of ODEs
 \quad \forall \phi_{k} \in \phi \,. \label{eq-heat-fem}
 \end{gather}
 
-
 Since \(\phi_k \phi_j \neq 0\) for \(k = j, k = j \pm 1\) (\ref{eq-heat-fem}) 
 can be expressed as 
 \begin{gather}
 q_1\dot{c}_{j-1} + q_2 \dot{c}_{j} + q_1 \dot{c}_{j+1} = p_1 c_{j-1} + p_2 c_{j} + p_1 c_{j+1} + H(x,t) \,.
 \end{gather}
 
-
 where \(p\) and \(q\) are some constants derived later.
 For \(j=1\)  and \(j=n\) some new coefficients \(c_0, c_{n+1}\) are introduced.
-To force the boundary condition they are set to zero \(c_0 = c_{n+1} = 0\).
+They are set to zero \(c_0 = c_{n+1} = 0\) to force the boundary condition.
 It follows that \(h(x, t)\) and \(c_j(0)\) have to satisfy the boundary condition too.
 
-Using matrix notation this becomes
+Using matrix notation, this becomes
 \begin{gather}
 M^{N \times N}, K^{N \times N} \\
 M\dot{c} = Kc + d \,. \label{eq-heat-almost-ss}
 \end{gather}
-
 
 The matrices \(M\) and \(K\) can be easily computed (Appendix \ref{ap-mat-der})
 \begin{gather}
@@ -118,19 +104,15 @@ k_{ij} = \begin{cases}
 \end{cases}\,.
 \end{gather}
 
-
-Furthermore to solve this system of ODEs numerically an initial condition \(c_{0}\) has to be known 
-\cite{Gustafsson2011b}.
-It can be obtained using a least squares (LS) approach \cite{Gustafsson2011c}
+Furthermore, to solve this system of ODEs numerically, an initial condition \(c_{0}\) has to be known \cite{Gustafsson2011b}.
+The least squares (LS) approach is used to obtain the initial condition \cite{Gustafsson2011c}
 \begin{gather}
 \sum_{j = 1}^N \langle \phi_j, \phi_k \rangle c_{j}(0) = \langle f, \phi_{k} \rangle \quad \forall \phi_k \in \phi \\
 Mc_{0} = F \label{F}\\ 
 c_{0} = M^{-1}F \,. \label{c0}
 \end{gather}
 
-
-
-However since the basis functions are piecewise linear functions, the coefficients are \(c_0 = \begin{bmatrix}
+However, since the basis functions are piecewise linear, the coefficients are \(c_0 = \begin{bmatrix}
 f(0), f(\Delta x), ..., f(n)
 \end{bmatrix}^T\)
 \cite{Gustafsson2011g}.
@@ -144,10 +126,11 @@ Observe that by multiplying (\ref{eq-heat-almost-ss}) with \(M^{-1}\) (\ref{ap-K
 \begin{gather}
 \dot{c} = M^{-1}Kc + M^{-1}M\upsilon \,. \label{almost-almost-ss}
 \end{gather}
-This system of ODEs can be solved using an euler scheme
+This system of ODEs can be solved using an Euler scheme
 \begin{gather}
 c_{t+1} = \Delta t (M^{-1}Kc_{t} + I\upsilon) + c_{t} \,. \label{fem-euler}
 \end{gather}
-
-Using \ref{eq-aprox} and the computed coefficients \(c\) the function \(u(x,t)\) can be approximated.
+ The function \(u(x,t)\) can be approximated via the computed coefficients and  (\ref{eq-aprox} )
 However this is equivalent to linear interpolation between \(c_{n}\) and \(c_{n+1}\) (Appendix \ref{ap-lin-interp}).
+
+

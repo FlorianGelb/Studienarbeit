@@ -1,18 +1,11 @@
 \chapter{Fundamentals}
-This chapter covers the fundamentals, necessary for understanding the model order reduction methods.
-First of all a system to apply those methods to is needed.
-Here the 1D heat equation was chosen, since it is fairly easy to solve and to understand the results.
-After that the method of finite elements is introduced.
-This method is used to discretize the 1D heat equation into a solvable system of ODEs since it can handle boundary conditions and initial values.
-One of the most important fundamentals of this paper is the singular value decomposition, since it takes heavy use in the model order reduction methods covered.
-The last Section of this chapter will cover some control system fundamentals.
-Those are needed since three of the model order reduction methods are used in a control system context, hence some explanation on the terminology is needed.
+This chapter covers the fundamentals necessary for understanding the model order reduction methods. First of all, a system to apply those methods is needed. Here the 1D heat equation was chosen since it is fairly easy to solve and to understand the results. After that, the method of finite elements is introduced. This method discretizes the 1D heat equation into a solvable system of ODEs since it can handle boundary conditions and initial values. One of the most important fundamentals of this paper is the singular value decomposition since it takes heavy use in the model order reduction methods covered. The last Section of this chapter will cover some control system fundamentals. Those are needed since three model order reduction methods appear in a control system context. Hence some explanation of the terminology is needed.
 \section{Heat Equation} \label{HE}
-The conduction of heat  within a medium can be described using the following partial differential equation (PDE):
+The following partial differential equation (PDE) describes the conduction of heat  within a medium
 \begin{gather}
 \frac{\partial u}{\partial t} = \alpha \nabla^{2} u\,. \label{heat}
 \end{gather}
-Here \(u\) is a function of space and time and \(\alpha\) is a positive constant.
+Here \(u\) is a function of space and time, and \(\alpha\) is a positive constant.
 For this paper \(u\) will be defined in terms of one spatial dimension \cite{Gustafsson2011}
 \begin{gather}
 u := u(x, t) \\
@@ -20,13 +13,12 @@ u := u(x, t) \\
 x \in \chi \subset \mathbb{R} \quad t \in \tau \subset \mathbb{R} \\
 x_{0} \leq x \leq x_{n} \quad t_{0} \leq t \leq t_{n}\,.
 \end{gather}
-.
 
-In order to not only model the conduction of heat within a medium but also a heating process, a new function \(h: \chi \times \tau \rightarrow  \mathbb{R}\) is introduced:
+In order to model the conduction of heat within a medium but also a heating process, a new function \(h: \chi \times \tau \rightarrow  \mathbb{R}\) is introduced:
 \begin{gather}
 \frac{\partial u}{\partial t} = \alpha \frac{\partial^{2} u}{\partial x^{2}} + h(x,t)\,. \label{eq-1d-h}
 \end{gather}
-For this paper it is assumed that the initial condition is known
+For this paper, the assumption is made that the initial condition is known
 \begin{gather}
 f: \chi \rightarrow \mathbb{R} \\
 u(x, t_{0}) = f(x)\,.
@@ -43,9 +35,9 @@ A solution to (\ref{eq-1d-h-ft}) is given by
 \hat{u} = \hat{u}_{0} + \hat{u}_{p}\,.
 \end{gather}
 Where \(\hat{u}_{0}\) is the homogeneous solution and \(\hat{u}_{p}\) is the particular integral.
-In order to solve this ODE for the particular integral \(\hat{h}\) has to be known \cite{Papula2015}.
+In order to solve this ODE, the particular integral \(\hat{h}\) has to be known \cite{Papula2015}.
 The choice of \(h\) is, except for some restrictions, arbitrary.
-Therefore an approximate solution to \ref{eq-1d-h-ft} \(\hat{u}_{a}\) is obtained by the forward euler scheme:
+Therefore an approximate solution to \ref{eq-1d-h-ft} \(\hat{u}_{a}\) is obtained by the forward Euler scheme
 \begin{gather}
 \frac{d}{dt} \hat{u} \approx \frac{\Delta \hat{u}}{\Delta t} \\
 \hat{u}_{t+1} = \hat{u}_{t} + \Delta t (-\alpha\omega^{2}\hat{u} + \hat{h}) \label{eq-1d-h-es} \\
@@ -53,15 +45,15 @@ Therefore an approximate solution to \ref{eq-1d-h-ft} \(\hat{u}_{a}\) is obtaine
 \hat{u}_{t_{0}} & \hdots & \hat{u}_{t_{n}}
 \end{bmatrix}\,.
 \end{gather}
-In order to apply the euler scheme successfully an initial condition   \(\hat{u}_{0}\) has to be known. 
+The Euler scheme is applicable if an initial condition \(\hat{u}_{0}\) is known. 
 This initial condition is obtained by applying the discrete Fourier transform (DFT) to an initial temperature distribution along \(x\)
 \begin{gather}
 \hat{u}_{0} = \mathfrak{F} \{f(x)\}\,.
 \end{gather} 
 \cite{Gustafsson2011b}
 
-The forward euler scheme is used here because it is fairly easy to implement.
-By applying the  inverse discrete Fourier transform (IDFT) to \(\hat{u}_{a}\) an approximate solution to (\ref{eq-1d-h}) can be obtained.
-To decrease computing time, the fast Fourier transform (FFT) and inverse fast Fourier transform (IFFT) is used instead of the DFT and IDFT.
-A problem with solving the heat equation in this way is that it cannot handle boundary conditions.
-In order to solve the heat equation as initial boundary value problem (IBVP) the finite element method is used.
+The forward Euler scheme is used because it is easy to implement.
+Applying the inverse discrete Fourier transform (IDFT) to \(\hat{u}_{a}\), an approximate solution to (\ref{eq-1d-h}) can be obtained.
+Using fast Fourier transform (FFT) and inverse fast Fourier transform (IFFT)  instead of the DFT, and IDFT reduces the processing time.
+This method for solving the heat equation raises the problem that it cannot handle boundary conditions. 
+Using the finite element method, the heat equation is solvable as an initial boundary value problem (IBVP).

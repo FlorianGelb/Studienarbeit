@@ -1,32 +1,10 @@
 \chapter{Introduction}
-With the development of semiconductor based computers mankind has access to the most powerful computing machines ever created by humans.
-Still those cutting edge technologies often do not provide enough computational power to solve problems in maths, physics or engineering.
-Often those problems come in form of partial differential equations, to come up with approximate solutions discretization is used to transform PDEs into systems of ordinary differential equations.
-This resulting system of ODEs is often still too large to use them for computations directly.
-Methods to reduce the size of those systems are called model order reduction methods.
+With the development of semiconductor-based computers, humanity has access to the most powerful computing machines ever created by humans. Still, those cutting-edge technologies often need to provide more computational power to solve problems in maths, physics, or engineering. Often those problems appear as partial differential equations. Discretizing PDEs into systems of ordinary differential equations allows the generation of approximate solutions. This resulting system of ODEs is often still too large to use for computations directly. Methods to reduce the size of those systems are called model order reduction methods.
 
 \section{Problem statement}
-Based on the problem and its setting a variety of model reduction methods can be chosen.
-Each of them approximate the original system in some optimal manner.
-The goal of this paper is to compare the properties of a defined set of model order reduction methods.
-This comparison consists of a comparison in the error of the reduced order models and the time it takes to compute them.
-The system that gets reduced describes the heat transfer in a piece of wire that can be heated or cooled arbitrarily.
+Various model reduction methods can be chosen based on the problem and its setting. Each of them approximates the original system in some optimal manner. This paper aims to compare the properties of a defined set of model order reduction methods. The compared properties are the error of the reduced order models and the time it takes to compute them. The system that gets reduced describes the heat transfer in a piece of wire that can be heated or cooled arbitrarily.
 
 \section{Outline}
-The fundamentals are covered first.
-It begins with the basics about heat equation and how the already mentioned heating or cooling is done respectively.
-Also some naive method to obtain an approximate solution to it is covered.
-However the next part of that chapter will discuss the finite element method since this technique is more powerful than the previously stated method.
-After the singular value decomposition is covered since it sees a lot of usage in the model order reduction methods.
-Since most of the methods come from control theory some basic control theory is covered in the subsequent section.
-Chapter three covers the workings of the model order reduction methods.
-It begins with the proper orthogonal decomposition.
-Balanced truncation, modal truncation and hankel norm approximation follows.
-Last but not least it gets demonstrated that modal truncation equals balanced truncation for this system.
-In chapter four the implementation of those methods and the implementation of the finite element solver is discussed.
-After that numerical experiments are conducted.
-Here the time domain error, frequency domain error and the time it takes to compute the reduced order models are measured and compared.
-
-
-
-
+The fundamentals are covered first. It begins with the basics of the heat equation and how the already mentioned heating or cooling works, respectively. Also, some naive method to obtain an approximate solution is covered. However, the next part of that chapter will discuss the finite element method since this technique is more powerful than the previously stated method after the singular value decomposition is covered since it sees much usage in the model order reduction methods. Since most methods come from control theory, the subsequent section covers some basic control theory. Chapter three is about the workings of the model order reduction methods. It begins with the proper orthogonal decomposition. Balanced truncation, modal truncation, and Hankel norm approximation follow.
+Last but not least, it gets demonstrated that modal truncation equals balanced truncation for this system. In chapter four, the implementation of those methods and the implementation of the finite element solver is discussed. After that, the conduction of numerical experiments
+takes place. Here the time domain error, frequency domain error, and the time it takes to compute the reduced order models are measured and compared.
