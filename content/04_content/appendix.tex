@@ -1,5 +1,5 @@
 \chapter{Appendix}
-\section{Deriving matrices for FEM using piecewise linear functions} \label{ap-mat-der}
+\section{Deriving Matrices for FEM Using Piecewise Linear Functions} \label{ap-mat-der}
 The so called triangle function is defined as follows:
 \begin{gather}
     \phi_j(x)= 
@@ -49,7 +49,7 @@ Finally \ref{int-2} has to be evaluated for this condition:
 -\int_{x_j}^{x_{j+1}} \frac{d\phi_{j}}{dx}\frac{d\phi_{j+1}}{dx}dx = \frac{1}{\Delta x^2} \int_{x_j}^{x_{j+1}} 1 dx =  \frac{1}{\Delta x^2} \left[ x \right]_{x_{j}}^{x_{j+1}} = \frac{1}{\Delta x}
 \end{gather}
 \newpage
-\section{Proof that matrix M is invertible}
+\section{Proof that Matrix M is Invertible}
 \label{ap-K-inv}
 Let \(M_{n}\) be a matrix with \(M_{n} \in \mathbb{R}^{n \times n}\) given by:
 \begin{gather}
@@ -130,8 +130,8 @@ The limit of this sequence is as follow:
 \end{gather}
 Since this series is monotone and converges to zero as \(n\) goes to infinity, there is no \(n \in \mathbb{N}\) for which \(a_n = 0\). 
 Therefore the determinant of the matrix \(M\) defined in \ref{def-mat-a} is not zero and \(M\) is invertible.
-\section{Equivalence of picewise linear polynomials and linear interpolation} \label{ap-lin-interp}
-A picewise linear polynomial in the form of:
+\section{Equivalence of Piecewise Linear Polynomials and Linear Interpolation} \label{ap-lin-interp}
+A piecewise linear polynomial in the form of:
 \begin{gather}
 u(x, t) = \sum_{j = 1}^{N} c_{j}(t)\phi_{j}(x)
 \end{gather}
@@ -152,6 +152,18 @@ u(x, t) = \phi_{j}(x) c_{j}(t) + \phi_{j+1}(x) c_{j+1}(t) \\
 = u_{j} + \frac{(u_{j+1} - u_{j})(x - x_{j})}{x_{j+1} - x_{j}}
 \end{gather}
 
+\pagebreak
+\section{Source Code}
+The source code described in chapter \ref{chap-impl} is available on github:
 
+\href{https://github.com/FlorianGelb/FEM/tree/abgabe}{https://github.com/FlorianGelb/FEM/tree/abgabe}.
+It can be downloaded using the following commands:
+\begin{itemize}
+ \item git clone [URL]
+ \item git checkout abgabe
+\end{itemize}
+Here for example test.m can be executed to generate some figures similar to figure \ref{FIG-POD}.
+The exact commit is 306d9ee27fbf2c8288b6ecd11cbd7bb22a7cc9ce.
+To make sure this exact version is used, use the git reset command.
 
 

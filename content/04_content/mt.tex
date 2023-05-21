@@ -41,11 +41,11 @@ I_r \subseteq I, \quad |I_r| = r \,.
 Using this subset as indices in (\ref{dcnf}), a truncation is obtained, yielding a system defined by a new transfer function \(\hat{G}(s)\).
 The set \(I_r\) has to be chosen such that the error \(||G(s) - \hat{G(s)}||_{H_2}\) becomes minimal.
 As shown in \cite{vuillemin2020optimal}, other norms are also usable, but only the stated norm is used for simplicity.
-Furthermore, in case some \(\lambda_i \in \Lambda, \operatorname{Im}(\lambda_i) > 0\) is a complex number  \(i \in I_r\), the index of the corresponding complex conjugate eigenvalue has to selected too, if \(\lambda_j = \bar{\lambda}_i \in \Lambda \wedge i \in I_r \Rightarrow j \in I_r\). 
+Furthermore, in case some \(\lambda_i \in \Lambda, \operatorname{Im}(\lambda_i) > 0\) is a complex number  \(i \in I_r\), the index of the corresponding complex conjugate eigenvalue has to be selected too, if \(\lambda_j = \bar{\lambda}_i \in \Lambda \wedge i \in I_r \Rightarrow j \in I_r\). 
 This yields the following optimization problem
 \begin{gather}
 G_{\alpha}(s) = D_{\alpha} + \sum_{i \in I} \alpha_i \frac{\Phi_i}{s - \lambda_i} \\ 
-\min_{\alpha} ||G(s) - G_{\alpha}(s)|| s.t. \quad
+\min_{\alpha} ||G(s) - G_{\alpha}(s)|| \quad s.t. \,
 \alpha^{T}\alpha = r \,.
 \end{gather}
 With the following constraints
@@ -64,31 +64,31 @@ q_{ij} &= \frac{\operatorname{trace}(\phi_i \phi_k^{T})}{-\lambda_i - \lambda_k^
 \end{align} 
 This leads to a new optimization problem \cite{vuillemin2020optimal}
 \begin{align}
-\min_{\alpha} \quad (1-\alpha)&Q(1-\alpha) \label{opt-h2}\\
-s.t. \quad \alpha^T\alpha &= r \\
+\min_{\alpha} \quad (1-\alpha)&Q(1-\alpha) \label{opt-h2} \quad
+s.t. \, \alpha^T\alpha &= r \\
 A\alpha &= 0 \,.
 \end{align}
 
 \subsection{Applying Modal Truncation to Heat Equation} \label{mtht}
 As described in (\ref{heat-ss}), the system matrices \((A, B, C, D)\) can be obtained for the given heat equation.
 Now by applying (\ref{tf-from-ss}) yields the corresponding transfer function \(G(s)\).
-By calculating the partial fraction decomposition as described in section \ref{secdcnf}, the DCNF can be obtained.
+By calculating the partial fraction decomposition as described in section \ref{secdcnf}, the DCF can be obtained.
 Since \(B\) and \(C\) are given by some identity matrix and \(D\) is a zero matrix, the upper error bound of the error in \(H_2\) norm is given as \cite{vuillemin2020optimal}
 \begin{gather}
 ||\epsilon(s)||_{H_2} \leq \sum_{i \in I_r^{c}} \frac{1}{\sqrt{-2\operatorname{Re}(\lambda_i)}} \,.
 \end{gather}
 Since for stable systems \(\operatorname{Re}(\lambda) < 0 \forall \lambda \in \Lambda\) this upper bound can be expressed as follows with \(\Lambda_{\epsilon} = \{\operatorname{Re}(\lambda_i)| \lambda_i \in \Lambda i \in I_r^{c}\}\)
 \begin{gather}
-||\epsilon(s)||_{H_2} \leq \sum_{i \in I_r^{c}} \frac{1}{\sqrt{2|\operatorname{Re}(\lambda_i)|}} \leq \frac{|I_r^{c}|}{\sqrt{2|\max(\Lambda_{\epsilon})|}}\,.
+||\epsilon(s)||_{H_2} \leq \sum_{i \in I_r^{c}} \frac{1}{\sqrt{2|\operatorname{Re}(\lambda_i)|}} \leq \frac{|I_r^{c}|}{\sqrt{2|\min(\Lambda_{\epsilon})|}}\,.
 \end{gather}
-To minimize this upper bound \(|\max(\Lambda_{\epsilon})|\) has to be maximized.
+To minimize this upper bound \(|\min(\Lambda_{\epsilon})|\) has to be maximized.
 This is achieved by selecting the entries of \(\Lambda_{\epsilon}\) such that it contains the \(n - r\) largest real parts of the eigenvalues in \(\Lambda\).
 
 Figure \ref{FIG-MT} shows a solution to heat equation using FEM and an approximation using MT with \(u(x, t) = 0, x_0 = 10000^{70\times1}, n = 70, n_{approx} = 10\).
 \begin{figure}[H]
 \centering
 \includegraphics[ width=12.5cm]{images/mt}
-\caption{FEM solution and MT approximation for heat equation}
+\caption{FEM Solution and MT Approximation for Heat Equation}
 \label{FIG-MT}
 \end{figure}
 

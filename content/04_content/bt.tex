@@ -11,7 +11,7 @@ This yields a new system
 y = \hat{C}z + Du \label{z2} \\
 \hat{A} = T^{-1}AT \quad \hat{B} = T^{-1}B \quad \hat{C} = CT \,.\label{red-sys-mat}
 \end{gather}
-The gramians of this ROM are obtainable by applying  (\ref{gram-obsv}) and (\ref{gram-ctrl}) to (\ref{red-sys-mat}).
+The gramians of this reduced order model (ROM) are obtainable by applying  (\ref{gram-obsv}) and (\ref{gram-ctrl}) to (\ref{red-sys-mat}).
 This yields \(\hat{W}_c = T^{-1}W_cT^{-*}\) and \(\hat{W}_o = T^{*}W_oT\) with  \(T^{-*} := (T^{-1})^{*} := (T^{*})^{-1}\).
 A requirement \(T\) has to satisfy is that it has to make the observability and controllability gramians of the ROM equal and diagonal
 \begin{gather}
@@ -57,8 +57,8 @@ It is clear that \(\zeta\) is an eigenvector.
 Since the eigenvalues in \(\Delta\) contain information about how much each eigenvector gets scaled by multiplying it with \(W_cW_o\), the eigenvectors can be ordered by controllability and observability.
 
 \subsection{Mode Truncation}
-Since the goal of balanced truncation is to find a reduced order model (ROM) of rank \(r\) that approximates the original system of rank \(n\) with \(r << n\), it is necessary to truncate the balanced system.
-This yields the following system:
+Since the goal of balanced truncation is to find a ROM of rank \(r\) that approximates the original system of rank \(n\) with \(r << n\), it is necessary to truncate the balanced system.
+This yields the following system
 \begin{gather}
 \frac{d\tilde{x}}{dt} = \tilde{A}\tilde{X} + \tilde{B}u \\
 y = \tilde{C}\tilde{x} + \tilde{D}u  \,.
@@ -83,7 +83,7 @@ T = \begin{bmatrix}
 \Psi & T_t
 \end{bmatrix} \quad
 T^{-1} = S = \begin{bmatrix}
-\Phi^{*} \\
+\Phi^{T} \\
 S_t
 \end{bmatrix}  \,. \label{decomp-mats}
 \end{gather}
@@ -93,14 +93,14 @@ By substituting (\ref{decomp-vecs}) and (\ref{decomp-mats}) into the system in (
 \tilde{x} \\
 \tilde{z}
 \end{bmatrix} = \begin{bmatrix}
-\Phi^{*}A\Psi & \Phi^{*}AT_t \\
+\Phi^{T}A\Psi & \Phi^{T}AT_t \\
 S_tA\Psi & S_tAT_t
 \end{bmatrix} \begin{bmatrix}
 \tilde{x} \\
 \tilde{z}
 \end{bmatrix}
 + \begin{bmatrix}
-\Phi^{*}B \\
+\Phi^{T}B \\
 S_tB
 \end{bmatrix} u \\
 y = \begin{bmatrix}
@@ -113,7 +113,7 @@ C \Psi & CT_t
 \end{gather}
 However, the only relevant part of this system is
 \begin{gather}
-\frac{d\tilde{x}}{dt} = \Phi^{*}A\Psi\tilde{x} + \Phi^{*}Bu \\
+\frac{d\tilde{x}}{dt} = \Phi^{T}A\Psi\tilde{x} + \Phi^{T}Bu \\
 y = C\Psi\tilde{x} + Du  
 \end{gather}
 since this is the only part necessary to calculate \(\tilde{x}\)
@@ -123,14 +123,14 @@ since this is the only part necessary to calculate \(\tilde{x}\)
 Since the gramians for controllability and observability are too expensive to compute for large systems, the so-called empirical gramians are used as an approximation.
 The empirical gramians are calculated by using the discrete-time system matrices from (\ref{disc-a}) and (\ref{disc-b})
 \begin{gather}
-\mathscr{C}_d = \begin{bmatrix}B_d & A_dB_d & \hdots & dA^{m_o -1}B_d\end{bmatrix} \\
+\mathscr{C}_d = \begin{bmatrix}B_d & A_dB_d & \hdots & A_d^{m_c -1}B_d\end{bmatrix} \\
 \mathscr{O}_d = \begin{bmatrix}
 C_d \\
 C_dA_d \\
 C_dA_d^{m_o - 1}
 \end{bmatrix} \\
-W_c^e = \mathscr{C}_d^{*}\mathscr{C}_d \\
-W_o^e = \mathscr{O}_d^{*}\mathscr{O}_d \\
+W_c^e = \mathscr{C}_d^{T}\mathscr{C}_d \\
+W_o^e = \mathscr{O}_d^{T}\mathscr{O}_d \\
 m_o, m_c << rank(A)  \,.
 \end{gather}
 Now these empirical gramians can be used for obtaining the balancing coordinate transform \cite{brunton_kutz_2019e}.
@@ -149,7 +149,7 @@ Figure \ref{FIG-BT} shows a solution to heat equation using FEM and an approxima
 \begin{figure}[H]
 \centering
 \includegraphics[ width=12.5cm]{images/bt}
-\caption{FEM solution and BT approximation for heat equation}
+\caption{FEM Solution and BT Approximation for Heat Equation}
 \label{FIG-BT}
 \end{figure}
 

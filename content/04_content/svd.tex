@@ -30,7 +30,7 @@ The economy SVD omits rows only containing zeros in \(\Sigma\) and the according
 Therefore the dimensionality of \(\hat{U}\) and \(\hat{\Sigma}\) is less or equal to the dimensionality of \(U\) and \(\Sigma\) 
  \cite{brunton_kutz_2019b}.
 
-\subsection{Hierarchy of correlations}
+\subsection{Hierarchy of Correlations}
 As already stated, the matrix \(\Sigma\) assigns a magnitude to \(UV^{T}\).
 This magnitude is the square of the variance of the bases in \(U\) and \(V\) capture.
 Assume that \(X^{T}X\) and \(XX^{T}\) denote correlation matrices
@@ -94,7 +94,7 @@ This shows that \(V\) contains the eigenvectors of the row-wise correlation matr
 The matrix \(\Sigma\) contains the roots of the according eigenvalues and is related to the variance.
 By ordering \(U\), \(\Sigma\) and \(V\) by the entries of \(\Sigma\) in a descending order he first row of \(U\) and \(V\) contain the most important basis vectors \cite{brunton_kutz_2019b}.
 
-\subsection{Low-rank approximation}
+\subsection{Low-rank Approximation}
 A useful property of the SVD is that it can be used to find a hierarchy of rank-\(r\) approximations for a given matrix \(X\).
 An matrix \(\tilde{X}\) that approximates \(X\) is obtained by 
 \begin{gather}
@@ -109,7 +109,7 @@ The variance captured by \(\tilde{X}\) can be calculated in the following way \c
 \operatorname{var}(\Sigma) = \frac{\operatorname{diag}(\Sigma)}{\operatorname{trace}(\Sigma)} \,. \label{var-sig}
 \end{gather}
 
-\subsection{Example low-rank approximation}
+\subsection{Example low-rank Approximation}
 As an example, suppose there is a matrix \(X\)
 \begin{gather}
 X = \begin{bmatrix}
@@ -126,9 +126,9 @@ Now \(\Sigma\) can be used to calculate the cumulative variance for a rank-\(r\)
 \centering
 \begin{tikzpicture}
 \begin{axis}[
-    title={variance captured by bases},
-    xlabel={number of singular value},
-    ylabel={Variance [\%]},
+    title={Variance Captured by Bases},
+    xlabel={Number of Singular Value},
+    ylabel={Variance in \%},
     xmin=0, xmax=3,
     ymin=0, ymax=100,
     xtick={0,1,2,3},
@@ -151,9 +151,9 @@ Now \(\Sigma\) can be used to calculate the cumulative variance for a rank-\(r\)
 \end{tikzpicture}
 \begin{tikzpicture}
 \begin{axis}[
-    title={Commulative variance captured by bases},
-    xlabel={number of singular value},
-    ylabel={Variance [\%]},
+    title={Commulative Variance Captured by Bases},
+    xlabel={Number of Singular Value},
+    ylabel={Variance in \%},
     xmin=0, xmax=3,
     ymin=0, ymax=100,
     xtick={0,1,2,3},

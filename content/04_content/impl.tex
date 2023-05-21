@@ -1,20 +1,20 @@
-\chapter{Implementation}
+\chapter{Implementation} \label{chap-impl}
 The implementation of the discussed methods for solving the heat equation and for model order reduction was done in Matlab.
 Matlab was chosen as the programming language because it natively features matrix multiplication which finds heavy use in the previously mentioned methods.
 The second reason for this selection is that ToolBoxes already implement certain model order reduction methods, such as MORLAB \cite{benner_werner} or MOR toolbox \cite{MORT}.
 The following figure \ref{fig-class-1} shows the class diagram of the implementation.
 \begin{figure}[H]
 \includegraphics[width=\textwidth]{images/main}
-\caption{Class diagram main}
+\caption{Class Diagram Main}
 \label{fig-class-1}
 \end{figure}
 
-\section{Class main}
+\section{Class Main}
 The class main is responsible for generating the finite element solution, model order reduction steps, and plotting and comparing the results as well. The process can be seen in the following flow chart:
 \begin{figure}[H]
 \centering
 \includegraphics[ width=\textwidth]{images/main-seq}
-\caption{Flow chart of main class}
+\caption{Flow Chart of Main Class}
 \end{figure}
 The first step is to generate a parameter object.
 The parameter object stores all parameters to increase the transparency and robustness of the program.
@@ -24,17 +24,17 @@ After all solver objects have been generated, the according solutions are comput
 The final step is to display the solutions or return the \(L2\), \(H_{\infty}\) error of each ROM.
 The processing time can be returned as well.
 
-\section{Class solution}
+\section{Class Solution}
 The solution class is mainly responsible for storing solutions with some metadata.
 This metadata consists of the method used to generate the stored solution, its predecessor, and computing time.
 The predecessor is important to plot reduced order model solutions side by side with the original finite element solution.
 The processing time is stored in an array that typically stores ten measurements.
 
-\section{Class parameters}
+\section{Class Parameters}
 The parameters class stores all parameters that have to be distributed.
 They are all encapsulated within this class to make distribution and modification easier.
 
-\section{Class container}
+\section{Class Container}
 The container class functions like an abstract class.
 It implements some methods, such as \textit{euler()}, to avoid redundancy within its child classes.
 This method takes some matrices and a vector of initial conditions and generates a solution object that stores the solution generated using an Euler scheme.
@@ -72,11 +72,11 @@ The remaining fields of that object are set in the child class after the object 
 Those classes derived from the container class can be seen in figure \ref{fig-class-2}.
 \begin{figure}[H]
 \includegraphics[width=\textwidth]{images/container}
-\caption{Class diagram of MOR and FEM implementation}
+\caption{Class Diagram of MOR and FEM Implementation}
 \label{fig-class-2}
 \end{figure}
 
-\section{Class createBALRED, createMODTRUNC and createHNA}
+\section{Class CreateBALRED, CreateMODTRUNC and CreateHNA}
 Those classes are fairly simple.
 MORLAB implements the actual model order reduction methods except for proper orthogonal decomposition.
 Hence the according function is called and provided with the right set of parameters, and the ROM gets generated.
@@ -84,12 +84,12 @@ After that, a solution is generated using the previously described \textit{euler
 For time measurements, the ROM gets generated ten times, and for each cycle, the time is stopped.
 To save time, no solutions are generated in this case.
 
-\section{Class containerFEM}
+\section{Class ContainerFEM}
 The class containerFEM generates a solution and the state space representation of the system using the finite element method.
 FEM is implemented as shown in figure \ref{fig-fem-flow}.
 \begin{figure}[H]
 \includegraphics[ width=\textwidth]{images/seq-fem}
-\caption{Flow chart for FEM class}
+\caption{Flow Chart for FEM Class}
 \label{fig-fem-flow}
 \end{figure}
 
@@ -131,7 +131,7 @@ This is done by the following method:
 The resulting system of ODEs is solved using the implementation of the Euler scheme in the container class.
 After the solution is generated, the returned solution object gets filled with the according metadata and returned.
 
-\section{Class createPOD}
+\section{Class CreatePOD}
 The implementation of proper orthogonal decomposition is not included in the used MORLAB package.
 Therefore it is implemented in the createPOD class.
 The first step is constructing the matrix \(\Phi\) as described in section \ref{chap-pod}.

@@ -75,7 +75,7 @@ This results in the following system of ODEs
 Since \(\phi_k \phi_j \neq 0\) for \(k = j, k = j \pm 1\) (\ref{eq-heat-fem}) 
 can be expressed as 
 \begin{gather}
-q_1\dot{c}_{j-1} + q_2 \dot{c}_{j} + q_1 \dot{c}_{j+1} = p_1 c_{j-1} + p_2 c_{j} + p_1 c_{j+1} + H(x,t) \,.
+q_1\dot{c}_{j-1} + q_2 \dot{c}_{j} + q_1 \dot{c}_{j+1} = p_1 c_{j-1} + p_2 c_{j} + p_1 c_{j+1} + H(x,t) 
 \end{gather}
 
 where \(p\) and \(q\) are some constants derived later.
@@ -113,7 +113,7 @@ c_{0} = M^{-1}F \,. \label{c0}
 \end{gather}
 
 However, since the basis functions are piecewise linear, the coefficients are \(c_0 = \begin{bmatrix}
-f(0), f(\Delta x), ..., f(n)
+f(0) & f(\Delta x) & ... & f(n)
 \end{bmatrix}^T\)
 \cite{Gustafsson2011g}.
 It is necessary to approximate \(d\) for each point in time using numerical integration schemes.
@@ -122,7 +122,7 @@ By assuming that the following decomposition holds
 h(x, t) = \sum_{i = 1}^{N} \phi_i(x) \upsilon(t) \,.
 \end{gather}
 the vector \(d\) in (\ref{eq-heat-almost-ss}) can be expressed as \(M\upsilon(t)\).
-Observe that by multiplying (\ref{eq-heat-almost-ss}) with \(M^{-1}\) (\ref{ap-K-inv}) yields a system of ODEs
+Observe that by multiplying (\ref{eq-heat-almost-ss}) with \(M^{-1}\) (Appendix \ref{ap-K-inv}) yields a system of ODEs
 \begin{gather}
 \dot{c} = M^{-1}Kc + M^{-1}M\upsilon \,. \label{almost-almost-ss}
 \end{gather}
